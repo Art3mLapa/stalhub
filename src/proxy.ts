@@ -4,7 +4,7 @@ export function proxy(req: NextRequest) {
 	if (process.env.NODE_ENV === 'production') {
 		const { pathname } = req.nextUrl
 
-		const allowedPaths = ['/indev', '/_next', '/favicon.ico', '/models/stalki.glb']
+		const allowedPaths = ['/indev', '/_next', '/favicon.ico', '/models/stalki.glb', '/api/invite']
 		if (allowedPaths.some((p) => pathname.startsWith(p))) {
 			return NextResponse.next()
 		}
