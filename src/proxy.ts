@@ -9,7 +9,7 @@ export function proxy(req: NextRequest) {
 			return NextResponse.next()
 		}
 
-		const inviteKey = req.cookies.get('inviteKey')?.value
+		const inviteKey = req.cookies.get('inviteAccess')?.value
 		const validKeys = process.env.INVITE_KEYS?.split(',') || []
 
 		if (inviteKey && validKeys.includes(inviteKey)) {
