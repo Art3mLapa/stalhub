@@ -2,15 +2,22 @@ import { type NextRequest, NextResponse } from 'next/server'
 
 export function proxy(req: NextRequest) {
 	if (process.env.NODE_ENV === 'production') {
-		if (
-			req.nextUrl.pathname.startsWith('/indev') ||
-			req.nextUrl.pathname.startsWith('/_next') ||
-			req.nextUrl.pathname.startsWith('/favicon.ico') ||
-			req.nextUrl.pathname.startsWith('/models/stalki.glb')
-		) {
+		const { pathname } = req.nextUrl
+
+		const allowedPaths = ['/indev', '/_next', '/favicon.ico', '/models/stalki.glb']
+		if (allowedPaths.some((p) => pathname.startsWith(p))) {
+			return NextResponse.next()
+		}
+
+		const inviteKey = req.cookies.get('inviteKey')?.value
+		const validKeys = process.env.INVITE_KEYS?.split(',') || []
+
+		if (inviteKey && validKeys.includes(inviteKey)) {
 			return NextResponse.next()
 		}
 
 		return NextResponse.rewrite(new URL('/indev', req.url))
 	}
+
+	return NextResponse.next()
 }

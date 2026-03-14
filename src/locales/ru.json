@@ -370,17 +370,64 @@
 		}
 	},
 	"time": {
-		"second": { "one": "секунду", "few": "секунды", "many": "секунд" },
-		"minute": { "one": "минуту", "few": "минуты", "many": "минут" },
-		"hour": { "one": "час", "few": "часа", "many": "часов" },
-		"day": { "one": "день", "few": "дня", "many": "дней" },
-		"month": { "one": "месяц", "few": "месяца", "many": "месяцев" },
-		"year": { "one": "год", "few": "года", "many": "лет" },
+		"second": {
+			"one": "секунду",
+			"few": "секунды",
+			"many": "секунд"
+		},
+		"minute": {
+			"one": "минуту",
+			"few": "минуты",
+			"many": "минут"
+		},
+		"hour": {
+			"one": "час",
+			"few": "часа",
+			"many": "часов"
+		},
+		"day": {
+			"one": "день",
+			"few": "дня",
+			"many": "дней"
+		},
+		"month": {
+			"one": "месяц",
+			"few": "месяца",
+			"many": "месяцев"
+		},
+		"year": {
+			"one": "год",
+			"few": "года",
+			"many": "лет"
+		},
 		"and": "и"
 	},
 	"unit": {
 		"km": "км",
 		"kg": "кг",
 		"unit": "ед"
+	},
+	"arts": {
+		"ART_QUALITY_COMMON": "Обычный",
+		"ART_QUALITY_UNCOMMON": "Необычный",
+		"ART_QUALITY_SPECIAL": "Особый",
+		"ART_QUALITY_RARE": "Редкий",
+		"ART_QUALITY_EXCLUSIVE": "Исключительный",
+		"ART_QUALITY_LEGENDARY": "Легендарный",
+		"ART_QUALITY_UNIQUE": "Уникальный"
+	},
+	"ui": {
+		"combobox": {
+			"default": {
+				"placeholder": "Выберите",
+				"search": {
+					"button": "Поиск",
+					"notFound": "Ничего не найдено"
+				}
+			},
+			"addStats": {
+				"placeholder": "Дополнительные свойства"
+			}
+		}
 	}
 }

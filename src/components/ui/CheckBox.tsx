@@ -134,7 +134,7 @@ function CheckBox({
 					{label && (
 						<label
 							className={cn(
-								'cursor-pointer text-sm leading-none font-medium select-none',
+								'cursor-pointer select-none font-medium text-sm leading-none',
 								disabled && 'cursor-not-allowed opacity-50'
 							)}
 							htmlFor={id}

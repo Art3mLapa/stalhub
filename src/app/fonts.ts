@@ -1,4 +1,10 @@
-import { Raleway, Unbounded, Space_Mono, Montserrat } from 'next/font/google'
+import {
+	Inter,
+	Montserrat,
+	Raleway,
+	Roboto_Mono,
+	Unbounded,
+} from 'next/font/google'
 
 export const raleway = Raleway({
 	weight: 'variable',
@@ -15,7 +21,12 @@ export const montserrat = Montserrat({
 	subsets: ['latin', 'cyrillic'],
 })
 
-export const mono = Space_Mono({
-	weight: ['400', '700'],
-	subsets: ['latin'],
+export const mono = Roboto_Mono({
+	weight: 'variable',
+	subsets: ['latin', 'cyrillic'],
+})
+
+export const inter = Inter({
+	weight: 'variable',
+	subsets: ['latin', 'cyrillic'],
 })

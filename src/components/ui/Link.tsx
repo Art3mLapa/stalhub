@@ -13,6 +13,7 @@ interface CLinkProps
 	variant?: 'primary' | 'secondary' | 'outline'
 	disabled?: boolean
 	href: string
+	externalIcon?: boolean
 }
 
 export default function CLink({
@@ -22,6 +23,7 @@ export default function CLink({
 	size,
 	disabled = false,
 	href,
+	externalIcon = true,
 	...rest
 }: CLinkProps) {
 	const isExternal = /^https?:\/\//.test(href)
@@ -37,7 +39,7 @@ export default function CLink({
 			target={isExternal ? '_blank' : undefined}
 		>
 			{children}
-			{isExternal && (
+			{isExternal && externalIcon && (
 				<Icon
 					className="h-4 w-4 shrink-0"
 					icon="lucide:external-link"

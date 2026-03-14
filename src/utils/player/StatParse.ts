@@ -1,6 +1,6 @@
 import type { Message } from '@/types/item.type'
-import dbStatsJson from './stats.json'
 import type { DBStats, Stat, StatCategory, StatType } from '@/types/player.type'
+import dbStatsJson from './stats.json'
 
 const dbStats: DBStats[] = dbStatsJson.map((s) => ({
 	id: s.id,

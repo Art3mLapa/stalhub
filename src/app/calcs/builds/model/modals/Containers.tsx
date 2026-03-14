@@ -1,0 +1,202 @@
+'use client'
+
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { useState } from 'react'
+import { ItemsList } from '@/components/artifacts'
+import { Button } from '@/components/ui/Button'
+import { Card } from '@/components/ui/Card'
+import Input from '@/components/ui/Input'
+import { Modal } from '@/components/ui/Modal'
+import { CustomToast } from '@/components/ui/Toast'
+import { getLocale } from '@/lib/getLocale'
+import { buildQueries } from '@/queries/calcs/build.queries'
+import { useBuildStore } from '@/stores/useBuild.store'
+import type { ModalProps } from '@/types/build.type'
+import {
+	type AddStatBlock,
+	type ElementListBlock,
+	InfoColor,
+	infoColorMap,
+} from '@/types/item.type'
+import { findContSizeInBlocks, messageToString } from '@/utils/itemUtils'
+import { ListBlock } from '@/views/items/components/blocks'
+
+type Slot = string | null
+
+export default function ContModal({ onClose }: ModalProps) {
+	const locale = getLocale()
+
+	const { data: items } = useSuspenseQuery(
+		buildQueries.get({ type: 'containers' })
+	)
+
+	const [filter, setFilter] = useState('')
+
+	const container = useBuildStore((s) => s.build.container)
+	const setContainer = useBuildStore((s) => s.setContainer)
+
+	const [previewId, setPreviewId] = useState<string | null>(
+		container?.id ?? null
+	)
+	const [showConfirm, setShowConfirm] = useState(false)
+	const [pending, setPending] = useState<{
+		previewId: string
+		newCount: number
+		lostItems: Slot[]
+	} | null>(null)
+
+	const selectedItem = items.find((i) => i.id === previewId)
+
+	const handleSet = () => {
+		if (!previewId) return
+
+		const newCount = findContSizeInBlocks(selectedItem?.infoBlocks) ?? 0
+		const prevSlots = (container?.slots ?? []) as Slot[]
+		const prevCount = prevSlots.length
+
+		if (newCount < prevCount) {
+			const lostItems = prevSlots.slice(newCount)
+			setPending({ previewId, newCount, lostItems })
+			setShowConfirm(true)
+			return
+		}
+
+		setContainer(previewId, newCount)
+		CustomToast('Контейнер изменён', 'success')
+	}
+
+	const visibleItems = items.filter((it) =>
+		messageToString(it.name, locale)
+			.toLowerCase()
+			.includes(filter.toLowerCase())
+	)
+
+	return (
+		<>
+			<div className="flex gap-4 text-nowrap">
+				<Card.Root className="min-w-75">
+					<Card.Header>
+						<Input
+							className="px-2 text-[14px]"
+							label="Введите название предмета"
+							onChange={(e) => setFilter(e.target.value)}
+							value={filter}
+						/>
+					</Card.Header>
+
+					<ItemsList
+						className="max-h-90"
+						favoriteType="container"
+						items={visibleItems}
+						locale={locale}
+						onSelectItem={(id) => setPreviewId(id)}
+					/>
+				</Card.Root>
+
+				<Card.Root className="min-w-80">
+					<Card.Header>
+						<Card.Title
+							style={{
+								color:
+									infoColorMap[
+										selectedItem?.color as InfoColor
+									] || InfoColor.DEFAULT,
+							}}
+						>
+							{selectedItem
+								? `| ${messageToString(selectedItem.name, locale)}`
+								: '| Выберите контейнер'}
+						</Card.Title>
+					</Card.Header>
+
+					<Card.Content className="flex h-full flex-col justify-between">
+						<div className="flex flex-col gap-3">
+							{selectedItem?.infoBlocks
+								.filter(
+									(b): b is AddStatBlock | ElementListBlock =>
+										(b.type === 'list' ||
+											b.type === 'addStat') &&
+										Array.isArray(b.elements) &&
+										b.elements.length > 0
+								)
+								.map((block, idx) => (
+									<ListBlock
+										block={block}
+										key={idx}
+										locale={locale}
+										numericVariants={0}
+										withCard={false}
+									/>
+								))}
+						</div>
+
+						<Button
+							className="justify-center"
+							disabled={!previewId}
+							onClick={handleSet}
+							variant="secondary"
+						>
+							Выбрать
+						</Button>
+					</Card.Content>
+				</Card.Root>
+			</div>
+			<Modal.Root
+				onOpenChange={(v) => setShowConfirm(v)}
+				open={showConfirm}
+			>
+				<Modal.Content>
+					<Modal.Header>
+						<Modal.Title className="text-2xl text-red-700 dark:text-red-400">
+							Предупреждение
+						</Modal.Title>
+						<Modal.Description className="font-semibold">
+							Новый контейнер меньше текущего.
+						</Modal.Description>
+					</Modal.Header>
+
+					<Modal.Body>
+						<p className="font-semibold">
+							Будет удалено{' '}
+							{pending ? pending.lostItems.length : 0}{' '}
+							{pending && pending.lostItems.length === 1
+								? 'слот'
+								: 'слотов'}
+							.
+						</p>
+					</Modal.Body>
+
+					<Modal.Footer className="flex justify-end gap-2">
+						<Modal.Action
+							onClick={() => {
+								setPending(null)
+								setShowConfirm(false)
+							}}
+							variant={'ghost'}
+						>
+							Отмена
+						</Modal.Action>
+						<Modal.Action
+							onClick={() => {
+								if (!pending) return
+								setContainer(
+									pending.previewId,
+									pending.newCount
+								)
+								CustomToast(
+									`Контейнер изменён. Удалено ${pending.lostItems.filter(Boolean).length} слотов`,
+									'success'
+								)
+								setPending(null)
+								setShowConfirm(false)
+							}}
+							variant={'danger'}
+						>
+							Продолжить
+						</Modal.Action>
+					</Modal.Footer>
+				</Modal.Content>
+			</Modal.Root>
+		</>
+	)
+}

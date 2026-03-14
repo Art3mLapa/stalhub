@@ -1,8 +1,8 @@
 'use client'
 
 import { Icon } from '@iconify/react'
+import { Slot } from '@radix-ui/react-slot'
 import type { VariantProps } from 'class-variance-authority'
-
 import { AnimatePresence, motion } from 'motion/react'
 import {
 	createContext,
@@ -26,7 +26,7 @@ const backdropVariants = {
 const modalVariants = {
 	initial: { opacity: 0, scale: 0.95, y: 10 },
 	animate: { opacity: 1, scale: 1, y: 0 },
-	exit: { opacity: 0, scale: 0.95, y: 10 },
+	exit: { opacity: 0, scale: 0.95, y: 10, pointerEvents: 'none' },
 }
 
 interface ModalContextType {
@@ -47,10 +47,31 @@ function useModal() {
 interface RootProps {
 	children: ReactNode
 	defaultOpen?: boolean
+	open?: boolean
+	onOpenChange?: (open: boolean) => void
 }
 
-export function ModalRoot({ children, defaultOpen = false }: RootProps) {
-	const [isOpen, setIsOpen] = useState(!!defaultOpen)
+export function ModalRoot({
+	children,
+	defaultOpen = false,
+	open: controlledOpen,
+	onOpenChange,
+}: RootProps) {
+	const [isOpen, setIsOpen] = useState<boolean>(
+		typeof controlledOpen === 'boolean' ? controlledOpen : !!defaultOpen
+	)
+
+	useEffect(() => {
+		if (typeof controlledOpen === 'boolean') {
+			setIsOpen(controlledOpen)
+		}
+	}, [controlledOpen])
+
+	// biome-ignore lint: useExhaustiveDependencies
+	useEffect(() => {
+		onOpenChange?.(isOpen)
+	}, [isOpen])
+
 	const open = useCallback(() => setIsOpen(true), [])
 	const close = useCallback(() => setIsOpen(false), [])
 
@@ -60,7 +81,6 @@ export function ModalRoot({ children, defaultOpen = false }: RootProps) {
 		</ModalContext.Provider>
 	)
 }
-
 interface Props {
 	children: ReactNode
 	className?: string
@@ -71,16 +91,19 @@ export function ModalTrigger({
 	children,
 	className,
 	variant = 'outline',
-}: Props) {
+	asChild = false,
+}: Props & { asChild?: boolean }) {
 	const { open } = useModal()
+	const Comp = asChild ? Slot : Button
+
 	return (
-		<Button
-			className={cn('cursor-pointer', className)}
+		<Comp
+			className={cn('font-semibold', className)}
 			onClick={open}
 			variant={variant}
 		>
 			{children}
-		</Button>
+		</Comp>
 	)
 }
 
@@ -112,11 +135,11 @@ export function ModalContent({ children, className = '' }: Props) {
 			{isOpen && (
 				<div
 					aria-hidden={!isOpen}
-					className="fixed inset-0 z-50 flex items-center justify-center"
+					className="fixed inset-0 z-9999999 flex items-center justify-center"
 				>
 					<motion.div
 						animate="animate"
-						className="bg-background/20 absolute inset-0 backdrop-blur-sm"
+						className="absolute inset-0 bg-background/20 backdrop-blur-sm"
 						exit="exit"
 						initial="initial"
 						onClick={close}
@@ -128,7 +151,7 @@ export function ModalContent({ children, className = '' }: Props) {
 						animate="animate"
 						aria-modal="true"
 						className={cn(
-							'bg-background/95 border-border-secondary relative z-10 mx-4 w-full max-w-lg rounded-xl border-2 px-6 shadow-2xl',
+							'relative z-10 mx-4 w-full max-w-lg rounded-xl border-2 border-border-secondary bg-neutral-900/95 px-6 shadow-2xl',
 							className
 						)}
 						exit="exit"
@@ -146,7 +169,7 @@ export function ModalContent({ children, className = '' }: Props) {
 							aria-label="Close modal"
 							className="absolute top-2.5 right-4 flex cursor-pointer items-center justify-center rounded-full p-2.5"
 							onClick={close}
-							variant={'outline'}
+							variant={'ghost'}
 						>
 							<Icon className="text-lg" icon="lucide:x" />
 						</Button>
@@ -170,7 +193,7 @@ export function ModalHeader({ children, className = '' }: Props) {
 
 export function ModalTitle({ children, className = '' }: Props) {
 	return (
-		<h1 className={cn('text-xl font-semibold', className)}>{children}</h1>
+		<h1 className={cn('font-semibold text-xl', className)}>{children}</h1>
 	)
 }
 
@@ -186,7 +209,7 @@ export function ModalFooter({ children, className = '' }: Props) {
 	return (
 		<div
 			className={cn(
-				'flex items-center justify-end gap-3 p-6 pt-0',
+				'flex items-center justify-end gap-3 py-3 pt-0',
 				className
 			)}
 		>
@@ -197,7 +220,7 @@ export function ModalFooter({ children, className = '' }: Props) {
 
 export function ModalAction({
 	children,
-	className = '',
+	className,
 	variant = 'primary',
 	onClick,
 	disabled = false,
@@ -240,7 +263,7 @@ export function ModalClose({ children, className = '' }: Props) {
 		<Button
 			className={cn('px-4 py-2', className)}
 			onClick={close}
-			variant={'outline'}
+			variant={'ghost'}
 		>
 			{children}
 		</Button>

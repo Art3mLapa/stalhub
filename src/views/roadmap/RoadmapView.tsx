@@ -17,7 +17,7 @@ export default function RoadmapView() {
 
 	const renderSubTasks = (subTasks: RoadMap[]) => {
 		return (
-			<div className="flex flex-col gap-3 border-l-2 border-white pl-3 dark:border-neutral-700">
+			<div className="flex flex-col gap-3 border-white border-l-2 pl-3 dark:border-neutral-700">
 				{subTasks.map((subTask, index) => (
 					<motion.div
 						animate={{ opacity: 1, x: 0 }}
@@ -31,15 +31,15 @@ export default function RoadmapView() {
 					>
 						<div className="flex h-8 w-8 shrink-0 items-center justify-center rounded bg-neutral-100 dark:bg-neutral-800">
 							<Icon
-								className="text-md text-cyan-500 dark:text-cyan-400"
+								className="text-cyan-500 text-md dark:text-cyan-400"
 								icon={subTask.icon}
 							/>
 						</div>
 						<div className="flex-1">
-							<p className="text-xs font-medium text-neutral-800 dark:text-neutral-100">
+							<p className="font-medium text-neutral-800 text-xs dark:text-neutral-100">
 								{t(subTask.name)}
 							</p>
-							<p className="text-xs text-neutral-600 dark:text-neutral-400">
+							<p className="text-neutral-600 text-xs dark:text-neutral-400">
 								{t(subTask.desc)}
 							</p>
 						</div>
@@ -50,9 +50,9 @@ export default function RoadmapView() {
 	}
 
 	return (
-		<main className="mx-auto flex flex-col gap-16 pt-40 pb-20">
+		<section className="mx-auto flex flex-col gap-16 pt-40 pb-20">
 			<h1
-				className={`${unbounded.className} bg-linear-to-r from-sky-600 to-sky-400 bg-clip-text text-center text-3xl font-bold tracking-tight text-balance text-transparent md:text-5xl dark:from-sky-400 dark:to-sky-200`}
+				className={`${unbounded.className} text-balance bg-linear-to-r from-sky-600 to-sky-400 bg-clip-text text-center font-bold text-3xl text-transparent tracking-tight md:text-5xl dark:from-sky-400 dark:to-sky-200`}
 			>
 				{t('roadmap.title')}
 				<br />
@@ -94,7 +94,7 @@ export default function RoadmapView() {
 								</div>
 
 								<div
-									className="max-h-[60vh] space-y-3 overflow-y-auto mask-y-from-95% mask-y-to-100% p-2 py-4"
+									className="mask-y-from-95% mask-y-to-100% max-h-[60vh] space-y-3 overflow-y-auto p-2 py-4"
 									tabIndex={0}
 								>
 									{statusTasks.length > 0 ? (
@@ -117,7 +117,7 @@ export default function RoadmapView() {
 														<div className="mb-2 flex items-start gap-3">
 															<div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white text-white transition-colors group-hover:bg-neutral-300 dark:bg-neutral-800 dark:text-neutral-900 dark:group-hover:bg-neutral-700">
 																<Icon
-																	className="text-lg text-cyan-400 dark:text-cyan-400"
+																	className="text-cyan-400 text-lg dark:text-cyan-400"
 																	icon={
 																		task.icon
 																	}
@@ -131,7 +131,7 @@ export default function RoadmapView() {
 																</h3>
 															</div>
 														</div>
-														<p className="mb-3 text-sm text-neutral-600 dark:text-neutral-400">
+														<p className="mb-3 text-neutral-600 text-sm dark:text-neutral-400">
 															{t(task.desc)}
 														</p>
 
@@ -166,6 +166,6 @@ export default function RoadmapView() {
 					})}
 				</div>
 			</div>
-		</main>
+		</section>
 	)
 }

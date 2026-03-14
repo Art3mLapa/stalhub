@@ -4,8 +4,8 @@ import { Icon } from '@iconify/react'
 
 import { Tabs } from '@/components/ui/Tabs'
 import type { Lot, LotHistory } from '@/types/item.type'
-import AuctionHistory from './AuctionHistory'
 import AuctionCurrent from './AuctionCurrent'
+import AuctionHistory from './AuctionHistory'
 
 type Props = {
 	auctionHistory: LotHistory[]

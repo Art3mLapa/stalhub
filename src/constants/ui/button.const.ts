@@ -1,17 +1,21 @@
-import { cva } from 'class-variance-authority'
+import { cva, type VariantProps } from 'class-variance-authority'
 
 export const buttonVariants = cva(
-	'rounded-2xl flex items-center font-medium transition-all duration-400 ease-in-out cursor-pointer',
+	'inline-flex items-center justify-center rounded-2xl font-medium transition-all duration-400 ease-in-out cursor-pointer',
 	{
 		variants: {
 			variant: {
 				primary:
-					'bg-sky-400 dark:bg-sky-600/70 shadow-md hover:bg-sky-500 dark:hover:opacity-140',
+					'bg-sky-400 text-white dark:bg-sky-600/70 shadow-md hover:bg-sky-500 dark:hover:opacity-100',
 				secondary:
-					'bg-white/60 dark:bg-neutral-800/50 shadow-sm hover:bg-neutral-300 dark:hover:bg-neutral-800',
-				danger: 'ring-2 ring-red-400 text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-800 font-medium shadow-sm hover:bg-red-200 dark:hover:bg-red-700 hover:shadow-md transition-all duration-150 active:scale-95',
+					'bg-white/60 text-neutral-900 dark:bg-neutral-800/50 dark:text-neutral-100 shadow-sm hover:bg-neutral-300 dark:hover:bg-neutral-800',
 				outline:
-					'gap-4 rounded-full px-6 py-2 opacity-70 hover:bg-neutral-300/60 hover:opacity-100 active:opacity-50 hover:dark:bg-neutral-700/30',
+					'border-2 border-neutral-300 dark:border-neutral-700 bg-transparent hover:bg-neutral-100 dark:hover:bg-neutral-800',
+				bordered:
+					'border border-sky-400 dark:border-border/50 border-2 bg-transparent text-sky-200 font-semibold hover:bg-sky-50 dark:hover:bg-sky-950',
+				ghost: 'bg-transparent hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100',
+				shadow: 'bg-white dark:bg-neutral-900 shadow-[0_10px_20px_-10px_rgba(0,0,0,0.2)] hover:shadow-[0_15px_25px_-10px_rgba(0,0,0,0.3)] hover:-translate-y-0.5',
+				danger: 'ring-2 ring-red-400 text-red-600 font-bold dark:text-red-200 shadow-sm hover:bg-red-200 dark:hover:bg-red-700 hover:shadow-md dark:bg-neutral-800/50 bg-white/60',
 			},
 			size: {
 				sm: 'px-3 py-1.5 text-sm',
@@ -29,3 +33,6 @@ export const buttonVariants = cva(
 		},
 	}
 )
+
+export type ButtonVariants = VariantProps<typeof buttonVariants>
+export type ButtonVariant = ButtonVariants['variant']

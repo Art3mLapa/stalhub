@@ -4,7 +4,7 @@ import { motion, useMotionValueEvent, useScroll } from 'motion/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
-import ItemSearchModal from '@/components/modals/ItemSearch'
+// import ItemSearchModal from '@/components/modals/ItemSearch'
 import DropdownMenu from '@/components/ui/DropDown'
 import { DropDownLinks } from '@/constants/nav.const'
 import useSvg from '@/hooks/useSvg'
@@ -27,10 +27,10 @@ export default function Nav() {
 				paddingTop: isScrolled ? '1rem' : '2rem',
 				paddingBottom: isScrolled ? '1rem' : '2rem',
 			}}
-			className={`fixed top-0 isolate z-99 w-full items-center text-neutral-700 backdrop-blur-sm transition-colors duration-500 dark:text-neutral-100 ${
+			className={`fixed top-8 isolate z-99 w-full items-center text-neutral-700 backdrop-blur-sm transition-colors duration-500 dark:text-neutral-100 ${
 				isScrolled
-					? 'outline-border/40 outline-2'
-					: 'outline-border/2 outline-2'
+					? 'outline-2 outline-border/40'
+					: 'outline-2 outline-border/2'
 			}`}
 			initial={{ paddingTop: '1.5rem', paddingBottom: '1.5rem' }}
 			transition={{ duration: 0.7 }}
@@ -63,7 +63,8 @@ export default function Nav() {
 								title={menu.title}
 							/>
 						))}
-						<ItemSearchModal />
+						{/*! TODO сука на прод не забудь раскоментить */}
+						{/* <ItemSearchModal /> */}
 					</div>
 					<div className="relative flex items-center justify-end gap-3">
 						<ChangeLang />

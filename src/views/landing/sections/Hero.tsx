@@ -35,7 +35,7 @@ export default function Hero() {
 				) : (
 					<Badge variant="secondary">
 						<Icon
-							className="text-xl text-cyan-400"
+							className="text-cyan-400 text-xl"
 							icon="lucide:boxes"
 						/>
 						<span className="text-sm">{t('landing.overview')}</span>
@@ -45,7 +45,7 @@ export default function Hero() {
 
 			<motion.h1
 				animate={{ y: 0, opacity: 1 }}
-				className={`${unbounded.className} text-center text-3xl font-bold tracking-tight text-balance sm:text-4xl md:text-6xl lg:text-7xl`}
+				className={`${unbounded.className} text-balance text-center font-bold text-3xl tracking-tight sm:text-4xl md:text-6xl lg:text-7xl`}
 				initial={{ y: 30, opacity: 0 }}
 				transition={{ duration: 0.6, delay: 0.3 }}
 			>
@@ -69,7 +69,7 @@ export default function Hero() {
 
 			<motion.p
 				animate={{ y: 0, opacity: 1 }}
-				className="max-w-xl px-4 text-center text-xl leading-relaxed font-semibold text-nowrap md:text-2xl dark:text-white"
+				className="max-w-xl text-nowrap px-4 text-center font-semibold text-xl leading-relaxed md:text-2xl dark:text-white"
 				initial={{ y: 30, opacity: 0 }}
 				transition={{ duration: 0.6, delay: 0.4 }}
 			>
@@ -94,11 +94,11 @@ export default function Hero() {
 						}}
 					>
 						<div
-							className={`text-xl font-bold md:text-2xl ${stat.color}`}
+							className={`font-bold text-xl md:text-2xl ${stat.color}`}
 						>
 							{stat.value}
 						</div>
-						<div className="text-xs font-semibold sm:text-sm">
+						<div className="font-semibold text-xs sm:text-sm">
 							{t(stat.label)}
 						</div>
 					</motion.div>

@@ -1,6 +1,6 @@
 import type { Message } from '@/types/item.type'
-import dbAchievementsJson from './achievements.json'
 import type { DBAchievements } from '@/types/player.type'
+import dbAchievementsJson from './achievements.json'
 
 const dbAchievements: DBAchievements[] = dbAchievementsJson.map((a) => ({
 	id: a.id,

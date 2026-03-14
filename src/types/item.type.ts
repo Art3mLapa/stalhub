@@ -1,4 +1,47 @@
-import { type ArtifactAdditional } from '@/utils/artUtils'
+import type { ArtifactAdditional } from '@/utils/artUtils'
+
+export enum InfoColor {
+	DEFAULT = 'DEFAULT',
+	QUEST_ITEM = 'QUEST_ITEM',
+	RANK_NEWBIE = 'RANK_NEWBIE',
+	RANK_STALKER = 'RANK_STALKER',
+	RANK_VETERAN = 'RANK_VETERAN',
+	RANK_MASTER = 'RANK_MASTER',
+	RANK_LEGEND = 'RANK_LEGEND',
+	ART_QUALITY_COMMON = 'ART_QUALITY_COMMON',
+	ART_QUALITY_UNCOMMON = 'ART_QUALITY_UNCOMMON',
+	ART_QUALITY_SPECIAL = 'ART_QUALITY_SPECIAL',
+	ART_QUALITY_RARE = 'ART_QUALITY_RARE',
+	ART_QUALITY_EXCLUSIVE = 'ART_QUALITY_EXCLUSIVE',
+	ART_QUALITY_LEGENDARY = 'ART_QUALITY_LEGENDARY',
+	ART_QUALITY_UNIQUE = 'ART_QUALITY_UNIQUE',
+}
+
+export const infoColorMap: Record<InfoColor, string> = {
+	[InfoColor.DEFAULT]: '#FFFFFF',
+	[InfoColor.QUEST_ITEM]: '#ABF1F1',
+	[InfoColor.RANK_NEWBIE]: '#9DEB9D',
+	[InfoColor.RANK_STALKER]: '#9F9FED',
+	[InfoColor.RANK_VETERAN]: '#BF5BAD',
+	[InfoColor.RANK_MASTER]: '#EA9D9E',
+	[InfoColor.RANK_LEGEND]: '#FFD700',
+	[InfoColor.ART_QUALITY_COMMON]: '#FFFFFF',
+	[InfoColor.ART_QUALITY_UNCOMMON]: '#9DEB9D',
+	[InfoColor.ART_QUALITY_SPECIAL]: '#9F9FED',
+	[InfoColor.ART_QUALITY_RARE]: '#BF5BAD',
+	[InfoColor.ART_QUALITY_EXCLUSIVE]: '#EA9D9E',
+	[InfoColor.ART_QUALITY_LEGENDARY]: '#FFD700',
+	[InfoColor.ART_QUALITY_UNIQUE]: '#FCB3CD',
+}
+
+export type ArtQuality =
+	| InfoColor.ART_QUALITY_COMMON
+	| InfoColor.ART_QUALITY_UNCOMMON
+	| InfoColor.ART_QUALITY_SPECIAL
+	| InfoColor.ART_QUALITY_RARE
+	| InfoColor.ART_QUALITY_EXCLUSIVE
+	| InfoColor.ART_QUALITY_LEGENDARY
+	| InfoColor.ART_QUALITY_UNIQUE
 
 export type Locale = 'ru' | 'en' | 'es' | 'fr' | 'ko'
 export type ItemName = Partial<Record<Locale, string>>
@@ -26,38 +69,6 @@ export interface ItemEntry {
 	data: string
 	icon: string
 	name: Message
-}
-
-export enum InfoColor {
-	DEFAULT = 'DEFAULT',
-	QUEST_ITEM = 'QUEST_ITEM',
-	RANK_NEWBIE = 'RANK_NEWBIE',
-	RANK_STALKER = 'RANK_STALKER',
-	RANK_VETERAN = 'RANK_VETERAN',
-	RANK_MASTER = 'RANK_MASTER',
-	RANK_LEGEND = 'RANK_LEGEND',
-	ART_QUALITY_UNCOMMON = 'ART_QUALITY_UNCOMMON',
-	ART_QUALITY_SPECIAL = 'ART_QUALITY_SPECIAL',
-	ART_QUALITY_RARE = 'ART_QUALITY_RARE',
-	ART_QUALITY_EXCLUSIVE = 'ART_QUALITY_EXCLUSIVE',
-	ART_QUALITY_LEGENDARY = 'ART_QUALITY_LEGENDARY',
-	ART_QUALITY_UNIQUE = 'ART_QUALITY_UNIQUE',
-}
-
-export const infoColorMap: Record<InfoColor, string> = {
-	[InfoColor.DEFAULT]: '#FFFFFF',
-	[InfoColor.QUEST_ITEM]: '#ABF1F1',
-	[InfoColor.RANK_NEWBIE]: '#9DEB9D',
-	[InfoColor.RANK_STALKER]: '#9F9FED',
-	[InfoColor.RANK_VETERAN]: '#BF5BAD',
-	[InfoColor.RANK_MASTER]: '#EA9D9E',
-	[InfoColor.RANK_LEGEND]: '#FFD700',
-	[InfoColor.ART_QUALITY_UNCOMMON]: '#00FF00',
-	[InfoColor.ART_QUALITY_SPECIAL]: '#00FFFF',
-	[InfoColor.ART_QUALITY_RARE]: '#0000FF',
-	[InfoColor.ART_QUALITY_EXCLUSIVE]: '#FF00FF',
-	[InfoColor.ART_QUALITY_LEGENDARY]: '#FFD700',
-	[InfoColor.ART_QUALITY_UNIQUE]: '#FF4500',
 }
 
 export enum BindState {
@@ -128,6 +139,7 @@ export type NumericElement = {
 export type NumericRangeElement = {
 	type: 'range'
 	name: Message
+	key?: string
 	min: number
 	max: number
 } & FormattedBlock
@@ -172,6 +184,14 @@ export type InfoBlock =
 	| NumericVariantsElement
 	| AddStatBlock
 
+
+export interface Model {
+	model?: string
+	diff?: string
+	emi?: string
+	nrm?: string
+	spek?: string
+}
 export interface Item {
 	id: string
 	category: string
@@ -179,6 +199,7 @@ export interface Item {
 	color: InfoColor
 	status?: BindState
 	infoBlocks: InfoBlock[]
+	model?: Model
 }
 
 // Auction types

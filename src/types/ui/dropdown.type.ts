@@ -1,23 +1,25 @@
 import type React from 'react'
+import type { ButtonVariant } from '@/constants/ui/button.const'
 
 export interface DropdownItem {
 	key: string
-	label: string
-	description?: string
+	content: string | React.ReactNode
+	description?: string | React.ReactNode
 	icon?: string
 	disabled?: boolean
 	divider?: boolean
 	submenu?: DropdownItem[]
-	category?: string
-	onClick?: () => void
+	category?: string | React.ReactNode
 }
 
 export interface DropdownProps {
-	title: string
+	title: string | React.ReactNode
 	icon?: string
 	items: DropdownItem[]
 	placement?: 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end'
 	className?: string
+	variant?: ButtonVariant
+	blur?: boolean
 }
 
 export interface DropdownMenuItemProps {

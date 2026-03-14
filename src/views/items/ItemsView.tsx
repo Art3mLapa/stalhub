@@ -51,10 +51,10 @@ export default function ItemsView({ path, id }: ItemsViewProps) {
 		}
 	}, [error])
 
+	// biome-ignore lint: useExhaustiveDependencies
 	useEffect(() => {
 		if (id) refetch(githubUrl)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [id, refetch, githubUrl])
+	}, [id, githubUrl])
 
 	// ! TODO SUSPENSE QUERIES
 
@@ -63,7 +63,7 @@ export default function ItemsView({ path, id }: ItemsViewProps) {
 	}
 
 	return (
-		<div className="mx-auto grid max-w-360 grid-cols-1 flex-col gap-12 px-4 pt-32 pb-12 sm:px-6 md:px-8 lg:grid-cols-12">
+		<section className="mx-auto grid max-w-360 grid-cols-1 flex-col gap-12 px-4 pt-32 pb-12 sm:px-6 md:px-8 lg:grid-cols-12">
 			<div className="space-y-4 lg:col-span-7">
 				<Card.Root>
 					<Card.Header className="space-y-4">
@@ -79,7 +79,7 @@ export default function ItemsView({ path, id }: ItemsViewProps) {
 						</Card.Title>
 						<div className="space-y-2 text-center">
 							<h1
-								className={`${unbounded.className} text-xl font-semibold`}
+								className={`${unbounded.className} font-semibold text-xl`}
 								style={{
 									color:
 										infoColorMap[data.color as InfoColor] ||
@@ -169,6 +169,6 @@ export default function ItemsView({ path, id }: ItemsViewProps) {
 						))}
 				</div>
 			</div>
-		</div>
+		</section>
 	)
 }

@@ -1,4 +1,4 @@
-import { type Locale } from '@/types/item.type'
+import type { Locale } from '@/types/item.type'
 
 export const getLocale = (): Locale => {
 	if (typeof document !== 'undefined') {

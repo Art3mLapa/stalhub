@@ -1,18 +1,19 @@
 'use client'
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import i18n from 'i18next'
 
 import { ThemeProvider } from 'next-themes'
-import { type ReactNode, useEffect, useRef, useState } from 'react'
+import { type ReactNode, useEffect, useState } from 'react'
 import { I18nextProvider, initReactI18next } from 'react-i18next'
 import { Toaster } from 'sonner'
 import { getLocale } from '@/lib/getLocale'
 import en from '@/locales/en.json'
 import es from '@/locales/es.json'
 import fr from '@/locales/fr.json'
+import ko from '@/locales/ko.json'
 import ru from '@/locales/ru.json'
 import { UwuProvider } from '@/providers/uwuProvider'
+import QueryProvider from './QueryProvider'
 
 interface Props {
 	children: ReactNode
@@ -21,7 +22,6 @@ interface Props {
 export default function Providers({ children }: Props) {
 	const [mounted, setMounted] = useState(false)
 	const [i18nReady, setI18nReady] = useState(false)
-	const queryClient = useRef<QueryClient>(new QueryClient())
 
 	useEffect(() => {
 		setMounted(true)
@@ -43,6 +43,7 @@ export default function Providers({ children }: Props) {
 						ru: { translation: ru },
 						es: { translation: es },
 						fr: { translation: fr },
+						ko: { translation: ko },
 					},
 					lng: lang,
 					fallbackLng: 'ru',
@@ -57,15 +58,15 @@ export default function Providers({ children }: Props) {
 	if (!mounted || !i18nReady) return null
 
 	return (
-		<I18nextProvider i18n={i18n}>
-			<ThemeProvider attribute="class" enableSystem>
-				<QueryClientProvider client={queryClient.current}>
+		<QueryProvider>
+			<I18nextProvider i18n={i18n}>
+				<ThemeProvider attribute="class" enableSystem>
 					<UwuProvider>
 						<Toaster position="bottom-right" />
 						{children}
 					</UwuProvider>
-				</QueryClientProvider>
-			</ThemeProvider>
-		</I18nextProvider>
+				</ThemeProvider>
+			</I18nextProvider>
+		</QueryProvider>
 	)
 }

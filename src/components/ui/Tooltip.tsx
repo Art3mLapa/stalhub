@@ -136,7 +136,7 @@ function TooltipContent({ children }: { children: ReactNode }) {
 					transition={{ duration: 0.15 }}
 				>
 					<div className="pointer-events-auto relative rounded-lg bg-white px-3 py-2 backdrop-blur-md dark:bg-neutral-800">
-						<p className="text-sm font-semibold whitespace-nowrap">
+						<p className="whitespace-nowrap font-semibold text-sm">
 							{children}
 						</p>
 						<span

@@ -1,5 +1,6 @@
 import { formatDate } from '@/lib/date'
-import type { LotsResponse } from '@/types/item.type'
+import type { ArtQuality, LotsResponse } from '@/types/item.type'
+import { InfoColor } from '@/types/item.type'
 
 export type ArtifactAdditional = {
 	ndmg?: number
@@ -26,15 +27,58 @@ export const qualityPercentRanges: Record<
 	6: { min: 175, max: 190 },
 }
 
+export const qualityIndexToArtQuality: Record<number, ArtQuality> = {
+	0: InfoColor.ART_QUALITY_COMMON,
+	1: InfoColor.ART_QUALITY_UNCOMMON,
+	2: InfoColor.ART_QUALITY_SPECIAL,
+	3: InfoColor.ART_QUALITY_RARE,
+	4: InfoColor.ART_QUALITY_EXCLUSIVE,
+	5: InfoColor.ART_QUALITY_LEGENDARY,
+	6: InfoColor.ART_QUALITY_UNIQUE,
+}
+
 export const calcArtifactPercent = (additional: ArtifactAdditional): number => {
 	if (additional.qlt === undefined) return 0
 
-	const { ndmg, qlt } = additional
+	const ndmg = typeof additional.ndmg === 'number' ? additional.ndmg : 0
+	const qlt = additional.qlt
 	const range = qualityPercentRanges[qlt] ?? { min: 0, max: 100 }
 	const diff = range.max - range.min
 
-	const normalized = ((ndmg || 0) + 2) / 4
-	return range.min + diff * normalized
+	let normalized = ((ndmg || 0) + 2) / 4
+
+	if (!Number.isFinite(normalized)) normalized = 0
+	normalized = Math.max(0, Math.min(1, normalized))
+
+	const percent = range.min + diff * normalized
+
+	return Math.max(range.min, Math.min(range.max, percent))
+}
+
+export const getQualityIndexByPercent = (percent: number): number => {
+	const entry = Object.entries(qualityPercentRanges).find(
+		([, range]) => percent >= range.min && percent <= range.max
+	)
+
+	if (entry) return Number(entry[0])
+
+	const maxIndex = Math.max(...Object.keys(qualityPercentRanges).map(Number))
+	const lastRange = qualityPercentRanges[maxIndex]
+
+	if (percent > (lastRange?.max ?? Infinity)) return maxIndex
+	return 0
+}
+
+export const getQualityByPercent = (percent: number): ArtQuality => {
+	const idx = getQualityIndexByPercent(percent)
+	return qualityIndexToArtQuality[idx] ?? InfoColor.ART_QUALITY_UNCOMMON
+}
+
+export const getQualityFromAdditional = (
+	additional: ArtifactAdditional
+): ArtQuality => {
+	const percent = calcArtifactPercent(additional)
+	return getQualityByPercent(percent)
 }
 
 export const getQualityName = (qlt?: number): string => {

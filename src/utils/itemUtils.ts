@@ -1,8 +1,8 @@
 import { getLocale } from '@/lib/getLocale'
 import type {
 	InfoBlock,
-	Item,
 	InfoElement,
+	Item,
 	Locale,
 	Message,
 } from '@/types/item.type'
@@ -104,6 +104,27 @@ export const findCategoryInBlocks = (
 	}
 
 	return ''
+}
+
+export const findContSizeInBlocks = (infoBlocks?: InfoBlock[]): number => {
+	if (!Array.isArray(infoBlocks)) return 0
+
+	for (const block of infoBlocks) {
+		if (block?.type !== 'list' || !Array.isArray(block?.elements)) continue
+
+		for (const el of block.elements) {
+			if (el?.type !== 'numeric') continue
+
+			if (
+				el.name?.type === 'translation' &&
+				el.name.key === 'stalker.tooltip.backpack.info.size'
+			) {
+				return el.value ?? 0
+			}
+		}
+	}
+
+	return 0
 }
 
 export const getCategoryLabel = (

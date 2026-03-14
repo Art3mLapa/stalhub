@@ -10,7 +10,7 @@ import { Modal } from '@/components/ui/Modal'
 import { useDebounce } from '@/hooks/useDebounce'
 import { usePreparedSearch } from '@/hooks/usePreparedSearch'
 import { getLocale } from '@/lib/getLocale'
-import { type ItemListing } from '@/types/api.type'
+import type { ItemListing } from '@/types/api.type'
 import { infoColorMap } from '@/types/item.type'
 import { Skeleton } from '../ui/Skeleton'
 
@@ -35,7 +35,7 @@ const ItemCard = React.memo(function ItemCard({ item }: { item: ItemListing }) {
 					/>
 				</Card.Title>
 				<p
-					className="text-lg font-semibold"
+					className="font-semibold text-lg"
 					style={{ color: infoColorMap[item.color] }}
 				>
 					{name}
@@ -71,7 +71,7 @@ export default function ItemSearchModal() {
 
 	return (
 		<Modal.Root>
-			<Modal.Trigger className="hover:bg-background w-fit rounded-full p-3">
+			<Modal.Trigger className="w-fit rounded-full p-3 hover:bg-background">
 				<Icon className="text-lg" icon="lucide:search" />
 			</Modal.Trigger>
 
@@ -95,7 +95,7 @@ export default function ItemSearchModal() {
 						</p>
 					)}
 
-					<ul className="flex max-h-96 flex-col gap-3 overflow-y-auto mask-y-from-95% mask-y-to-100% p-0.5">
+					<ul className="mask-y-from-95% mask-y-to-100% flex max-h-96 flex-col gap-3 overflow-y-auto p-0.5">
 						{displayed.map((item) => (
 							<ItemCard item={item} key={item.key} />
 						))}
@@ -107,7 +107,7 @@ export default function ItemSearchModal() {
 							onClick={() =>
 								setVisibleCount((v) => v + PAGE_STEP)
 							}
-							variant={'outline'}
+							variant={'ghost'}
 						>
 							<p className="font-semibold">Показать ещё</p>
 						</Button>

@@ -6,10 +6,10 @@ import type {
 	NumericVariantsElement,
 } from '@/types/item.type'
 import {
-	messageToString,
-	hasFormatted,
-	roundNumber,
 	getValueColorByRankKey,
+	hasFormatted,
+	messageToString,
+	roundNumber,
 } from '@/utils/itemUtils'
 
 function normalizeColor(raw?: string): string | undefined {
@@ -74,17 +74,9 @@ export const KeyValueElement: React.FC<{
 		getValueColorByRankKey(el.value)
 
 	return (
-		<div className="flex justify-between">
-			<p
-				className="font-semibold"
-				style={nameColor ? { color: nameColor } : undefined}
-			>
-				{key}
-			</p>
-			<p
-				className="font-medium"
-				style={valueColor ? { color: valueColor } : undefined}
-			>
+		<div className="flex justify-between font-semibold">
+			<p style={nameColor ? { color: nameColor } : undefined}>{key}</p>
+			<p className='text-nowrap' style={valueColor ? { color: valueColor } : undefined}>
 				{value}
 			</p>
 		</div>
@@ -171,8 +163,8 @@ export const UsageElement: React.FC<{
 
 export const FallbackElement: React.FC<{ el: InfoElement }> = ({ el }) => {
 	return (
-		<div className="text-sm text-red-200">
-			<pre className="text-xs whitespace-pre-wrap text-red-400">
+		<div className="text-red-200 text-sm">
+			<pre className="whitespace-pre-wrap text-red-400 text-xs">
 				{JSON.stringify(el, null, 2)}
 			</pre>
 		</div>
@@ -188,12 +180,12 @@ export const NumericVariantsElementRenderer: React.FC<{
 	const values = Array.isArray(el.value) ? el.value : []
 	const maxIdx = Math.max(0, values.length - 1)
 
-	const point = numericVariants
+	const safePoint = Math.min(numericVariants, maxIdx)
 
 	const nameColor = normalizeColor(el.formatted?.nameColor)
 	const valueColor = normalizeColor(el.formatted?.valueColor)
 
-	const current = values[point] ?? null
+	const current = values[safePoint] ?? null
 	const format = (v: number) =>
 		Number.isInteger(v) ? String(v) : v.toFixed(2)
 
@@ -207,14 +199,14 @@ export const NumericVariantsElementRenderer: React.FC<{
 					>
 						{name}
 					</div>
-					<div className="text-xs font-semibold text-neutral-400">
-						Заточка {point} (0—{maxIdx})
+					<div className="font-semibold text-neutral-400 text-xs">
+						Заточка {numericVariants} (0—{maxIdx})
 					</div>
 				</div>
 			</div>
 			<div className="flex items-center gap-3">
 				<div
-					className="text-lg font-medium"
+					className="font-medium text-lg"
 					style={valueColor ? { color: valueColor } : undefined}
 				>
 					{current !== null ? format(current) : '—'}

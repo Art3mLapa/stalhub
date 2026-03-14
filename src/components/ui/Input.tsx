@@ -1,9 +1,11 @@
 import { Icon } from '@iconify/react'
 import type { InputHTMLAttributes } from 'react'
-import { useRef, useState } from 'react'
+import { useId, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-type Props = InputHTMLAttributes<HTMLInputElement>
+type Props = InputHTMLAttributes<HTMLInputElement> & {
+	label?: string
+}
 
 export default function Input({
 	className,
@@ -13,10 +15,15 @@ export default function Input({
 	step,
 	min,
 	max,
+	id: propId,
+	placeholder: propPlaceholder,
+	label,
 	...rest
 }: Props) {
 	const [showPassword, setShowPassword] = useState(false)
 	const inputRef = useRef<HTMLInputElement | null>(null)
+	const reactId = useId()
+	const id = propId ?? `floating_${reactId}`
 
 	const togglePassword = () => setShowPassword((s) => !s)
 
@@ -57,22 +64,35 @@ export default function Input({
 		} as React.ChangeEvent<HTMLInputElement>)
 	}
 
+	const computedPlaceholder = propPlaceholder ?? (label ? ' ' : undefined)
+
 	return (
 		<div className="relative">
 			<input
 				{...rest}
 				className={twMerge(
-					`bg-background border-border/50 w-full rounded-xl border-2 pr-10 font-semibold text-neutral-900 transition-all duration-500 ease-in-out outline-none placeholder:text-neutral-500 dark:text-neutral-100 dark:placeholder:text-neutral-400`,
+					`peer w-full rounded-xl border-2 border-border/50 bg-background px-2 py-2! font-semibold text-neutral-900 outline-none transition-all duration-500 ease-in-out placeholder:text-neutral-500 dark:text-neutral-100 dark:placeholder:text-neutral-400`,
 					className
 				)}
+				id={id}
 				max={max}
 				min={min}
 				onChange={handleChange}
+				placeholder={computedPlaceholder}
 				ref={inputRef}
 				step={step}
 				type={type === 'password' && showPassword ? 'text' : type}
 				value={value}
 			/>
+
+			{label && (
+				<label
+					className="pointer-events-none absolute start-1 top-2 z-10 origin-left -translate-y-2 scale-75 transform px-2 font-semibold text-neutral-400 text-sm duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-neutral-400 peer-focus:top-2 peer-focus:-translate-y-2.5 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-neutral-400"
+					htmlFor={id}
+				>
+					{label}
+				</label>
+			)}
 
 			{type === 'number' && (
 				<div className="absolute top-1/2 right-2 flex -translate-y-1/2 flex-col">

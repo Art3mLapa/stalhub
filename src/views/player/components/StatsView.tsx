@@ -14,7 +14,7 @@ export default function StatsView({ data }: { data: Stat[] }) {
 						className="text-xl"
 						icon="lucide:chart-no-axes-column"
 					/>
-					<h1 className="text-xl font-semibold">Статистика</h1>
+					<h1 className="font-semibold text-xl">Статистика</h1>
 				</div>
 			</Card.Header>
 			<Card.Content className="space-y-3">

@@ -1,13 +1,13 @@
-import { Suspense } from 'react'
-
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 
 import '@/shared/styles/index.css'
 import { raleway } from '@/app/fonts'
-import Nav from '@/shared/layouts/nav/Nav'
 import Providers from '@/providers/providers'
 import { GridBackgroundWithBeams } from '@/shared/Background'
 import Footer from '@/shared/layouts/Footer'
+import InDevNav from '@/shared/layouts/nav/InDevNav'
+import Nav from '@/shared/layouts/nav/Nav'
 
 export const metadata: Metadata = {
 	title: 'StalHub',
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 		type: 'website',
 		title: 'StalHub',
 		description: 'TODO',
-		url: 'https://stalhub.ru',
+		url: 'https://stalhub.tech',
 		siteName: 'StalHub',
 	},
 }
@@ -43,6 +43,7 @@ export default function RootLayout({
 				/>
 				<Suspense fallback={<div />}>
 					<Providers>
+						<InDevNav />
 						{!inDev && <Nav />}
 						{children}
 					</Providers>

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import CLink from '@/components/ui/Link'
 import type { AccordionItem } from '@/types/ui/accordion.type'
-import { type DropdownMenuGroup } from '@/types/ui/dropdown.type'
+import type { DropdownMenuGroup } from '@/types/ui/dropdown.type'
 
 export const Links = [
 	{
@@ -29,38 +29,33 @@ export const DropDownLinks: DropdownMenuGroup[] = [
 		items: [
 			{
 				key: 'art',
-				label: 'nav.groups.calculators.items.art.label',
+				content: 'nav.groups.calculators.items.art.label',
 				icon: 'lucide:package',
 				description: 'nav.groups.calculators.items.art.description',
-				onClick: () => console.log('Profile clicked'),
 			},
 			{
 				key: 'TTK',
-				label: 'nav.groups.calculators.items.ttk.label',
+				content: 'nav.groups.calculators.items.ttk.label',
 				icon: 'lucide:timer-reset',
 				description: 'nav.groups.calculators.items.ttk.description',
-				onClick: () => console.log('Profile clicked'),
 			},
 			{
 				key: 'barter',
-				label: 'nav.groups.calculators.items.barter.label',
+				content: 'nav.groups.calculators.items.barter.label',
 				icon: 'lucide:coins',
 				description: 'nav.groups.calculators.items.barter.description',
-				onClick: () => console.log('Profile clicked'),
 			},
 			{
 				key: 'bp',
-				label: 'nav.groups.calculators.items.bp.label',
+				content: 'nav.groups.calculators.items.bp.label',
 				icon: 'lucide:ticket',
 				description: 'nav.groups.calculators.items.bp.description',
-				onClick: () => console.log('Profile clicked'),
 			},
 			{
 				key: 'dpi',
-				label: 'nav.groups.calculators.items.dpi.label',
+				content: 'nav.groups.calculators.items.dpi.label',
 				icon: 'lucide:mouse',
 				description: 'nav.groups.calculators.items.dpi.description',
-				onClick: () => console.log('Profile clicked'),
 			},
 		],
 	},
@@ -71,26 +66,23 @@ export const DropDownLinks: DropdownMenuGroup[] = [
 		items: [
 			{
 				key: 'clanMaps',
-				label: 'nav.groups.clans.items.clanMaps.label',
+				content: 'nav.groups.clans.items.clanMaps.label',
 				icon: 'lucide:map-pinned',
 				description: 'nav.groups.clans.items.clanMaps.description',
-				onClick: () => console.log('maps'),
 			},
 			{
 				key: 'squads',
-				label: 'nav.groups.clans.items.squads.label',
+				content: 'nav.groups.clans.items.squads.label',
 				icon: 'lucide:radio-tower',
 				description: 'nav.groups.clans.items.squads.description',
 				disabled: true,
-				onClick: () => console.log('squads'),
 			},
 			{
 				key: 'top',
-				label: 'nav.groups.clans.items.top.label',
+				content: 'nav.groups.clans.items.top.label',
 				icon: 'lucide:chart-no-axes-column',
 				description: 'nav.groups.clans.items.top.description',
 				disabled: true,
-				onClick: () => console.log('squads'),
 			},
 		],
 	},
@@ -101,29 +93,25 @@ export const DropDownLinks: DropdownMenuGroup[] = [
 		items: [
 			{
 				key: 'maps',
-				label: 'nav.groups.other.items.maps.label',
+				content: 'nav.groups.other.items.maps.label',
 				icon: 'lucide:map',
-				onClick: () => console.log('Profile clicked'),
 			},
 			{
 				key: 'auction',
-				label: 'nav.groups.other.items.auction.label',
+				content: 'nav.groups.other.items.auction.label',
 				icon: 'lucide:landmark',
-				onClick: () => console.log('Profile clicked'),
 			},
 			{
 				key: 'players',
-				label: 'nav.groups.other.items.players.label',
+				content: 'nav.groups.other.items.players.label',
 				icon: 'lucide:user-round-search',
-				onClick: () => console.log('Profile clicked'),
 			},
 			{
 				key: 'models',
-				label: 'nav.groups.other.items.models.label',
+				content: 'nav.groups.other.items.models.label',
 				icon: 'lucide:box',
 				description: 'nav.groups.other.items.models.description',
 				disabled: true,
-				onClick: () => console.log('Profile clicked'),
 			},
 		],
 	},

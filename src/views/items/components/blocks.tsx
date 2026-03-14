@@ -1,19 +1,19 @@
 'use client'
 
 import React from 'react'
-
+import { Card } from '@/components/ui/Card'
+import Input from '@/components/ui/Input'
+import { cn } from '@/lib/cn'
 import type {
-	InfoElement,
-	TextInfoBlock,
+	AddStatBlock,
 	ElementListBlock,
+	InfoElement,
 	Locale,
 	Message,
-	AddStatBlock,
+	TextInfoBlock,
 } from '@/types/item.type'
 import { messageToString } from '@/utils/itemUtils'
 import InfoElementRenderer from './InfoRenderer'
-import { Card } from '@/components/ui/Card'
-import Input from '@/components/ui/Input'
 
 const HIDDEN_KEYS = new Set([
 	'core.quality.common',
@@ -57,10 +57,11 @@ export const TextBlock: React.FC<{ block: TextInfoBlock; locale: Locale }> = ({
 export const NumericVariantsCard: React.FC<{
 	numericVariants: number
 	onChange: (v: number) => void
-}> = ({ numericVariants, onChange }) => (
-	<Card.Root>
-		<Card.Content className="flex items-center justify-between">
-			<p className="text-lg font-semibold">Заточка</p>
+	withCard?: boolean
+}> = ({ numericVariants, onChange, withCard = true }) => {
+	const content = (
+		<div className="flex items-center justify-between">
+			<p className="font-semibold text-lg">Заточка</p>
 			<Input
 				className="w-fit px-2 py-2"
 				max={15}
@@ -69,9 +70,11 @@ export const NumericVariantsCard: React.FC<{
 				type="number"
 				value={numericVariants}
 			/>
-		</Card.Content>
-	</Card.Root>
-)
+		</div>
+	)
+
+	return withCard ? <Card.Root>{content}</Card.Root> : content
+}
 
 const getElementKeys = (el: InfoElement): string[] => {
 	switch (el.type) {
@@ -95,7 +98,9 @@ export const ListBlock: React.FC<{
 	numericVariants: number
 	block: Block
 	locale: Locale
-}> = ({ block, locale, numericVariants }) => {
+	withCard?: boolean
+	className?: string
+}> = ({ block, locale, numericVariants, withCard = true, className }) => {
 	if (!Array.isArray(block.elements) || block.elements.length === 0)
 		return null
 
@@ -106,15 +111,15 @@ export const ListBlock: React.FC<{
 
 	if (visible.length === 0) return null
 
-	return (
-		<Card.Root>
+	const content = (
+		<>
 			{messageToString(block.title, locale) && (
 				<p className="font-semibold">
 					{messageToString(block.title, locale)}
 				</p>
 			)}
 
-			<div className="space-y-0.5">
+			<div className={cn('space-y-0.5', className)}>
 				{visible.map((el, i) => (
 					<InfoElementRenderer
 						el={el}
@@ -124,6 +129,8 @@ export const ListBlock: React.FC<{
 					/>
 				))}
 			</div>
-		</Card.Root>
+		</>
 	)
+
+	return withCard ? <Card.Root>{content}</Card.Root> : content
 }

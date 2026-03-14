@@ -16,15 +16,15 @@ export default function HeroView({ data }: { data: PlayerInfo }) {
 	return (
 		<div className="relative">
 			<Image
-				alt={`${data.alliance} icon`} // Rewrite to svg
+				alt={`${data.alliance} icon`}
 				className="absolute -top-15 -left-20 -z-1 hidden xl:block"
 				height={115}
-				src={`/images/alliance/${data.alliance}.png`}
+				src={`/images/alliance/${data.alliance}.png`} // Rewrite to svg
 				width={115}
 			/>
 			<Card.Root className="z-10 w-full">
 				<Card.Header className="space-y-2">
-					<Card.Title className="text-3xl font-bold">
+					<Card.Title className="font-bold text-3xl">
 						<span className={allianceColors[data.alliance]}>
 							{t(`player.alliance.${data.alliance}`)}
 						</span>{' '}
@@ -32,7 +32,7 @@ export default function HeroView({ data }: { data: PlayerInfo }) {
 					</Card.Title>
 					<Card.Description className="flex items-center gap-2">
 						<Icon
-							className="text-xl text-white"
+							className="text-white text-xl"
 							icon="lucide:info"
 						/>
 						<StalcraftText text={data.status} />
@@ -51,7 +51,7 @@ export default function HeroView({ data }: { data: PlayerInfo }) {
 									className="text-xl"
 									icon="lucide:trophy"
 								/>
-								<h1 className="text-lg font-semibold">
+								<h1 className="font-semibold text-lg">
 									Достижения
 								</h1>
 							</div>

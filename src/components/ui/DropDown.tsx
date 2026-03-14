@@ -20,9 +20,10 @@ import type {
 	DropdownProps,
 	SubmenuWithStateProps,
 } from '@/types/ui/dropdown.type'
+import { Divider } from './Divider'
 
 const baseClasses =
-	'absolute z-999 min-w-[250px] bg-background/95 ring-2 backdrop-blur-xl ring-border/50 rounded-lg shadow-lg p-2'
+	'absolute z-99999 min-w-[250px] bg-background/95 ring-2 ring-border/50 rounded-lg shadow-lg p-2'
 
 const toggleSubmenuKey = (
 	setOpenSubmenus: React.Dispatch<React.SetStateAction<Set<string>>>,
@@ -56,6 +57,14 @@ const toggleSubmenuKey = (
 	})
 }
 
+function renderMaybeTranslate(
+	t: (key: string) => string,
+	content?: string | React.ReactNode
+) {
+	if (content === undefined || content === null) return null
+	return typeof content === 'string' ? t(content) : content
+}
+
 function DropdownMenuItem({
 	item,
 	onClose,
@@ -63,7 +72,7 @@ function DropdownMenuItem({
 	setOpenSubmenus,
 	depth = 0,
 }: DropdownMenuItemProps) {
-	const itemRef = useRef<HTMLButtonElement | null>(null)
+	const itemRef = useRef<HTMLDivElement | null>(null)
 	const { t } = useTranslation()
 
 	const showSubmenu = useMemo(
@@ -81,23 +90,35 @@ function DropdownMenuItem({
 		if (hasSubmenu && setOpenSubmenus) {
 			toggleSubmenuKey(setOpenSubmenus, item.key)
 		} else {
-			item.onClick?.()
 			onClose()
 		}
 	}, [item, onClose, setOpenSubmenus, hasSubmenu])
 
+	const handleKeyDown = useCallback(
+		(e: React.KeyboardEvent) => {
+			if (item.disabled) return
+			if (e.key === 'Enter' || e.key === ' ') {
+				e.preventDefault()
+				handleClick()
+			}
+		},
+		[item.disabled, handleClick]
+	)
+
 	if (item.divider) {
-		return <div className="bg-background my-1 h-px" />
+		return <Divider className="my-2" />
 	}
 
 	return (
 		<div className="relative">
 			{item.category && (
-				<p className="text-[13px] font-semibold dark:text-neutral-300">
-					{t(item.category)}
+				<p className="font-semibold text-[13px] dark:text-neutral-300">
+					{renderMaybeTranslate(t, item.category)}
 				</p>
 			)}
-			<motion.button
+			<motion.div
+				animate={{ opacity: 1 }}
+				aria-disabled={item.disabled || undefined}
 				aria-expanded={hasSubmenu ? showSubmenu : undefined}
 				aria-haspopup={hasSubmenu ? 'menu' : undefined}
 				className={cn(
@@ -107,31 +128,32 @@ function DropdownMenuItem({
 						: 'cursor-pointer text-neutral-700 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700/40',
 					hasSubmenu && 'pr-2'
 				)}
-				disabled={item.disabled}
+				exit={{ opacity: 0 }}
+				initial={{ opacity: 0 }}
 				onClick={handleClick}
+				onKeyDown={handleKeyDown}
 				ref={itemRef}
 				role="menuitem"
-				type="button"
+				tabIndex={item.disabled ? -1 : 0}
 			>
-				<div className="flex flex-1 items-center gap-2">
+				<div className="flex w-full items-center gap-2">
 					{item.icon && (
 						<Icon
 							aria-hidden="true"
-							className="text-xl text-neutral-500 dark:text-white"
+							className="text-neutral-500 text-xl dark:text-white"
 							icon={item.icon}
 						/>
 					)}
-					<div className="flex flex-col">
-						<span className="text-[13.5px] leading-tight font-semibold">
-							{t(item.label)}
-						</span>
+					<div className="flex w-full flex-col">
+						{item.content}
 						{item.description && (
-							<span className="mt-0.5 text-xs leading-tight font-semibold text-neutral-500 dark:text-neutral-400">
-								{t(item.description)}
+							<span className="mt-0.5 font-semibold text-neutral-500 text-xs dark:text-neutral-400">
+								{renderMaybeTranslate(t, item.description)}
 							</span>
 						)}
 					</div>
 				</div>
+
 				{hasSubmenu && (
 					<motion.div
 						animate={{ rotate: showSubmenu ? 90 : 0 }}
@@ -144,7 +166,7 @@ function DropdownMenuItem({
 						/>
 					</motion.div>
 				)}
-			</motion.button>
+			</motion.div>
 
 			<AnimatePresence>
 				{showSubmenu && item.submenu && (
@@ -289,6 +311,8 @@ export default function DropdownMenu({
 	icon,
 	placement = 'bottom-start',
 	className,
+	variant = 'ghost',
+	blur = true,
 }: DropdownProps) {
 	const [isOpen, setIsOpen] = useState(false)
 	const [openSubmenus, setOpenSubmenus] = useState<Set<string>>(new Set())
@@ -336,28 +360,30 @@ export default function DropdownMenu({
 	}, [placement])
 
 	return (
-		<div className={cn('relative', className)} ref={dropdownRef}>
+		<div className={cn('relative')} ref={dropdownRef}>
 			<Button
 				aria-expanded={isOpen}
 				aria-haspopup="menu"
-				className={`flex cursor-pointer items-center outline-none ${
+				className={`flex items-center gap-4 rounded-full px-6 py-2 outline-none ${className} ${
 					isOpen ? 'bg-background' : ''
 				}`}
 				onClick={toggleDropdown}
 				ref={triggerRef}
 				role="button"
 				tabIndex={0}
-				variant="outline"
+				variant={variant}
 			>
 				{icon && <Icon className="text-xl" icon={icon} />}
-				<p className="text-md font-semibold">{t(title)}</p>
+				<div className="font-semibold text-md">
+					{renderMaybeTranslate(t, title)}
+				</div>
 				<motion.div
 					animate={{ rotate: isOpen ? 90 : 0 }}
 					transition={{ duration: 0.2, ease: 'easeInOut' }}
 				>
 					<Icon
 						aria-hidden="true"
-						className="text-lg text-neutral-500 dark:text-white"
+						className="text-lg"
 						icon="lucide:chevron-right"
 					/>
 				</motion.div>
@@ -367,7 +393,9 @@ export default function DropdownMenu({
 				{isOpen && (
 					<motion.div
 						animate={{ opacity: 1 }}
-						className={dropdownPositionClass}
+						className={cn(dropdownPositionClass, {
+							'backdrop-blur-xl': blur,
+						})}
 						exit={{ opacity: 0 }}
 						initial={{ opacity: 0 }}
 						role="menu"

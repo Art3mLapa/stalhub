@@ -1,26 +1,26 @@
 'use client'
 
-import React from 'react'
+import type React from 'react'
 
 import type { InfoElement, Locale } from '@/types/item.type'
 import {
 	isItemElement,
-	isTextElement,
 	isKeyValueElement,
 	isNumericElement,
-	isRangeElement,
-	isUsageElement,
 	isNumericVariantsBlock,
+	isRangeElement,
+	isTextElement,
+	isUsageElement,
 } from '@/utils/itemUtils'
 import {
+	FallbackElement,
 	ItemElement,
-	TextElement,
 	KeyValueElement,
 	NumericElement,
-	RangeElement,
-	FallbackElement,
-	UsageElement,
 	NumericVariantsElementRenderer,
+	RangeElement,
+	TextElement,
+	UsageElement,
 } from './elements'
 
 export const InfoElementRenderer: React.FC<{
