@@ -60,7 +60,7 @@ export default function HeroView({ data }: { data: PlayerInfo }) {
 							/>
 							<p>
 								Очков достижений:{' '}
-								{getStatValue(data.stats, 'ach-points')}
+								{Number(getStatValue(data.stats, 'ach-points'))}
 							</p>
 						</div>
 					)}
