@@ -6,7 +6,7 @@ import { useMemo } from 'react'
 import { Card } from '@/components/ui/Card'
 import { Tabs } from '@/components/ui/Tabs'
 import { getLocale } from '@/lib/getLocale'
-import { buildQueries } from '@/queries/calcs/build.queries'
+import { itemsQueries } from '@/queries/calcs/items.queries'
 import { useBuildStore } from '@/stores/useBuild.store'
 import type { Art } from '@/types/build.type'
 import type {
@@ -182,15 +182,15 @@ export default function StatsTabs() {
 
 	const locale = getLocale()
 
-	const armorsQuery = useSuspenseQuery(buildQueries.get({ type: 'armor' }))
+	const armorsQuery = useSuspenseQuery(itemsQueries.get({ type: 'armor' }))
 	const containersQuery = useSuspenseQuery(
-		buildQueries.get({ type: 'containers' })
+		itemsQueries.get({ type: 'containers' })
 	)
 	const artefactsQuery = useSuspenseQuery(
-		buildQueries.get({ type: 'artefact' })
+		itemsQueries.get({ type: 'artefact' })
 	)
 	const consumablesQuery = useSuspenseQuery(
-		buildQueries.get({ type: 'consumables' })
+		itemsQueries.get({ type: 'consumables' })
 	)
 
 	const armors = armorsQuery.data ?? []

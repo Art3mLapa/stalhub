@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Suspense } from 'react'
 
 import '@/shared/styles/index.css'
+import { ThemeProvider } from 'next-themes'
 import { raleway } from '@/app/fonts'
 import Providers from '@/providers/providers'
 import { GridBackgroundWithBeams } from '@/shared/Background'
@@ -9,6 +10,7 @@ import Footer from '@/shared/layouts/Footer'
 import InDevNav from '@/shared/layouts/nav/InDevNav'
 import Nav from '@/shared/layouts/nav/Nav'
 
+//! TODO добить банер, дополнить OG, добавить лого
 export const metadata: Metadata = {
 	title: 'StalHub',
 	description: 'TODO',
@@ -26,8 +28,6 @@ export default function RootLayout({
 }: {
 	children: React.ReactNode
 }) {
-	const inDev = process.env.NODE_ENV === 'production'
-
 	return (
 		<html className="dark" lang="en" suppressHydrationWarning>
 			<body
@@ -42,12 +42,18 @@ export default function RootLayout({
 					rows={100}
 				/>
 				<Suspense fallback={<div />}>
-					<Providers>
-						<InDevNav />
-						{!inDev && <Nav />}
-						{children}
-					</Providers>
-					{!inDev && <Footer />}
+					<ThemeProvider
+						attribute="class"
+						disableTransitionOnChange
+						enableSystem
+					>
+						<Providers>
+							<InDevNav />
+							<Nav />
+							{children}
+						</Providers>
+						<Footer />
+					</ThemeProvider>
 				</Suspense>
 			</body>
 		</html>

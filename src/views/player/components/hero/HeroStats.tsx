@@ -16,10 +16,7 @@ export default function HeroStats({ data }: { data: PlayerInfo }) {
 				<span>В зоне:</span>
 				<Tooltip.Root>
 					<Tooltip.Trigger>
-						{dateSince(
-							new Date(getStatValue(data.stats, 'reg-tim')),
-							t
-						)}
+						{formatDate(getStatValue(data.stats, 'reg-tim'))}
 					</Tooltip.Trigger>
 					<Tooltip.Content>
 						{formatDate(getStatValue(data.stats, 'reg-tim'))}
@@ -32,14 +29,14 @@ export default function HeroStats({ data }: { data: PlayerInfo }) {
 				<Tooltip.Root>
 					<Tooltip.Trigger>
 						{(
-							getStatValue(data.stats, 'pla-tim') /
+							Number(getStatValue(data.stats, 'pla-tim') ?? 0) /
 							(1000 * 60 * 60)
 						).toFixed(0)}{' '}
 						часов
 					</Tooltip.Trigger>
 					<Tooltip.Content>
 						{stringTimeDeltaFull(
-							getStatValue(data.stats, 'pla-tim') / 1000,
+							Number(getStatValue(data.stats, 'pla-tim')) / 1000,
 							t
 						)}
 					</Tooltip.Content>

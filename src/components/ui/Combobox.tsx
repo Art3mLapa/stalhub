@@ -243,7 +243,7 @@ export function Combobox(props: ComboboxProps) {
 		<div className={cn('relative w-full', className)} ref={wrapperRef}>
 			<button
 				className={cn(
-					'flex w-full items-center justify-between rounded-md border-2 border-border/40 bg-background px-3 py-2 font-semibold text-sm',
+					'flex w-full cursor-pointer items-center justify-between rounded-md border-2 border-border/40 bg-background px-3 py-2 font-semibold text-sm',
 					isMultiple ? 'min-h-10' : 'h-10'
 				)}
 				disabled={disabled}
@@ -293,7 +293,7 @@ export function Combobox(props: ComboboxProps) {
 				{open && (
 					<motion.div
 						animate="visible"
-						className="absolute z-50 mt-2 w-full rounded-md border-2 border-border/40 bg-background shadow-md"
+						className="absolute z-99 mt-2 w-full rounded-md border-2 border-border/40 bg-background shadow-md"
 						exit="hidden"
 						initial="hidden"
 						variants={dropdownVariants}
@@ -335,7 +335,7 @@ export function Combobox(props: ComboboxProps) {
 									return (
 										<motion.li
 											className={cn(
-												'flex cursor-pointer items-center gap-2 rounded px-2 py-1.5 text-sm transition-colors',
+												'flex cursor-pointer items-center gap-2 rounded px-2 py-1.5 text-sm transition-colors hover:bg-neutral-800/50',
 												optionDisabled &&
 													'cursor-not-allowed opacity-50 dark:text-neutral-500'
 											)}

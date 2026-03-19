@@ -10,7 +10,7 @@ export const buttonVariants = cva(
 				secondary:
 					'bg-white/60 text-neutral-900 dark:bg-neutral-800/50 dark:text-neutral-100 shadow-sm hover:bg-neutral-300 dark:hover:bg-neutral-800',
 				outline:
-					'border-2 border-neutral-300 dark:border-neutral-700 bg-transparent hover:bg-neutral-100 dark:hover:bg-neutral-800',
+					'ring-2 ring-border-secondary dark:ring-neutral-700 bg-transparent hover:bg-neutral-100 dark:hover:bg-neutral-800',
 				bordered:
 					'border border-sky-400 dark:border-border/50 border-2 bg-transparent text-sky-200 font-semibold hover:bg-sky-50 dark:hover:bg-sky-950',
 				ghost: 'bg-transparent hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100',

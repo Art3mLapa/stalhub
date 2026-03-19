@@ -9,7 +9,7 @@ import Input from '@/components/ui/Input'
 import { Modal } from '@/components/ui/Modal'
 import { CustomToast } from '@/components/ui/Toast'
 import { getLocale } from '@/lib/getLocale'
-import { buildQueries } from '@/queries/calcs/build.queries'
+import { itemsQueries } from '@/queries/calcs/items.queries'
 import { useBuildStore } from '@/stores/useBuild.store'
 import type { ModalProps } from '@/types/build.type'
 import {
@@ -27,7 +27,7 @@ export default function ContModal({ onClose }: ModalProps) {
 	const locale = getLocale()
 
 	const { data: items } = useSuspenseQuery(
-		buildQueries.get({ type: 'containers' })
+		itemsQueries.get({ type: 'containers' })
 	)
 
 	const [filter, setFilter] = useState('')

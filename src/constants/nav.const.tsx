@@ -1,6 +1,5 @@
-import { Icon } from '@iconify/react/dist/iconify.js'
+import { Icon } from '@iconify/react'
 import { useTranslation } from 'react-i18next'
-
 import CLink from '@/components/ui/Link'
 import type { AccordionItem } from '@/types/ui/accordion.type'
 import type { DropdownMenuGroup } from '@/types/ui/dropdown.type'
@@ -21,101 +20,106 @@ export const MobileLinks = [
 	},
 ]
 
-export const DropDownLinks: DropdownMenuGroup[] = [
-	{
-		key: 'calculators',
-		title: 'nav.groups.calculators.title',
-		icon: 'lucide:calculator',
-		items: [
-			{
-				key: 'art',
-				content: 'nav.groups.calculators.items.art.label',
-				icon: 'lucide:package',
-				description: 'nav.groups.calculators.items.art.description',
-			},
-			{
-				key: 'TTK',
-				content: 'nav.groups.calculators.items.ttk.label',
-				icon: 'lucide:timer-reset',
-				description: 'nav.groups.calculators.items.ttk.description',
-			},
-			{
-				key: 'barter',
-				content: 'nav.groups.calculators.items.barter.label',
-				icon: 'lucide:coins',
-				description: 'nav.groups.calculators.items.barter.description',
-			},
-			{
-				key: 'bp',
-				content: 'nav.groups.calculators.items.bp.label',
-				icon: 'lucide:ticket',
-				description: 'nav.groups.calculators.items.bp.description',
-			},
-			{
-				key: 'dpi',
-				content: 'nav.groups.calculators.items.dpi.label',
-				icon: 'lucide:mouse',
-				description: 'nav.groups.calculators.items.dpi.description',
-			},
-		],
-	},
-	{
-		key: 'clans',
-		title: 'nav.groups.clans.title',
-		icon: 'lucide:shield-half',
-		items: [
-			{
-				key: 'clanMaps',
-				content: 'nav.groups.clans.items.clanMaps.label',
-				icon: 'lucide:map-pinned',
-				description: 'nav.groups.clans.items.clanMaps.description',
-			},
-			{
-				key: 'squads',
-				content: 'nav.groups.clans.items.squads.label',
-				icon: 'lucide:radio-tower',
-				description: 'nav.groups.clans.items.squads.description',
-				disabled: true,
-			},
-			{
-				key: 'top',
-				content: 'nav.groups.clans.items.top.label',
-				icon: 'lucide:chart-no-axes-column',
-				description: 'nav.groups.clans.items.top.description',
-				disabled: true,
-			},
-		],
-	},
-	{
-		key: 'other',
-		title: 'nav.groups.other.title',
-		icon: 'lucide:more-horizontal',
-		items: [
-			{
-				key: 'maps',
-				content: 'nav.groups.other.items.maps.label',
-				icon: 'lucide:map',
-			},
-			{
-				key: 'auction',
-				content: 'nav.groups.other.items.auction.label',
-				icon: 'lucide:landmark',
-			},
-			{
-				key: 'players',
-				content: 'nav.groups.other.items.players.label',
-				icon: 'lucide:user-round-search',
-			},
-			{
-				key: 'models',
-				content: 'nav.groups.other.items.models.label',
-				icon: 'lucide:box',
-				description: 'nav.groups.other.items.models.description',
-				disabled: true,
-			},
-		],
-	},
-]
+export const DropDownLinks = (): DropdownMenuGroup[] => {
+	const { t } = useTranslation()
+
+	return [
+		{
+			key: 'calculators',
+			title: 'nav.groups.calculators.title',
+			icon: 'lucide:calculator',
+			items: [
+				{
+					key: 'art',
+					content: t('nav.groups.calculators.items.art.label'),
+					icon: 'lucide:package',
+					description: 'nav.groups.calculators.items.art.description',
+				},
+				{
+					key: 'TTK',
+					content: t('nav.groups.calculators.items.ttk.label'),
+					icon: 'lucide:timer-reset',
+					description: 'nav.groups.calculators.items.ttk.description',
+				},
+				{
+					key: 'barter',
+					content: t('nav.groups.calculators.items.barter.label'),
+					icon: 'lucide:coins',
+					description:
+						'nav.groups.calculators.items.barter.description',
+				},
+				{
+					key: 'bp',
+					content: t('nav.groups.calculators.items.bp.label'),
+					icon: 'lucide:ticket',
+					description: 'nav.groups.calculators.items.bp.description',
+				},
+				{
+					key: 'dpi',
+					content: t('nav.groups.calculators.items.dpi.label'),
+					icon: 'lucide:mouse',
+					description: 'nav.groups.calculators.items.dpi.description',
+				},
+			],
+		},
+		{
+			key: 'clans',
+			title: 'nav.groups.clans.title',
+			icon: 'lucide:shield-half',
+			items: [
+				{
+					key: 'clanMaps',
+					content: t('nav.groups.clans.items.clanMaps.label'),
+					icon: 'lucide:map-pinned',
+					description: 'nav.groups.clans.items.clanMaps.description',
+				},
+				{
+					key: 'squads',
+					content: t('nav.groups.clans.items.squads.label'),
+					icon: 'lucide:radio-tower',
+					description: 'nav.groups.clans.items.squads.description',
+					disabled: true,
+				},
+				{
+					key: 'top',
+					content: t('nav.groups.clans.items.top.label'),
+					icon: 'lucide:chart-no-axes-column',
+					description: 'nav.groups.clans.items.top.description',
+					disabled: true,
+				},
+			],
+		},
+		{
+			key: 'other',
+			title: 'nav.groups.other.title',
+			icon: 'lucide:more-horizontal',
+			items: [
+				{
+					key: 'maps',
+					content: t('nav.groups.other.items.maps.label'),
+					icon: 'lucide:map',
+				},
+				{
+					key: 'auction',
+					content: t('nav.groups.other.items.auction.label'),
+					icon: 'lucide:landmark',
+				},
+				{
+					key: 'players',
+					content: t('nav.groups.other.items.players.label'),
+					icon: 'lucide:user-round-search',
+				},
+				{
+					key: 'models',
+					content: t('nav.groups.other.items.models.label'),
+					icon: 'lucide:box',
+					description: 'nav.groups.other.items.models.description',
+					disabled: true,
+				},
+			],
+		},
+	]
+}
 
 export const DropDownMobile = (): AccordionItem[] => {
 	const { t } = useTranslation()

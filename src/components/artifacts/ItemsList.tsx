@@ -3,6 +3,7 @@
 import { Icon } from '@iconify/react'
 import Image from 'next/image'
 import { useMemo } from 'react'
+import { List } from 'react-window'
 import { cn } from '@/lib/cn'
 import {
 	type FavoriteType,
@@ -46,6 +47,85 @@ const colorPriority: Record<InfoColor, number> = {
 	[InfoColor.QUEST_ITEM]: 8,
 }
 
+type RowProps = {
+	items: Item[]
+	locale: Locale
+	onSelectItem?: (itemId: string) => void
+	selectedItemId?: string | null
+	favoriteType?: FavoriteType
+	isFavorite: (type: FavoriteType, id: string) => boolean
+	toggleFavorite: (type: FavoriteType, id: string) => void
+}
+
+const Row = ({
+	index,
+	style,
+	items,
+	locale,
+	onSelectItem,
+	selectedItemId,
+	favoriteType,
+	isFavorite,
+	toggleFavorite,
+}: {
+	index: number
+	style: React.CSSProperties
+} & RowProps) => {
+	const item = items[index]
+	const isActive = selectedItemId === item.id
+	const itemColor = infoColorMap[item.color as InfoColor] || InfoColor.DEFAULT
+	const isFav = favoriteType ? isFavorite(favoriteType, item.id) : false
+
+	return (
+		<div style={style}>
+			<div
+				className="relative m-1 flex cursor-pointer items-center justify-between gap-2 rounded-xl p-2 ring-2 transition-colors"
+				onClick={() => onSelectItem?.(item.id)}
+				style={
+					{
+						background: isActive ? `${itemColor}40` : undefined,
+						'--tw-ring-color': `${itemColor}80`,
+					} as React.CSSProperties
+				}
+			>
+				<div className="flex items-center gap-2">
+					<Image
+						alt={messageToString(item.name, locale)}
+						className="h-8 w-8 object-contain"
+						height={32}
+						src={`https://raw.githubusercontent.com/oarer/sc-db/refs/heads/main/merged/icons/${item.category}/${item.id}.png`}
+						width={32}
+					/>
+
+					<p
+						className="truncate font-semibold"
+						style={{ color: itemColor }}
+					>
+						{messageToString(item.name, locale)}
+					</p>
+				</div>
+				<button
+					className={`cursor-pointer items-center justify-center rounded-full p-1 transition-all hover:-rotate-16 hover:bg-yellow-300/20 ${isFav ? 'bg-yellow-200/20' : ''}`}
+					onClick={(e) => {
+						e.stopPropagation()
+						if (favoriteType) {
+							toggleFavorite(favoriteType, item.id)
+						}
+					}}
+					type="button"
+				>
+					<Icon
+						className={`text-xl ${
+							isFav ? 'text-yellow-400' : 'text-neutral-100'
+						}`}
+						icon="lucide:star"
+					/>
+				</button>
+			</div>
+		</div>
+	)
+}
+
 export function ItemsList({
 	items,
 	locale,
@@ -79,73 +159,23 @@ export function ItemsList({
 	}, [items, showFavorites, favoriteType, isFavorite])
 
 	return (
-		<div
-			className={cn(
-				'mask-y-from-95% mask-y-to-100% flex max-h-130 max-w-70 flex-col gap-2 overflow-y-auto',
-				className
-			)}
-		>
-			{sortedItems.map((item) => {
-				const isActive = selectedItemId === item.id
-				const itemColor =
-					infoColorMap[item.color as InfoColor] || InfoColor.DEFAULT
-				const isFav = favoriteType
-					? isFavorite(favoriteType, item.id)
-					: false
-
-				return (
-					<div
-						className="group relative m-1 flex cursor-pointer items-center gap-2 rounded-xl p-2 ring-2 transition-colors"
-						key={item.id}
-						onClick={() => onSelectItem?.(item.id)}
-						style={
-							{
-								background: isActive
-									? `${itemColor}40`
-									: undefined,
-								'--tw-ring-color': `${itemColor}80`,
-							} as React.CSSProperties
-						}
-					>
-						<button
-							className="absolute -right-1 -top-1 hidden size-5 items-center justify-center rounded-full bg-neutral-800 p-0.5 group-hover:flex"
-							onClick={(e) => {
-								e.stopPropagation()
-								if (favoriteType) {
-									toggleFavorite(favoriteType, item.id)
-								}
-							}}
-							type="button"
-						>
-							<Icon
-								className={
-									isFav
-										? 'text-yellow-400'
-										: 'text-neutral-500'
-								}
-								icon={
-									isFav ? 'lucide:star-fill' : 'lucide:star'
-								}
-								width={14}
-							/>
-						</button>
-						<Image
-							alt={messageToString(item.name, locale)}
-							className="h-8 w-8 object-contain"
-							height={32}
-							src={`https://raw.githubusercontent.com/oarer/sc-db/refs/heads/main/merged/icons/${item.category}/${item.id}.png`}
-							width={32}
-						/>
-
-						<p
-							className="truncate font-semibold"
-							style={{ color: itemColor }}
-						>
-							{messageToString(item.name, locale)}
-						</p>
-					</div>
-				)
-			})}
+		<div className={cn('max-h-130 max-w-70', className)}>
+			<List<RowProps>
+				className="mask-y-from-97% mask-y-to-100%"
+				rowComponent={Row}
+				rowCount={sortedItems.length}
+				rowHeight={56}
+				rowProps={{
+					items: sortedItems,
+					locale,
+					onSelectItem,
+					selectedItemId,
+					favoriteType,
+					isFavorite,
+					toggleFavorite,
+				}}
+				style={{ height: 520, width: '100%' }}
+			/>
 		</div>
 	)
 }

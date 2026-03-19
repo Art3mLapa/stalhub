@@ -8,7 +8,7 @@ import { Card } from '@/components/ui/Card'
 import Input from '@/components/ui/Input'
 import { CustomToast } from '@/components/ui/Toast'
 import { getLocale } from '@/lib/getLocale'
-import { buildQueries } from '@/queries/calcs/build.queries'
+import { itemsQueries } from '@/queries/calcs/items.queries'
 import { useBuildStore } from '@/stores/useBuild.store'
 import type { ModalProps } from '@/types/build.type'
 import {
@@ -24,7 +24,7 @@ export default function ArmorModal({ onClose }: ModalProps) {
 	const locale = getLocale()
 
 	const { data: items } = useSuspenseQuery(
-		buildQueries.get({ type: 'armor' })
+		itemsQueries.get({ type: 'armor' })
 	)
 
 	const [filter, setFilter] = useState('')

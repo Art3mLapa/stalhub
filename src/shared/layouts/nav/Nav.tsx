@@ -54,7 +54,7 @@ export default function Nav() {
 						</Link>
 					</div>
 					<div className="hidden items-center gap-8 lg:flex">
-						{DropDownLinks.map((menu, index) => (
+						{DropDownLinks().map((menu, index) => (
 							<DropdownMenu
 								icon={menu?.icon}
 								items={menu.items}

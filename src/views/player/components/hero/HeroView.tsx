@@ -19,7 +19,7 @@ export default function HeroView({ data }: { data: PlayerInfo }) {
 				alt={`${data.alliance} icon`}
 				className="absolute -top-15 -left-20 -z-1 hidden xl:block"
 				height={115}
-				src={`/images/alliance/${data.alliance}.png`} // Rewrite to svg
+				src={`/images/alliance/${data.alliance}.png`} // TODO Rewrite to svg
 				width={115}
 			/>
 			<Card.Root className="z-10 w-full">

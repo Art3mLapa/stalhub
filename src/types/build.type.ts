@@ -1,10 +1,17 @@
 import type { ArtQuality, Item } from './item.type'
 
 export type BuildStatsParams = {
-	type: 'artefact' | 'armor' | 'containers' | 'consumables'
+	type:
+		| 'artefact'
+		| 'armor'
+		| 'containers'
+		| 'consumables'
+		| 'weapons'
+		| 'ammo'
+		| 'plates'
 }
 
-export type BuildStatsResponse = Record<string, Item>
+export type ItemsResponse = Record<string, Item>
 
 export type Art = {
 	instanceId: string

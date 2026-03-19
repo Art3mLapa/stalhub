@@ -8,6 +8,7 @@ import CLink from '@/components/ui/Link'
 import { unbounded } from '../fonts'
 import CharmModel from './model'
 
+// ! TODO move to const
 type Links = {
 	url: string
 	icon: string

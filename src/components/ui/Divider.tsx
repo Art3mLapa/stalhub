@@ -19,7 +19,7 @@ const Divider = ({
 	return (
 		<div
 			className={cn(
-				'shrink-0 bg-border/50',
+				'shrink-0 bg-border-secondary',
 				'data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full',
 				'data-[orientation=vertical]:w-px data-[orientation=vertical]:self-stretch',
 				className

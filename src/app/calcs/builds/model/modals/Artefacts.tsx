@@ -10,7 +10,7 @@ import {
 import { Card } from '@/components/ui/Card'
 import Input from '@/components/ui/Input'
 import { getLocale } from '@/lib/getLocale'
-import { buildQueries } from '@/queries/calcs/build.queries'
+import { itemsQueries } from '@/queries/calcs/items.queries'
 import { useBuildStore } from '@/stores/useBuild.store'
 import type { Art, ModalProps } from '@/types/build.type'
 import type { ArtQuality, Item } from '@/types/item.type'
@@ -20,7 +20,7 @@ import { parseItemStats } from '@/utils/parseArtifact'
 
 export default function ArtModal({ onClose }: ModalProps) {
 	const locale = getLocale()
-	const query = useSuspenseQuery(buildQueries.get({ type: 'artefact' }))
+	const query = useSuspenseQuery(itemsQueries.get({ type: 'artefact' }))
 	const items = (query.data as Item[] | undefined) ?? []
 
 	const addArt = useBuildStore((s) => s.addArt)
@@ -254,7 +254,7 @@ export default function ArtModal({ onClose }: ModalProps) {
 				</Card.Root>
 
 				<Card.Root className="min-w-90">
-					<Card.Content className='flex flex-col gap-4'>
+					<Card.Content className="flex flex-col gap-4">
 						<ArtifactStatsPanel
 							addOptions={addOptions}
 							art={selectedStatsData?.art ?? null}

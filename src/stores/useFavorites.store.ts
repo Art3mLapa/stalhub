@@ -3,7 +3,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-export type FavoriteType = 'artefact' | 'container' | 'boost' | 'armor'
+export type FavoriteType = 'artefact' | 'container' | 'boost' | 'armor' | 'weapon' | 'ammo'
 
 export type FavoriteItem = {
 	id: string

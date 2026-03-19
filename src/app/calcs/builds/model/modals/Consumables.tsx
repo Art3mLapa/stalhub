@@ -11,7 +11,7 @@ import { HoverCard } from '@/components/ui/HoverCard'
 import Input from '@/components/ui/Input'
 import { Modal } from '@/components/ui/Modal'
 import { getLocale } from '@/lib/getLocale'
-import { buildQueries } from '@/queries/calcs/build.queries'
+import { itemsQueries } from '@/queries/calcs/items.queries'
 import { useBuildStore } from '@/stores/useBuild.store'
 import {
 	BoostButtons,
@@ -232,7 +232,7 @@ function BoostSelectModal({
 
 export default function ConsumablesModal({ onClose }: ModalProps) {
 	const { data: items } = useSuspenseQuery(
-		buildQueries.get({ type: 'consumables' })
+		itemsQueries.get({ type: 'consumables' })
 	)
 
 	const boost = useBuildStore((s) => s.build.boost)

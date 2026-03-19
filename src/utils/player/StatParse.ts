@@ -28,19 +28,13 @@ export const DB_STATS_BY_ID = dbStats.reduce(
 export function getStatValue(
 	stats: (Stat & { meta?: DBStats })[],
 	id: string
-): number {
+): number | string | Date {
 	const stat = stats.find(
 		(s) =>
 			s.id === id || s.meta?.id === id || DB_STATS_BY_ID[s.id]?.id === id
 	)
 
-	if (!stat) return 0
-
-	if (typeof stat.value !== 'number') {
-		return 0
-	}
-
-	return stat.value
+	return stat?.value ?? 0
 }
 
 export type StatKey = keyof typeof STATS_MAP

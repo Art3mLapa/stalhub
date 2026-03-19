@@ -11,7 +11,7 @@ import { useUwuStore } from '@/stores/useUwu.store'
 
 // HUGE thanks to KryptonFox (GitHub: @kryptonFox) for this code snippet <3
 const BuildHash = () => (
-	<span className="flex items-center gap-1 text-xs text-neutral-600 dark:text-neutral-400">
+	<span className="flex items-center gap-1 text-neutral-600 text-xs dark:text-neutral-400">
 		<Icon className="h-4 w-4" icon="mdi:code-tags" />
 		build@
 		<Link
@@ -31,6 +31,8 @@ const Footer = () => {
 	const year = new Date().getFullYear()
 	const { t } = useTranslation()
 
+
+	// TODO move to /const
 	const links = [
 		{
 			href: 'https://github.com/StalHub',
@@ -53,7 +55,7 @@ const Footer = () => {
 	]
 
 	return (
-		<footer className="outline-border/40 outline-2 backdrop-blur-xs">
+		<footer className="outline-2 outline-border/40 backdrop-blur-xs">
 			<div
 				className={`${montserrat.className} mx-auto flex max-w-7xl flex-col gap-8 px-6 py-8`}
 			>
@@ -111,7 +113,7 @@ const Footer = () => {
 											className="h-5 w-5 text-neutral-500 transition-colors duration-500 group-hover:text-neutral-900 dark:text-neutral-400 dark:group-hover:text-neutral-50"
 											icon={link.icon}
 										/>
-										<span className="text-left text-sm text-neutral-700 duration-500 dark:text-white dark:group-hover:text-neutral-50">
+										<span className="text-left text-neutral-700 text-sm duration-500 dark:text-white dark:group-hover:text-neutral-50">
 											{t(link.title)}
 										</span>
 									</Link>
@@ -121,7 +123,7 @@ const Footer = () => {
 					</nav>
 				</div>
 
-				<div className="border-border/30 border-t py-8 text-sm font-semibold">
+				<div className="border-border/30 border-t py-8 font-semibold text-sm">
 					<p className="text-neutral-700 dark:text-neutral-400">
 						{t('footer.project.with')}
 						<Link

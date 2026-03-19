@@ -6,6 +6,7 @@ import { groupPlayerStats, StatsSection } from './Stats.helper'
 
 export default function StatsView({ data }: { data: Stat[] }) {
 	const grouped = groupPlayerStats(data ?? [])
+
 	return (
 		<Card.Root>
 			<Card.Header>

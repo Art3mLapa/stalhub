@@ -144,10 +144,10 @@ function DropdownMenuItem({
 							icon={item.icon}
 						/>
 					)}
-					<div className="flex w-full flex-col">
+					<div className="flex w-full flex-col font-semibold">
 						{item.content}
 						{item.description && (
-							<span className="mt-0.5 font-semibold text-neutral-500 text-xs dark:text-neutral-400">
+							<span className="mt-0.5 text-neutral-500 text-xs dark:text-neutral-400">
 								{renderMaybeTranslate(t, item.description)}
 							</span>
 						)}

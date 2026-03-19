@@ -2,7 +2,6 @@
 
 import i18n from 'i18next'
 
-import { ThemeProvider } from 'next-themes'
 import { type ReactNode, useEffect, useState } from 'react'
 import { I18nextProvider, initReactI18next } from 'react-i18next'
 import { Toaster } from 'sonner'
@@ -60,12 +59,10 @@ export default function Providers({ children }: Props) {
 	return (
 		<QueryProvider>
 			<I18nextProvider i18n={i18n}>
-				<ThemeProvider attribute="class" enableSystem>
-					<UwuProvider>
-						<Toaster position="bottom-right" />
-						{children}
-					</UwuProvider>
-				</ThemeProvider>
+				<UwuProvider>
+					<Toaster position="bottom-right" />
+					{children}
+				</UwuProvider>
 			</I18nextProvider>
 		</QueryProvider>
 	)
