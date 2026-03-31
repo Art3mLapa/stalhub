@@ -4,5 +4,5 @@
 import GlobalErrorView from '@/views/errors/globalError/GlobalErrorView'
 
 export default function Page() {
-	return <GlobalErrorView errorId="test" reset={() => null} />
+	return (<p>test</p>)
 }
