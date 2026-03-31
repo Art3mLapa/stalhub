@@ -23,7 +23,7 @@ import type {
 import { Divider } from './Divider'
 
 const baseClasses =
-	'absolute z-99999 min-w-[250px] bg-background/95 ring-2 ring-border/50 rounded-lg shadow-lg p-2'
+	'absolute z-99999 min-w-[250px] flex flex-col gap-2 bg-background/95 ring-2 ring-border/50 rounded-lg shadow-lg p-2'
 
 const toggleSubmenuKey = (
 	setOpenSubmenus: React.Dispatch<React.SetStateAction<Set<string>>>,
@@ -122,10 +122,10 @@ function DropdownMenuItem({
 				aria-expanded={hasSubmenu ? showSubmenu : undefined}
 				aria-haspopup={hasSubmenu ? 'menu' : undefined}
 				className={cn(
-					'flex w-full items-center justify-between rounded-xl px-2 py-1.5 text-left text-sm transition-colors',
-					item.disabled
-						? 'cursor-not-allowed text-neutral-400 dark:text-neutral-500'
-						: 'cursor-pointer text-neutral-700 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700/40',
+					'flex w-full items-center justify-between rounded-xl text-left font-semibold text-sm transition-colors',
+					item.disabled &&
+						'cursor-not-allowed text-neutral-400 dark:text-neutral-500',
+
 					hasSubmenu && 'pr-2'
 				)}
 				exit={{ opacity: 0 }}
@@ -136,23 +136,7 @@ function DropdownMenuItem({
 				role="menuitem"
 				tabIndex={item.disabled ? -1 : 0}
 			>
-				<div className="flex w-full items-center gap-2">
-					{item.icon && (
-						<Icon
-							aria-hidden="true"
-							className="text-neutral-500 text-xl dark:text-white"
-							icon={item.icon}
-						/>
-					)}
-					<div className="flex w-full flex-col font-semibold">
-						{item.content}
-						{item.description && (
-							<span className="mt-0.5 text-neutral-500 text-xs dark:text-neutral-400">
-								{renderMaybeTranslate(t, item.description)}
-							</span>
-						)}
-					</div>
-				</div>
+				{item.content}
 
 				{hasSubmenu && (
 					<motion.div
@@ -374,9 +358,9 @@ export default function DropdownMenu({
 				variant={variant}
 			>
 				{icon && <Icon className="text-xl" icon={icon} />}
-				<div className="font-semibold text-md">
+				<p className="font-semibold text-md">
 					{renderMaybeTranslate(t, title)}
-				</div>
+				</p>
 				<motion.div
 					animate={{ rotate: isOpen ? 90 : 0 }}
 					transition={{ duration: 0.2, ease: 'easeInOut' }}

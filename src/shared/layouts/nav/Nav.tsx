@@ -1,11 +1,13 @@
 'use client'
 
+import { Icon } from '@iconify/react'
 import { motion, useMotionValueEvent, useScroll } from 'motion/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 // import ItemSearchModal from '@/components/modals/ItemSearch'
 import DropdownMenu from '@/components/ui/DropDown'
+import { CLink } from '@/components/ui/Link'
 import { DropDownLinks } from '@/constants/nav.const'
 import useSvg from '@/hooks/useSvg'
 import ChangeLang from './ChangeLang'
@@ -63,6 +65,14 @@ export default function Nav() {
 								title={menu.title}
 							/>
 						))}
+						<CLink
+							className="flex items-center gap-4 rounded-full px-6 py-2"
+							href="/wiki"
+							variant={'ghost'}
+						>
+							<Icon className="text-xl" icon="lucide:book-open" />
+							<p className="font-semibold text-md">Вики</p>
+						</CLink>
 						{/*! TODO сука на прод не забудь раскоментить */}
 						{/* <ItemSearchModal /> */}
 					</div>

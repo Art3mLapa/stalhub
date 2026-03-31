@@ -6,6 +6,8 @@ import { Accordion } from '@/components/ui/Accordion'
 import { DropDownMobile, MobileLinks } from '@/constants/nav.const'
 import useClickOutside from '@/hooks/useClickOutside'
 
+//! TODO перепиши эту залупу
+
 const NavMobile = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
 	const menuRef = useRef<HTMLDivElement>(null)

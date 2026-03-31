@@ -2,10 +2,10 @@
 
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import Link from 'next/link'
 import { type SyntheticEvent, useCallback, useEffect, useState } from 'react'
 import { Button } from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
-import CLink from '@/components/ui/Link'
 import { unbounded } from '../fonts'
 import Model from './model'
 
@@ -56,12 +56,12 @@ export default function Page() {
 					<h1 className={`${unbounded.className} text-4xl`}>
 						Доступ разрешён!
 					</h1>
-					<CLink
+					<Link
 						className="bg-background px-4 py-2 ring-2 ring-border/40"
 						href="/"
 					>
 						На главную
-					</CLink>
+					</Link>
 				</div>
 
 				<div className="flex h-[50vh] w-full flex-1 justify-center sm:h-[60vh] lg:block xl:h-[80vh]">

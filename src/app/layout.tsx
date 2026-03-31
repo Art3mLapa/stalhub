@@ -2,11 +2,12 @@ import type { Metadata } from 'next'
 import { Suspense } from 'react'
 
 import '@/shared/styles/index.css'
+import Script from 'next/script'
 import { ThemeProvider } from 'next-themes'
 import { raleway } from '@/app/fonts'
 import Providers from '@/providers/providers'
 import { GridBackgroundWithBeams } from '@/shared/Background'
-import Footer from '@/shared/layouts/Footer'
+import Footer from '@/shared/layouts/footer/Footer'
 import InDevNav from '@/shared/layouts/nav/InDevNav'
 import Nav from '@/shared/layouts/nav/Nav'
 
@@ -41,6 +42,11 @@ export default function RootLayout({
 					maxBeams={4}
 					rows={100}
 				/>
+				<Script
+					data-website-id="47f7941c-8d8d-4976-8cf0-690dfe79f522"
+					defer
+					src="https://umami.stalhub.tech/script.js"
+				/>
 				<Suspense fallback={<div />}>
 					<ThemeProvider
 						attribute="class"
@@ -51,8 +57,8 @@ export default function RootLayout({
 							<InDevNav />
 							<Nav />
 							{children}
+							<Footer />
 						</Providers>
-						<Footer />
 					</ThemeProvider>
 				</Suspense>
 			</body>

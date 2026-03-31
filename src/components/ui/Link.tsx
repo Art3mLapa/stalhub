@@ -1,50 +1,72 @@
-import { Icon } from '@iconify/react'
+'use client'
 
+import { Icon } from '@iconify/react'
 import type { VariantProps } from 'class-variance-authority'
 import Link from 'next/link'
-import type { AnchorHTMLAttributes } from 'react'
-import { twMerge } from 'tailwind-merge'
+import { forwardRef } from 'react'
 
-import { linkVariants } from '@/constants/ui/link.const'
+import { buttonVariants } from '@/constants/ui/button.const'
+import { cn } from '@/lib/cn'
 
 interface CLinkProps
-	extends AnchorHTMLAttributes<HTMLAnchorElement>,
-		VariantProps<typeof linkVariants> {
-	variant?: 'primary' | 'secondary' | 'outline'
+	extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
+		VariantProps<typeof buttonVariants> {
 	disabled?: boolean
 	href: string
 	externalIcon?: boolean
+	loading?: boolean
 }
 
-export default function CLink({
-	children,
-	className,
-	variant,
-	size,
-	disabled = false,
-	href,
-	externalIcon = true,
-	...rest
-}: CLinkProps) {
-	const isExternal = /^https?:\/\//.test(href)
+const CLink = forwardRef<HTMLAnchorElement, CLinkProps>(
+	(
+		{
+			children,
+			className,
+			variant,
+			size,
+			disabled = false,
+			href,
+			externalIcon = true,
+			loading = false,
+			...props
+		},
+		ref
+	) => {
+		const isExternal = /^https?:\/\//.test(href)
 
-	return (
-		<Link
-			href={href}
-			{...rest}
-			aria-disabled={disabled}
-			className={twMerge(linkVariants({ variant, size }), className)}
-			rel={isExternal ? 'noopener noreferrer' : undefined}
-			tabIndex={disabled ? -1 : undefined}
-			target={isExternal ? '_blank' : undefined}
-		>
-			{children}
-			{isExternal && externalIcon && (
-				<Icon
-					className="h-4 w-4 shrink-0"
-					icon="lucide:external-link"
-				/>
-			)}
-		</Link>
-	)
-}
+		return (
+			<Link
+				href={href}
+				{...props}
+				aria-disabled={disabled || loading}
+				className={cn(
+					buttonVariants({ variant, size }),
+					className,
+					(disabled || loading) && 'pointer-events-none opacity-50',
+					loading && 'cursor-not-allowed'
+				)}
+				ref={ref}
+				rel={isExternal ? 'noopener noreferrer' : undefined}
+				target={isExternal ? '_blank' : undefined}
+			>
+				{loading && (
+					<Icon
+						className="mr-2 h-4 w-4 animate-spin"
+						icon="lucide:loader-circle"
+					/>
+				)}
+				{children}
+				{isExternal && externalIcon && !loading && (
+					<Icon
+						className="ml-2 h-4 w-4 shrink-0"
+						icon="lucide:external-link"
+					/>
+				)}
+			</Link>
+		)
+	}
+)
+
+CLink.displayName = 'UI.CLink'
+
+export { CLink, buttonVariants }

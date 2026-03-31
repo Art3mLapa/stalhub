@@ -1,7 +1,15 @@
 @import 'tailwindcss';
+@plugin '@tailwindcss/typography';
 @import './tokens/colors.css';
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+@layer utilities {
+    .contain-content {
+        content-visibility: auto;
+        contain-intrinsic-size: 0 500px;
+    }
+}
 
 @layer base {
     @import './browser.css';

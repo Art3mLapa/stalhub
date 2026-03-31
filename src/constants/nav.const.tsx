@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react'
 import { useTranslation } from 'react-i18next'
-import CLink from '@/components/ui/Link'
+import { CLink } from '@/components/ui/Link'
 import type { AccordionItem } from '@/types/ui/accordion.type'
 import type { DropdownMenuGroup } from '@/types/ui/dropdown.type'
 
@@ -31,34 +31,124 @@ export const DropDownLinks = (): DropdownMenuGroup[] => {
 			items: [
 				{
 					key: 'art',
-					content: t('nav.groups.calculators.items.art.label'),
-					icon: 'lucide:package',
-					description: 'nav.groups.calculators.items.art.description',
+					content: (
+						<CLink
+							className="flex w-full items-center justify-start gap-2 rounded-lg px-3 py-1"
+							href="/calcs/builds"
+							variant={'ghost'}
+						>
+							<Icon className="text-xl" icon="lucide:package" />
+							<div className="flex flex-col">
+								<p className="font-semibold text-neutral-700 dark:text-neutral-100">
+									{t(
+										'nav.groups.calculators.items.art.label'
+									)}
+								</p>
+								<span className="font-semibold text-neutral-500 text-xs dark:text-neutral-400">
+									{t(
+										'nav.groups.calculators.items.art.description'
+									)}
+								</span>
+							</div>
+						</CLink>
+					),
 				},
 				{
 					key: 'TTK',
-					content: t('nav.groups.calculators.items.ttk.label'),
-					icon: 'lucide:timer-reset',
-					description: 'nav.groups.calculators.items.ttk.description',
+					content: (
+						<CLink
+							className="flex w-full items-center justify-start gap-2 rounded-lg px-3 py-1"
+							href="/calcs/ttk"
+							variant={'ghost'}
+						>
+							<Icon
+								className="text-xl"
+								icon="lucide:timer-reset"
+							/>
+							<div className="flex flex-col">
+								<p className="font-semibold text-neutral-700 dark:text-neutral-100">
+									{t(
+										'nav.groups.calculators.items.ttk.label'
+									)}
+								</p>
+								<span className="font-semibold text-neutral-500 text-xs dark:text-neutral-400">
+									{t(
+										'nav.groups.calculators.items.ttk.description'
+									)}
+								</span>
+							</div>
+						</CLink>
+					),
 				},
 				{
 					key: 'barter',
-					content: t('nav.groups.calculators.items.barter.label'),
-					icon: 'lucide:coins',
-					description:
-						'nav.groups.calculators.items.barter.description',
+					content: (
+						<CLink
+							className="flex w-full items-center justify-start gap-2 rounded-lg px-3 py-1"
+							href={'test'}
+							variant={'ghost'}
+						>
+							<Icon className="text-xl" icon="lucide:coins" />
+							<div className="flex flex-col">
+								<p className="font-semibold text-neutral-700 dark:text-neutral-100">
+									{t(
+										'nav.groups.calculators.items.barter.label'
+									)}
+								</p>
+								<span className="font-semibold text-neutral-500 text-xs dark:text-neutral-400">
+									{t(
+										'nav.groups.calculators.items.barter.description'
+									)}
+								</span>
+							</div>
+						</CLink>
+					),
 				},
 				{
 					key: 'bp',
-					content: t('nav.groups.calculators.items.bp.label'),
-					icon: 'lucide:ticket',
-					description: 'nav.groups.calculators.items.bp.description',
+					content: (
+						<CLink
+							className="flex w-full items-center justify-start gap-2 rounded-lg px-3 py-1"
+							href={'test'}
+							variant={'ghost'}
+						>
+							<Icon className="text-xl" icon="lucide:ticket" />
+							<div className="flex flex-col">
+								<p className="font-semibold text-neutral-700 dark:text-neutral-100">
+									{t('nav.groups.calculators.items.bp.label')}
+								</p>
+								<span className="font-semibold text-neutral-500 text-xs dark:text-neutral-400">
+									{t(
+										'nav.groups.calculators.items.bp.description'
+									)}
+								</span>
+							</div>
+						</CLink>
+					),
 				},
 				{
 					key: 'dpi',
-					content: t('nav.groups.calculators.items.dpi.label'),
-					icon: 'lucide:mouse',
-					description: 'nav.groups.calculators.items.dpi.description',
+					content: (
+						<CLink
+							className="flex w-full items-center justify-start gap-2 rounded-lg px-3 py-1"
+							href={'test'}
+							variant={'ghost'}
+						>
+							<Icon className="text-xl" icon="lucide:mouse" />
+							<div className="flex flex-col">
+								<p className="font-semibold text-neutral-700 dark:text-neutral-100">
+									{t(
+										'nav.groups.calculators.items.dpi.label'
+									)}
+								</p>
+								<span className="font-semibold text-neutral-500 text-xs dark:text-neutral-400">
+									{t(
+										'nav.groups.calculators.items.dpi.description'
+									)}
+								</span>
+							</div>
+						</CLink>
+					),
 				},
 			],
 		},
@@ -69,22 +159,79 @@ export const DropDownLinks = (): DropdownMenuGroup[] => {
 			items: [
 				{
 					key: 'clanMaps',
-					content: t('nav.groups.clans.items.clanMaps.label'),
-					icon: 'lucide:map-pinned',
-					description: 'nav.groups.clans.items.clanMaps.description',
+					content: (
+						<CLink
+							className="flex w-full items-center justify-start gap-2 rounded-lg px-3 py-1"
+							href={'test'}
+							variant={'ghost'}
+						>
+							<Icon
+								className="text-xl"
+								icon="lucide:map-pinned"
+							/>
+							<div className="flex flex-col">
+								<p className="font-semibold text-neutral-700 dark:text-neutral-100">
+									{t('nav.groups.clans.items.clanMaps.label')}
+								</p>
+								<span className="font-semibold text-neutral-500 text-xs dark:text-neutral-400">
+									{t(
+										'nav.groups.clans.items.clanMaps.description'
+									)}
+								</span>
+							</div>
+						</CLink>
+					),
 				},
 				{
 					key: 'squads',
-					content: t('nav.groups.clans.items.squads.label'),
-					icon: 'lucide:radio-tower',
-					description: 'nav.groups.clans.items.squads.description',
+					content: (
+						<CLink
+							className="flex w-full items-center justify-start gap-2 rounded-lg px-3 py-1"
+							href={'test'}
+							variant={'ghost'}
+						>
+							<Icon
+								className="text-xl"
+								icon="lucide:radio-tower"
+							/>
+							<div className="flex flex-col">
+								<p className="font-semibold text-neutral-700 dark:text-neutral-100">
+									{t('nav.groups.clans.items.squads.label')}
+								</p>
+								<span className="font-semibold text-neutral-500 text-xs dark:text-neutral-400">
+									{t(
+										'nav.groups.clans.items.squads.description'
+									)}
+								</span>
+							</div>
+						</CLink>
+					),
 					disabled: true,
 				},
 				{
 					key: 'top',
-					content: t('nav.groups.clans.items.top.label'),
-					icon: 'lucide:chart-no-axes-column',
-					description: 'nav.groups.clans.items.top.description',
+					content: (
+						<CLink
+							className="flex w-full items-center justify-start gap-2 rounded-lg px-3 py-1"
+							href={'test'}
+							variant={'ghost'}
+						>
+							<Icon
+								className="text-xl"
+								icon="lucide:chart-no-axes-column"
+							/>
+							<div className="flex flex-col">
+								<p className="font-semibold text-neutral-700 dark:text-neutral-100">
+									{t('nav.groups.clans.items.top.label')}
+								</p>
+								<span className="font-semibold text-neutral-500 text-xs dark:text-neutral-400">
+									{t(
+										'nav.groups.clans.items.top.description'
+									)}
+								</span>
+							</div>
+						</CLink>
+					),
 					disabled: true,
 				},
 			],
@@ -96,24 +243,73 @@ export const DropDownLinks = (): DropdownMenuGroup[] => {
 			items: [
 				{
 					key: 'maps',
-					content: t('nav.groups.other.items.maps.label'),
-					icon: 'lucide:map',
+					content: (
+						<CLink
+							className="flex w-full items-center justify-start gap-2 rounded-lg px-3 py-1"
+							href={'test'}
+							variant={'ghost'}
+						>
+							<Icon className="text-xl" icon="lucide:map" />
+							<p className="font-semibold text-neutral-700 dark:text-neutral-100">
+								{t('nav.groups.other.items.maps.label')}
+							</p>
+						</CLink>
+					),
 				},
 				{
 					key: 'auction',
-					content: t('nav.groups.other.items.auction.label'),
-					icon: 'lucide:landmark',
+					content: (
+						<CLink
+							className="flex w-full items-center justify-start gap-2 rounded-lg px-3 py-1"
+							href={'test'}
+							variant={'ghost'}
+						>
+							<Icon className="text-xl" icon="lucide:landmark" />
+							<p className="font-semibold text-neutral-700 dark:text-neutral-100">
+								{t('nav.groups.other.items.auction.label')}
+							</p>
+						</CLink>
+					),
 				},
 				{
 					key: 'players',
-					content: t('nav.groups.other.items.players.label'),
-					icon: 'lucide:user-round-search',
+					content: (
+						<CLink
+							className="flex w-full items-center justify-start gap-2 rounded-lg px-3 py-1"
+							href={'test'}
+							variant={'ghost'}
+						>
+							<Icon
+								className="text-xl"
+								icon="lucide:user-round-search"
+							/>
+							<p className="font-semibold text-neutral-700 dark:text-neutral-100">
+								{t('nav.groups.other.items.players.label')}
+							</p>
+						</CLink>
+					),
 				},
 				{
 					key: 'models',
-					content: t('nav.groups.other.items.models.label'),
-					icon: 'lucide:box',
-					description: 'nav.groups.other.items.models.description',
+					content: (
+						<CLink
+							className="flex w-full items-center justify-start gap-2 rounded-lg px-3 py-1"
+							href={'test'}
+							variant={'ghost'}
+						>
+							<Icon className="text-xl" icon="lucide:box" />
+							<div className="flex flex-col">
+								<p className="font-semibold text-neutral-700 dark:text-neutral-100">
+									{t('nav.groups.other.items.models.label')}
+								</p>
+								<span className="font-semibold text-neutral-500 text-xs dark:text-neutral-400">
+									{t(
+										'nav.groups.other.items.models.description'
+									)}
+								</span>
+							</div>
+						</CLink>
+					),
 					disabled: true,
 				},
 			],

@@ -1,7 +1,12 @@
 @theme {
     --color-border: var(--border);
     --color-border-secondary: var(--border-secondary);
+    --color-border-code: var(--border-code);
     --color-background: var(--background);
+    --color-background-code: var(--background-code);
+    --color-accent: var(--background-accent);
+    --color-text-accent: var(--text-accent);
+    --color-foreground: var(--foreground);
 }
 
 :root {
@@ -10,8 +15,13 @@
     --glow-color: rgba(59, 130, 246, 0.4);
 
     --border: lab(63.3038% -18.433 -51.0407);
+    --border-code: lab(63.3038% -18.433 -51.0407 / 0.5);
     --border-secondary: lab(15.204% 0 0);
     --background: lab(100% 0 0);
+    --background-code: lab(35.3% 0 0);
+    --background-accent: oklch(86.995% 0.0001 271.152);
+    --text-accent: oklch(0.371 0 0);
+    --foreground: oklch(0.556 0 0);
 }
 
 .dark {
@@ -20,6 +30,11 @@
     --glow-color: rgba(56, 189, 248, 0.3);
 
     --border: lab(88.6983% -11.3978 -16.8488);
+    --border-code: lab(88.6983% -11.3978 -16.8488 / 0.5);
     --border-secondary: lab(27.036% 0 0);
     --background: lab(7.74% 0 0);
+    --background-accent: oklch(28.908% 0.00003 271.152);
+    --background-code: lab(7.74% 0 0 /0.5);
+    --text-accent: oklch(81.406% 0.00009 271.152);
+    --foreground: oklch(0.708 0 0);
 }

@@ -4,8 +4,6 @@ import type { ButtonVariant } from '@/constants/ui/button.const'
 export interface DropdownItem {
 	key: string
 	content: string | React.ReactNode
-	description?: string | React.ReactNode
-	icon?: string
 	disabled?: boolean
 	divider?: boolean
 	submenu?: DropdownItem[]

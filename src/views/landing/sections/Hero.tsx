@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
 import { unbounded } from '@/app/fonts'
 import { Badge } from '@/components/ui/Badge'
-import CLink from '@/components/ui/Link'
+import { CLink } from '@/components/ui/Link'
 import { featuresHero } from '@/constants/landing.const'
 import { useUwuStore } from '@/stores/useUwu.store'
 

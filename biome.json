@@ -1,7 +1,13 @@
 {
 	"$schema": "https://biomejs.dev/schemas/2.3.11/schema.json",
-	"vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
-	"files": { "ignoreUnknown": false },
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
+	"files": {
+		"ignoreUnknown": false
+	},
 	"formatter": {
 		"enabled": true,
 		"formatWithErrors": false,
@@ -19,8 +25,12 @@
 		"enabled": true,
 		"rules": {
 			"recommended": false,
-			"complexity": { "noUselessTypeConstraint": "error" },
-			"correctness": { "noUnusedVariables": "error" },
+			"complexity": {
+				"noUselessTypeConstraint": "error"
+			},
+			"correctness": {
+				"noUnusedVariables": "error"
+			},
 			"style": {
 				"noCommonJs": "error",
 				"noNamespace": "error",
@@ -37,7 +47,12 @@
 				"useNamespaceKeyword": "error"
 			}
 		},
-		"includes": ["**", "!.next/*", "!node_modules", "!dist"]
+		"includes": [
+			"**",
+			"!.next/*",
+			"!node_modules",
+			"!dist"
+		]
 	},
 	"javascript": {
 		"formatter": {
@@ -59,9 +74,16 @@
 			"selfCloseVoidElements": "always"
 		}
 	},
+	"css": {
+		"formatter": {
+			"enabled": false
+		}
+	},
 	"overrides": [
 		{
-			"includes": ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
+			"includes": [
+				"**/*.{js,mjs,cjs,ts,jsx,tsx}"
+			],
 			"javascript": {
 				"globals": [
 					"onanimationend",
@@ -189,15 +211,21 @@
 					"nursery": {
 						"useSortedClasses": "error"
 					}
-
 				}
 			}
 		},
 		{
-			"includes": ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
+			"includes": [
+				"**/*.ts",
+				"**/*.tsx",
+				"**/*.mts",
+				"**/*.cts"
+			],
 			"linter": {
 				"rules": {
-					"complexity": { "noArguments": "error" },
+					"complexity": {
+						"noArguments": "error"
+					},
 					"correctness": {
 						"noConstAssign": "off",
 						"noGlobalObjectCalls": "off",
@@ -208,7 +236,9 @@
 						"noUnreachable": "off",
 						"noUnreachableSuper": "off"
 					},
-					"style": { "useConst": "error" },
+					"style": {
+						"useConst": "error"
+					},
 					"suspicious": {
 						"noClassAssign": "off",
 						"noDuplicateClassMembers": "off",
@@ -228,6 +258,11 @@
 	],
 	"assist": {
 		"enabled": true,
-		"actions": { "source": { "organizeImports": "on", "useSortedAttributes": "on" } }
+		"actions": {
+			"source": {
+				"organizeImports": "on",
+				"useSortedAttributes": "on"
+			}
+		}
 	}
 }
