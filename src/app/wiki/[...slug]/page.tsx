@@ -9,7 +9,6 @@ import { useMDXComponents } from '@/components/wiki/mdx-components'
 import { formatDate } from '@/lib/date'
 import {
 	extractTOC,
-	getAllWikiSlugs,
 	getSectionBySlug,
 	getWikiPage,
 	resolveWikiAuthors,
@@ -24,13 +23,6 @@ interface PageProps {
 }
 
 export const dynamicParams = false
-
-export async function generateStaticParams() {
-	const slugs = await getAllWikiSlugs()
-	return slugs.map((slug) => ({
-		slug: slug.split('/'),
-	}))
-}
 
 export async function generateMetadata({
 	params,
