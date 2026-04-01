@@ -1,4 +1,3 @@
-import type { Metadata } from 'next'
 import { Suspense } from 'react'
 
 import '@/shared/styles/index.css'
@@ -12,17 +11,17 @@ import InDevNav from '@/shared/layouts/nav/InDevNav'
 import Nav from '@/shared/layouts/nav/Nav'
 
 //! TODO добить банер, дополнить OG, добавить лого
-export const metadata: Metadata = {
-	title: 'StalHub',
-	description: 'TODO',
-	openGraph: {
-		type: 'website',
-		title: 'StalHub',
-		description: 'TODO',
-		url: 'https://stalhub.tech',
-		siteName: 'StalHub',
-	},
-}
+// export const metadata: Metadata = {
+// 	title: 'StalHub',
+// 	description: 'TODO',
+// 	openGraph: {
+// 		type: 'website',
+// 		title: 'StalHub',
+// 		description: 'TODO',
+// 		url: 'https://stalhub.tech',
+// 		siteName: 'StalHub',
+// 	},
+// }
 
 export default function RootLayout({
 	children,
