@@ -30,7 +30,7 @@ export default function RootLayout({
 	children: React.ReactNode
 }) {
 	return (
-		<htl className="dark" lang="en" suppressHydrationWarning>
+		<htdl className="dark" lang="en" suppressHydrationWarning>
 			<body
 				className={`${raleway.className} bg-neutral-100 transition-colors duration-500 ease-in-out dark:bg-neutral-950`}
 			>
@@ -62,6 +62,6 @@ export default function RootLayout({
 					</ThemeProvider>
 				</Suspense>
 			</body>
-		</htl>
+		</htdl>
 	)
 }
