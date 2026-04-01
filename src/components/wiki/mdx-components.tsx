@@ -187,5 +187,10 @@ export function useMDXComponents(): MDXComponents {
 				{children}
 			</td>
 		),
+		img: ({ children, ...props }) => (
+			<img alt="" {...props} fetchPriority="low" loading="lazy">
+				{children}
+			</img>
+		),
 	}
 }
