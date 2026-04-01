@@ -13,7 +13,7 @@ export default function ClanView({ data }: { data: Clan }) {
 			<Card.Header>
 				<div className="flex items-center gap-2">
 					<Icon className="text-xl" icon="lucide:shield-half" />
-					<h1 className="text-xl font-semibold">Клан</h1>
+					<h1 className="font-semibold text-xl">Клан</h1>
 				</div>
 			</Card.Header>
 			<Card.Content className="space-y-3">

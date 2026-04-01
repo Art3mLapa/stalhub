@@ -163,7 +163,8 @@ export function getAmmoPenetration(ammo: Item): number {
 			if (
 				el.type === 'numeric' &&
 				el.name?.type === 'translation' &&
-				el.name.key === 'weapon.tooltip.bullet.stat_name.armor_penetration'
+				el.name.key ===
+					'weapon.tooltip.bullet.stat_name.armor_penetration'
 			)
 				return el.value ?? 0
 		}
@@ -178,7 +179,8 @@ export function getPlateDamageAbsorption(plate: Item): number {
 			if (
 				el.type === 'numeric' &&
 				el.name?.type === 'translation' &&
-				el.name.key === 'stalker.tooltip.armor_plate.stat_name.damage_absorption'
+				el.name.key ===
+					'stalker.tooltip.armor_plate.stat_name.damage_absorption'
 			)
 				return el.value ?? 0
 		}
@@ -262,7 +264,10 @@ export function calcTTKAtDist(
 	plate?: Item | null,
 	plateDurability?: number
 ): number {
-	const rof = getNumericStat(weapon, 'weapon.tooltip.weapon.info.rate_of_fire')
+	const rof = getNumericStat(
+		weapon,
+		'weapon.tooltip.weapon.info.rate_of_fire'
+	)
 	if (rof <= 0) return 0
 
 	// No plate simulation needed — use simple formula
@@ -275,7 +280,15 @@ export function calcTTKAtDist(
 
 	// Simulate shot-by-shot with plate durability drain
 	const dmgNaked = getDmgPerShot(weapon, ammo, hitZone, dist, variantIndex)
-	const dmgPlated = getDmgPerShot(weapon, ammo, hitZone, dist, variantIndex, plate, 1)
+	const dmgPlated = getDmgPerShot(
+		weapon,
+		ammo,
+		hitZone,
+		dist,
+		variantIndex,
+		plate,
+		1
+	)
 	if (dmgNaked <= 0) return 0
 
 	const absorption = getPlateDamageAbsorption(plate)
@@ -312,8 +325,32 @@ export function buildSeries(
 	const step = Math.max(1, Math.round(block.maxDistance / 80))
 	const points: { x: number; y: number }[] = []
 	for (let d = 0; d <= block.maxDistance; d += step)
-		points.push({ x: d, y: calcTTKAtDist(weapon, ammo, hp, hitZone, d, variantIndex, plate, plateDurability) })
+		points.push({
+			x: d,
+			y: calcTTKAtDist(
+				weapon,
+				ammo,
+				hp,
+				hitZone,
+				d,
+				variantIndex,
+				plate,
+				plateDurability
+			),
+		})
 	if (points[points.length - 1]?.x !== block.maxDistance)
-		points.push({ x: block.maxDistance, y: calcTTKAtDist(weapon, ammo, hp, hitZone, block.maxDistance, variantIndex, plate, plateDurability) })
+		points.push({
+			x: block.maxDistance,
+			y: calcTTKAtDist(
+				weapon,
+				ammo,
+				hp,
+				hitZone,
+				block.maxDistance,
+				variantIndex,
+				plate,
+				plateDurability
+			),
+		})
 	return { label, color: '', points }
 }

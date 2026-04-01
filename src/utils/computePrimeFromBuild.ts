@@ -30,14 +30,23 @@ function getNumericValue(
 		for (const el of elements) {
 			if (!el) continue
 			if (getElementKey(el) !== key) continue
-			if (el.type === 'numeric') return Number((el as NumericElement).value ?? 0)
+			if (el.type === 'numeric')
+				return Number((el as NumericElement).value ?? 0)
 			if (el.type === 'range') {
 				const r = el as NumericRangeElement
-				return Number(r.min ?? 0) + (Number(r.max ?? 0) - Number(r.min ?? 0)) * (numericVariants / 15)
+				return (
+					Number(r.min ?? 0) +
+					(Number(r.max ?? 0) - Number(r.min ?? 0)) *
+						(numericVariants / 15)
+				)
 			}
 			if (el.type === 'numericVariants') {
 				const vals = (el as NumericVariantsElement).value ?? []
-				return Number(vals[Math.min(Math.max(numericVariants, 0), vals.length - 1)] ?? 0)
+				return Number(
+					vals[
+						Math.min(Math.max(numericVariants, 0), vals.length - 1)
+					] ?? 0
+				)
 			}
 		}
 	}
@@ -59,10 +68,18 @@ export function computePrimeFromBuild(
 
 	const containerItem = containers.find((c) => c.id === build.container?.id)
 	const effectiveness = containerItem
-		? getNumericValue(containerItem, 'stalker.tooltip.backpack.stat_name.effectiveness', locale) / 100
+		? getNumericValue(
+				containerItem,
+				'stalker.tooltip.backpack.stat_name.effectiveness',
+				locale
+			) / 100
 		: 1
-	const innerProtection = containerItem
-		? getNumericValue(containerItem, 'stalker.tooltip.backpack.stat_name.inner_protection', locale) / 100
+	const _innerProtection = containerItem
+		? getNumericValue(
+				containerItem,
+				'stalker.tooltip.backpack.stat_name.inner_protection',
+				locale
+			) / 100
 		: 0
 
 	const KEYS = [BULLET_KEY, HEALTH_KEY]
@@ -70,7 +87,12 @@ export function computePrimeFromBuild(
 	const armorItem = armors.find((a) => a.id === build.armor?.id)
 	if (armorItem && build.armor) {
 		for (const key of KEYS) {
-			const val = getNumericValue(armorItem, key, locale, build.armor.level ?? 0)
+			const val = getNumericValue(
+				armorItem,
+				key,
+				locale,
+				build.armor.level ?? 0
+			)
 			if (val !== 0) result[key] = (result[key] ?? 0) + val
 		}
 	}
@@ -86,7 +108,11 @@ export function computePrimeFromBuild(
 		const item = artefacts.find((i) => i.id === art.itemId)
 		if (!item) continue
 		const parsed = parseItemStats(item, locale)
-		const artStats = computeArtifactStatsFromParsed(art, parsed, art.selectedStats)
+		const artStats = computeArtifactStatsFromParsed(
+			art,
+			parsed,
+			art.selectedStats
+		)
 		for (const [key, stat] of Object.entries(artStats)) {
 			const cleanKey = key.startsWith('add:') ? key.slice(4) : key
 			if (cleanKey === BULLET_KEY || cleanKey === HEALTH_KEY) {

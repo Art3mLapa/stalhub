@@ -69,7 +69,7 @@ export const StalcraftText: React.FC<StalcraftTextProps> = ({
 	})
 
 	return (
-		<pre className="text-md font-semibold">
+		<pre className="font-semibold text-md">
 			{lines.map((spans, i) => (
 				<React.Fragment key={i}>
 					{spans.map((s, j) => (

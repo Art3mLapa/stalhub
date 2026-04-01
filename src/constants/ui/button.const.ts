@@ -16,7 +16,7 @@ export const buttonVariants = cva(
 				ghost: 'bg-transparent hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100',
 				shadow: 'bg-white dark:bg-neutral-900 shadow-[0_10px_20px_-10px_rgba(0,0,0,0.2)] hover:shadow-[0_15px_25px_-10px_rgba(0,0,0,0.3)] hover:-translate-y-0.5',
 				danger: 'ring-2 ring-red-400 text-red-600 font-bold dark:text-red-200 shadow-sm hover:bg-red-200 dark:hover:bg-red-700 hover:shadow-md dark:bg-neutral-800/50 bg-white/60',
-				none: 'hover:text-neutral-900 dark:hover:text-neutral-400'
+				none: 'hover:text-neutral-900 dark:hover:text-neutral-400',
 			},
 			size: {
 				sm: 'px-3 py-1.5 text-sm',

@@ -47,12 +47,7 @@
 				"useNamespaceKeyword": "error"
 			}
 		},
-		"includes": [
-			"**",
-			"!.next/*",
-			"!node_modules",
-			"!dist"
-		]
+		"includes": ["**", "!.next/*", "!node_modules", "!dist"]
 	},
 	"javascript": {
 		"formatter": {
@@ -77,13 +72,14 @@
 	"css": {
 		"formatter": {
 			"enabled": false
+		},
+		"parser": {
+			"tailwindDirectives": true
 		}
 	},
 	"overrides": [
 		{
-			"includes": [
-				"**/*.{js,mjs,cjs,ts,jsx,tsx}"
-			],
+			"includes": ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
 			"javascript": {
 				"globals": [
 					"onanimationend",
@@ -215,12 +211,7 @@
 			}
 		},
 		{
-			"includes": [
-				"**/*.ts",
-				"**/*.tsx",
-				"**/*.mts",
-				"**/*.cts"
-			],
+			"includes": ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
 			"linter": {
 				"rules": {
 					"complexity": {

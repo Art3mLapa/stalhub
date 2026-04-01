@@ -1,6 +1,5 @@
 'use client'
 
-
 import L from 'leaflet'
 import { useMemo, useRef } from 'react'
 import { MapContainer, TileLayer } from 'react-leaflet'

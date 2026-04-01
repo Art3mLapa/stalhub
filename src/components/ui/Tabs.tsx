@@ -61,7 +61,7 @@ export function TabsList({ className, children, ...props }: TabsListProps) {
 				'bg-background/50',
 				'items-center justify-center rounded-lg p-2',
 				'backdrop-blur-sm',
-				'ring-border/30 ring-2',
+				'ring-2 ring-border/30',
 				'gap-2',
 				className
 			)}
@@ -94,12 +94,12 @@ export function TabsTrigger({
 		<button
 			aria-selected={isActive}
 			className={cn(
-				'bg-background inline-flex items-center justify-center gap-3 rounded-md px-3 py-1.5 font-semibold transition-all',
+				'inline-flex items-center justify-center gap-3 rounded-md bg-background px-3 py-1.5 font-semibold transition-all',
 				'cursor-pointer select-none',
 
 				'text-neutral-600 dark:text-neutral-300',
 
-				'focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none',
+				'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2',
 				'focus-visible:ring-offset-neutral-100 dark:focus-visible:ring-offset-neutral-900',
 
 				'hover:bg-neutral-200/50 dark:hover:bg-neutral-700/50',
@@ -143,7 +143,7 @@ export function TabsContent({
 			className={cn(
 				isActive ? 'block' : 'hidden',
 				'mt-4 rounded-lg',
-				'focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none',
+				'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2',
 				'focus-visible:ring-offset-background',
 
 				className

@@ -101,14 +101,10 @@ export function computeArtifactStatsFromParsed(
 		const qualityArg = defaultQualityClass
 
 		// прокидываем key и color в calcXfromVPRClamped
-		const X_before = calcXfromVPRClamped(
-			V,
-			P,
-			R,
-			debuff,
-			qualityArg,
-			{ color: color, key }
-		)
+		const X_before = calcXfromVPRClamped(V, P, R, debuff, qualityArg, {
+			color: color,
+			key,
+		})
 		const X_after = debuff ? X_before : applyPotential(X_before, K)
 
 		let addTotal = 0
@@ -161,14 +157,10 @@ export function computeArtifactStatsFromParsed(
 
 			const qualityArg = defaultQualityClass
 			// прокидываем метаданные и сюда
-			const X_before = calcXfromVPRClamped(
-				V,
-				P,
-				R,
-				debuff,
-				qualityArg,
-				{ color, key: selKey }
-			)
+			const X_before = calcXfromVPRClamped(V, P, R, debuff, qualityArg, {
+				color,
+				key: selKey,
+			})
 			const X_after = debuff ? X_before : applyPotential(X_before, K)
 
 			const syntheticKey = `add:${selKey}`

@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
 
 		if (BOT_TOKEN && CHAT_ID) {
 			const text = `❌ Client received client-side error:\n💼 Error ID: ${errorId}\n 🔗${body.content}\n\n👤 User agent: ${ua}`
-			
+
 			const emojiMap: { char: string; custom_emoji_id: string }[] = [
 				{ char: '❌', custom_emoji_id: '5893081007153746175' },
 				{ char: '💼', custom_emoji_id: '5893255507380014983' },
@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
 
 					let utf16Offset = 0
 					for (let i = 0; i < idx; i++) {
-						utf16Offset += text[i].length 
+						utf16Offset += text[i].length
 					}
 
 					entities.push({
@@ -71,13 +71,9 @@ export async function POST(req: NextRequest) {
 				console.log('Telegram response:', res.data)
 			} catch (err: unknown) {
 				if (axios.isAxiosError(err)) {
-					console.error(
-						'Telegram API error response'
-					)
+					console.error('Telegram API error response')
 				} else if (err instanceof Error) {
-					console.error(
-						'Failed to send Telegram message'
-					)
+					console.error('Failed to send Telegram message')
 				} else {
 					console.error('Unknown error sending Telegram message')
 				}

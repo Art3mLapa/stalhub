@@ -49,7 +49,7 @@ export function ItemPickerModal({ items, onSelect, title, trigger }: Props) {
 				</Modal.Header>
 				<Modal.Body className="flex flex-col gap-3">
 					<Input
-					className="px-2 text-[14px]"
+						className="px-2 text-[14px]"
 						label="Введите название предмета"
 						onChange={(e) => setQuery(e.target.value)}
 						value={query}

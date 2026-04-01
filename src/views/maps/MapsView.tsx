@@ -24,12 +24,12 @@ export default function MapsView() {
 	return (
 		<main className="mx-auto flex max-w-360 flex-col gap-12 px-4 pt-32 sm:px-6 md:px-8">
 			<h1
-				className={`${unbounded.className} bg-linear-to-r from-sky-600 to-sky-400 bg-clip-text text-center text-2xl font-bold tracking-tight text-transparent sm:text-3xl md:text-5xl dark:from-sky-400 dark:to-sky-200`}
+				className={`${unbounded.className} bg-linear-to-r from-sky-600 to-sky-400 bg-clip-text text-center font-bold text-2xl text-transparent tracking-tight sm:text-3xl md:text-5xl dark:from-sky-400 dark:to-sky-200`}
 			>
 				{t('map.title')}
 			</h1>
 
-			<div className="xs:grid-cols-2 grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-3 xl:grid-cols-5">
+			<div className="grid grid-cols-1 xs:grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 xl:grid-cols-5">
 				{maps.map((m, index) => (
 					<Card.Link
 						className="group overflow-hidden rounded-xl shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
@@ -50,7 +50,7 @@ export default function MapsView() {
 						</Card.Header>
 
 						<div className="relative overflow-hidden bg-linear-to-b px-3 py-4">
-							<span className="block text-center text-sm font-semibold transition-colors duration-300 group-hover:text-sky-500 sm:text-base">
+							<span className="block text-center font-semibold text-sm transition-colors duration-300 group-hover:text-sky-500 sm:text-base">
 								{m.title[i18n.language as Locale]}
 							</span>
 							<div className="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-linear-to-r from-sky-600 to-sky-400 transition-all duration-300 group-hover:w-2/5" />

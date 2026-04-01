@@ -184,7 +184,6 @@ export type InfoBlock =
 	| NumericVariantsElement
 	| AddStatBlock
 
-
 export interface Model {
 	model?: string
 	diff?: string

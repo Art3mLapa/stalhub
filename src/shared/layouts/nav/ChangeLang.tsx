@@ -68,7 +68,7 @@ export default function ChangLang() {
 				{isMenuOpen && (
 					<motion.div
 						animate={{ opacity: 1 }}
-						className="ring-border/30 bg-background/95 absolute top-12 right-0 z-20 flex origin-top-right flex-col gap-4 rounded-2xl p-6 shadow-lg ring-2 backdrop-blur-lg"
+						className="absolute top-12 right-0 z-20 flex origin-top-right flex-col gap-4 rounded-2xl bg-background/95 p-6 shadow-lg ring-2 ring-border/30 backdrop-blur-lg"
 						exit={{ opacity: 0 }}
 						initial={{ opacity: 0 }}
 						transition={{ duration: 0.2, ease: 'easeOut' }}

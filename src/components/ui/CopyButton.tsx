@@ -30,7 +30,7 @@ export function CopyButton({ text, className }: CopyButtonProps) {
 				className
 			)}
 			onClick={handleCopy}
-			whileTap={{ scale: 0.95}}
+			whileTap={{ scale: 0.95 }}
 		>
 			<AnimatePresence initial={false} mode="wait">
 				{copied ? (

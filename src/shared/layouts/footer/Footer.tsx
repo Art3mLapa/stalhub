@@ -65,7 +65,7 @@ const Footer = () => {
 							© StalHub, oarer &amp; Art3mLapa {year}
 						</p>
 						<BuildHash />
-						<SimpleStatusWidget/>
+						<SimpleStatusWidget />
 						<button
 							className={`w-fit cursor-pointer transition-colors duration-400 hover:text-pink-400 ${uwuMode && 'text-pink-400'}`}
 							onClick={toggleUwu}

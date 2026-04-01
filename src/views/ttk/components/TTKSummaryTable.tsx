@@ -19,7 +19,7 @@ interface TTKSummaryTableProps {
 
 export function TTKSummaryTable({ rows, maxDist }: TTKSummaryTableProps) {
 	return (
-		<Card.Root className='z-0'>
+		<Card.Root className="z-0">
 			<Table.Root className="w-full font-semibold text-sm">
 				<Table.Header>
 					<Table.Row className="text-left text-neutral-400 text-xs">

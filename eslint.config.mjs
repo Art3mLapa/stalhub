@@ -11,91 +11,91 @@ import pluginUnusedImports from 'eslint-plugin-unused-imports'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-    globalIgnores(['.next/*', 'node_modules', 'dist']),
+	globalIgnores(['.next/*', 'node_modules', 'dist']),
 
-    {
-        files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
-        languageOptions: {
-            ecmaVersion: 'latest',
-            sourceType: 'module',
-            globals: globals.browser,
-        },
-        settings: {
-            react: {
-                version: 'detect',
-                jsxRuntime: 'automatic',
-            },
-        },
-        plugins: {
-            js,
-            react: pluginReact,
-            'react-hooks': pluginReactHooks,
-            import: pluginImport,
-            'jsx-a11y': pluginJsxA11y,
-            prettier: pluginPrettier,
-            'unused-imports': pluginUnusedImports,
-            '@tanstack/query': pluginQuery,
-        },
-        rules: {
-            ...pluginReact.configs.recommended.rules,
-            'react/react-in-jsx-scope': 'off',
-            'react/prop-types': 'off',
-            'react/jsx-sort-props': 'error',
-            'react/jsx-pascal-case': 'error',
-            'react/jsx-no-target-blank': 'error',
-            'react/jsx-uses-vars': 'error',
+	{
+		files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
+		languageOptions: {
+			ecmaVersion: 'latest',
+			sourceType: 'module',
+			globals: globals.browser,
+		},
+		settings: {
+			react: {
+				version: 'detect',
+				jsxRuntime: 'automatic',
+			},
+		},
+		plugins: {
+			js,
+			react: pluginReact,
+			'react-hooks': pluginReactHooks,
+			import: pluginImport,
+			'jsx-a11y': pluginJsxA11y,
+			prettier: pluginPrettier,
+			'unused-imports': pluginUnusedImports,
+			'@tanstack/query': pluginQuery,
+		},
+		rules: {
+			...pluginReact.configs.recommended.rules,
+			'react/react-in-jsx-scope': 'off',
+			'react/prop-types': 'off',
+			'react/jsx-sort-props': 'error',
+			'react/jsx-pascal-case': 'error',
+			'react/jsx-no-target-blank': 'error',
+			'react/jsx-uses-vars': 'error',
 
-            'react-hooks/rules-of-hooks': 'error',
-            'react-hooks/exhaustive-deps': 'warn',
+			'react-hooks/rules-of-hooks': 'error',
+			'react-hooks/exhaustive-deps': 'warn',
 
-            'import/order': [
-                'error',
-                {
-                    groups: ['builtin', 'external', 'internal'],
-                    pathGroups: [
-                        {
-                            pattern: 'react',
-                            group: 'external',
-                            position: 'before',
-                        },
-                        {
-                            pattern: 'react*',
-                            group: 'external',
-                            position: 'before',
-                        },
-                    ],
-                    pathGroupsExcludedImportTypes: ['react'],
-                    'newlines-between': 'always',
-                },
-            ],
+			'import/order': [
+				'error',
+				{
+					groups: ['builtin', 'external', 'internal'],
+					pathGroups: [
+						{
+							pattern: 'react',
+							group: 'external',
+							position: 'before',
+						},
+						{
+							pattern: 'react*',
+							group: 'external',
+							position: 'before',
+						},
+					],
+					pathGroupsExcludedImportTypes: ['react'],
+					'newlines-between': 'always',
+				},
+			],
 
-            'import/no-duplicates': 'error',
+			'import/no-duplicates': 'error',
 
-            'jsx-a11y/alt-text': 'error',
-            'jsx-a11y/anchor-is-valid': 'error',
-            'jsx-a11y/label-has-associated-control': [
-                'error',
-                {
-                    required: {
-                        some: ['nesting', 'id'],
-                    },
-                },
-            ],
+			'jsx-a11y/alt-text': 'error',
+			'jsx-a11y/anchor-is-valid': 'error',
+			'jsx-a11y/label-has-associated-control': [
+				'error',
+				{
+					required: {
+						some: ['nesting', 'id'],
+					},
+				},
+			],
 
-            '@typescript-eslint/consistent-type-imports': [
-                'error',
-                {
-                    prefer: 'type-imports',
-                    disallowTypeAnnotations: false,
-                },
-            ],
-            '@typescript-eslint/no-empty-function': 'warn',
+			'@typescript-eslint/consistent-type-imports': [
+				'error',
+				{
+					prefer: 'type-imports',
+					disallowTypeAnnotations: false,
+				},
+			],
+			'@typescript-eslint/no-empty-function': 'warn',
 
-            'prettier/prettier': 'error',
-            'unused-imports/no-unused-imports': 'error',
-        },
-    },
+			'prettier/prettier': 'error',
+			'unused-imports/no-unused-imports': 'error',
+		},
+	},
 
-    ...tseslint.configs.recommended,
-    ...pluginQuery.configs['flat/recommended'],
+	...tseslint.configs.recommended,
+	...pluginQuery.configs['flat/recommended'],
 ])

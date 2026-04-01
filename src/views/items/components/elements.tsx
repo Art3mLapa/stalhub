@@ -76,7 +76,10 @@ export const KeyValueElement: React.FC<{
 	return (
 		<div className="flex justify-between font-semibold">
 			<p style={nameColor ? { color: nameColor } : undefined}>{key}</p>
-			<p className='text-nowrap' style={valueColor ? { color: valueColor } : undefined}>
+			<p
+				className="text-nowrap"
+				style={valueColor ? { color: valueColor } : undefined}
+			>
 				{value}
 			</p>
 		</div>

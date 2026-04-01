@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import { type AuctionParams } from '@/types/api.type'
-import { type LotsResponse } from '@/types/item.type'
+import type { AuctionParams } from '@/types/api.type'
+import type { LotsResponse } from '@/types/item.type'
 
 export const useAuctionCurrent = ({
 	id,

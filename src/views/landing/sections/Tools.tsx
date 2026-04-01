@@ -25,11 +25,11 @@ export default function Tools() {
 			>
 				<div className="flex flex-col gap-4">
 					<h1
-						className={`${unbounded.className} bg-linear-to-r from-sky-600 to-sky-400 bg-clip-text text-3xl font-bold tracking-tight text-balance text-transparent md:text-5xl dark:from-sky-400 dark:to-sky-200`}
+						className={`${unbounded.className} text-balance bg-linear-to-r from-sky-600 to-sky-400 bg-clip-text font-bold text-3xl text-transparent tracking-tight md:text-5xl dark:from-sky-400 dark:to-sky-200`}
 					>
 						{t('landing.tools.title')}
 					</h1>
-					<p className="text-center text-xl font-medium md:text-2xl dark:text-white/90">
+					<p className="text-center font-medium text-xl md:text-2xl dark:text-white/90">
 						{t('landing.tools.description')}
 					</p>
 				</div>
@@ -47,7 +47,7 @@ export default function Tools() {
 					>
 						<Card.Link
 							className={cn(
-								'group h-full bg-white ring-2 ring-sky-500/20 backdrop-blur-none md:backdrop-blur-md transition-transform duration-400 hover:-translate-y-1 dark:bg-black/20 dark:ring-sky-200/30',
+								'group h-full bg-white ring-2 ring-sky-500/20 backdrop-blur-none transition-transform duration-400 hover:-translate-y-1 md:backdrop-blur-md dark:bg-black/20 dark:ring-sky-200/30',
 								index % 2 === 0 &&
 									'bg-[radial-gradient(105.38%_145.07%_at_41.4%_40.19%,#38bdf82b_0,#ff6aa900_65%)]'
 							)}
@@ -60,11 +60,11 @@ export default function Tools() {
 										icon={tool.icon}
 									/>
 								</Card.Title>
-								<Card.Description className="text-center text-lg font-semibold text-neutral-800 dark:text-neutral-100">
+								<Card.Description className="text-center font-semibold text-lg text-neutral-800 dark:text-neutral-100">
 									{t(tool.title)}
 								</Card.Description>
 							</Card.Header>
-							<Card.Content className="text-center text-sm text-neutral-600 dark:text-neutral-400">
+							<Card.Content className="text-center text-neutral-600 text-sm dark:text-neutral-400">
 								{t(tool.desc)}
 							</Card.Content>
 						</Card.Link>

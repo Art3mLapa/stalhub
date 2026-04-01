@@ -34,4 +34,4 @@ export const getWeaponStats = (dmg0: number, rof: number, prime: number) => [
 		color: 'text-blue-400',
 		className: 'col-span-2',
 	},
-];
+]
