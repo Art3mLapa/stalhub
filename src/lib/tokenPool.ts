@@ -4,6 +4,8 @@ export type TokenState = {
 	inUse: boolean
 }
 
+// ! TODO вырезать
+
 export class TokenPool {
 	private tokens: string[]
 	private used: Set<number> = new Set()

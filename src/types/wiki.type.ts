@@ -19,7 +19,7 @@ export interface WikiMetadata {
 export interface WikiPage {
 	slug: string
 	metadata: WikiMetadata
-	content: string
+	content?: string
 	isCategory?: boolean
 }
 

@@ -24,7 +24,7 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-	const slugs = getAllWikiSlugs()
+	const slugs = await getAllWikiSlugs()
 	return slugs.map((slug) => ({
 		slug: slug.split('/'),
 	}))
@@ -35,7 +35,7 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
 	const { slug } = await params
 	const slugPath = slug.join('/')
-	const page = getWikiPage(slugPath)
+	const page = await getWikiPage(slugPath)
 
 	if (!page) {
 		return { title: 'Not Found' }
@@ -71,7 +71,7 @@ export async function generateMetadata({
 export default async function WikiPageContent({ params }: PageProps) {
 	const { slug } = await params
 	const slugPath = slug.join('/')
-	const page = getWikiPage(slugPath)
+	const page = await getWikiPage(slugPath)
 
 	if (!page) {
 		notFound()
@@ -82,7 +82,7 @@ export default async function WikiPageContent({ params }: PageProps) {
 	const components = useMDXComponents()
 
 	if (page.isCategory) {
-		const section = getSectionBySlug(slugPath)
+		const section = await getSectionBySlug(slugPath)
 
 		return (
 			<div className="flex max-w-5xl flex-col gap-4 p-8">
@@ -98,7 +98,7 @@ export default async function WikiPageContent({ params }: PageProps) {
 					)}
 				</header>
 
-				{page.content.trim() && (
+				{page.content?.trim() && (
 					<div className="prose prose-neutral dark:prose-invert mb-8 max-w-none">
 						<MDXRemote
 							components={components}
@@ -107,7 +107,7 @@ export default async function WikiPageContent({ params }: PageProps) {
 									remarkPlugins: [remarkGfm],
 								},
 							}}
-							source={page.content}
+							source={page.content!}
 						/>
 					</div>
 				)}
@@ -153,7 +153,7 @@ export default async function WikiPageContent({ params }: PageProps) {
 		)
 	}
 
-	const tocItems = extractTOC(page.content)
+	const tocItems = extractTOC(page.content ?? '')
 
 	return (
 		<div className="grid grid-cols-1 gap-8 lg:grid-cols-[75%_25%]">
@@ -226,7 +226,7 @@ export default async function WikiPageContent({ params }: PageProps) {
 								remarkPlugins: [remarkGfm],
 							},
 						}}
-						source={page.content}
+						source={page.content!}
 					/>
 				</div>
 			</article>

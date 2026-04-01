@@ -71,7 +71,7 @@ export function useMDXComponents(): MDXComponents {
 		a: ({ href, children, ...props }) => {
 			return (
 				<Link
-					className="font-semibold underline underline-offset-4"
+					className="font-semibold underline underline-offset-4 transition-opacity hover:opacity-70"
 					href={href || ''}
 					{...props}
 				>

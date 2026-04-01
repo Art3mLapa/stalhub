@@ -4,8 +4,8 @@ import { formatDate } from '@/lib/date'
 import { getWikiSections } from '@/lib/wiki/utils'
 import { mono } from '../fonts'
 
-export default function WikiPage() {
-	const sections = getWikiSections()
+export default async function WikiPage() {
+	const sections = await getWikiSections()
 
 	const totalPages = sections.reduce(
 		(acc, section) => acc + section.pages.length,

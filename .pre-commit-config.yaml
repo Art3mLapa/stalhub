@@ -1,0 +1,21 @@
+repos:
+  - repo: local
+    hooks:
+      - id: biome-format
+        name: Biome format
+        entry: bunx biome format --write
+        language: system
+        pass_filenames: true
+
+      - id: biome-lint
+        name: Biome lint
+        entry: bunx biome lint
+        language: system
+        pass_filenames: true
+
+      - id: build
+        name: Build project
+        entry: bun run build
+        language: system
+        pass_filenames: false
+        stages: [pre-push]

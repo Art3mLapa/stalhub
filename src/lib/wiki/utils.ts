@@ -1,7 +1,6 @@
-import fs from 'fs'
+import fs from 'fs/promises'
 import matter from 'gray-matter'
 import path from 'path'
-import { cache } from 'react'
 import type {
 	TOCItem,
 	WikiAuthor,
@@ -12,47 +11,165 @@ import type {
 
 const WIKI_DIR = path.join(process.cwd(), 'wiki')
 
-export const getWikiSections = cache(function getWikiSections(): WikiSection[] {
-	if (!fs.existsSync(WIKI_DIR)) {
+type CachedSection = WikiSection & { _cachedAt: number }
+type CachedPage = {
+	metadata: WikiMetadata
+	content?: string
+	_cachedAt: number
+}
+
+const sectionCache = new Map<string, CachedSection>()
+const pageCache = new Map<string, CachedPage>()
+const CACHE_TTL = 60_000
+
+function isCacheValid(cachedAt: number): boolean {
+	return Date.now() - cachedAt < CACHE_TTL
+}
+
+async function readPageMeta(
+	filePath: string,
+	slug: string
+): Promise<WikiPage | null> {
+	const cached = pageCache.get(slug)
+	if (cached && isCacheValid(cached._cachedAt)) {
+		return { slug, metadata: cached.metadata, content: cached.content }
+	}
+
+	try {
+		const content = await fs.readFile(filePath, 'utf-8')
+		const { data } = matter(content)
+		const page: WikiPage = { slug, metadata: data as WikiMetadata }
+
+		pageCache.set(slug, {
+			metadata: data as WikiMetadata,
+			content: undefined,
+			_cachedAt: Date.now(),
+		})
+
+		return page
+	} catch {
+		return null
+	}
+}
+
+async function readFullPage(
+	filePath: string,
+	slug: string
+): Promise<WikiPage | null> {
+	const cached = pageCache.get(slug)
+
+	if (
+		cached &&
+		cached.content !== undefined &&
+		isCacheValid(cached._cachedAt)
+	) {
+		return { slug, metadata: cached.metadata, content: cached.content }
+	}
+
+	try {
+		const content = await fs.readFile(filePath, 'utf-8')
+		const { data, content: mdxContent } = matter(content)
+
+		pageCache.set(slug, {
+			metadata: data as WikiMetadata,
+			content: mdxContent,
+			_cachedAt: Date.now(),
+		})
+
+		return { slug, metadata: data as WikiMetadata, content: mdxContent }
+	} catch {
+		return null
+	}
+}
+
+async function getWikiPagesFromDir(
+	dir: string,
+	sectionSlug: string
+): Promise<WikiPage[]> {
+	const pages: WikiPage[] = []
+
+	try {
+		const files = await fs.readdir(dir)
+
+		await Promise.all(
+			files.map(async (file) => {
+				if (file.endsWith('.mdx') && !file.startsWith('_')) {
+					const filePath = path.join(dir, file)
+					const slug = file.replace('.mdx', '')
+					const fullSlug = sectionSlug
+						? `${sectionSlug}/${slug}`
+						: slug
+
+					const page = await readPageMeta(filePath, fullSlug)
+					if (page) pages.push(page)
+				}
+			})
+		)
+	} catch {
 		return []
 	}
 
-	const sections: WikiSection[] = []
-	const entries = fs.readdirSync(WIKI_DIR, { withFileTypes: true })
+	return pages.sort(
+		(a, b) => (a.metadata.order ?? 0) - (b.metadata.order ?? 0)
+	)
+}
 
-	for (const entry of entries) {
-		if (entry.isDirectory()) {
-			const sectionPath = path.join(WIKI_DIR, entry.name)
-			const indexPath = path.join(sectionPath, '_index.mdx')
-
-			let sectionTitle = entry.name
-				.replace(/-/g, ' ')
-				.replace(/^\d+-/, '')
-				.replace(/\b\w/g, (c) => c.toUpperCase())
-			let order = 0
-			let description = ''
-
-			if (fs.existsSync(indexPath)) {
-				const content = fs.readFileSync(indexPath, 'utf-8')
-				const { data } = matter(content)
-				if (data.title) sectionTitle = data.title
-				if (data.order !== undefined) order = data.order
-				if (data.description) description = data.description
-			}
-
-			const pages = getWikiPagesFromDir(sectionPath, entry.name)
-
-			sections.push({
-				title: sectionTitle,
-				slug: entry.name,
-				pages,
-				order,
-				description,
-			})
-		}
+export async function getWikiSections(): Promise<WikiSection[]> {
+	const cached = sectionCache.get('all')
+	if (cached && isCacheValid(cached._cachedAt)) {
+		return [cached]
 	}
 
-	const rootPages = getWikiPagesFromDir(WIKI_DIR, '')
+	const sections: WikiSection[] = []
+
+	try {
+		const entries = await fs.readdir(WIKI_DIR, { withFileTypes: true })
+
+		const sectionResults = await Promise.all(
+			entries
+				.filter((entry) => entry.isDirectory())
+				.map(async (entry) => {
+					const sectionPath = path.join(WIKI_DIR, entry.name)
+					const indexPath = path.join(sectionPath, '_index.mdx')
+
+					let sectionTitle = entry.name
+						.replace(/-/g, ' ')
+						.replace(/^\d+-/, '')
+						.replace(/\b\w/g, (c) => c.toUpperCase())
+					let order = 0
+					let description = ''
+
+					try {
+						const content = await fs.readFile(indexPath, 'utf-8')
+						const { data } = matter(content)
+						if (data.title) sectionTitle = data.title
+						if (data.order !== undefined) order = data.order
+						if (data.description) description = data.description
+					} catch {
+						// no _index.mdx
+					}
+
+					const pages = await getWikiPagesFromDir(
+						sectionPath,
+						entry.name
+					)
+
+					return {
+						title: sectionTitle,
+						slug: entry.name,
+						pages,
+						order,
+						description,
+					} as WikiSection
+				})
+		)
+
+		sections.push(...sectionResults)
+	} catch {
+		return []
+	}
+
+	const rootPages = await getWikiPagesFromDir(WIKI_DIR, '')
 	if (rootPages.length > 0) {
 		sections.unshift({
 			title: 'Overview',
@@ -62,87 +179,50 @@ export const getWikiSections = cache(function getWikiSections(): WikiSection[] {
 		})
 	}
 
-	return sections.sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
-})
+	sections.sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
 
-function getWikiPagesFromDir(dir: string, sectionSlug: string): WikiPage[] {
-	const pages: WikiPage[] = []
-	const files = fs.readdirSync(dir)
+	sectionCache.set('all', {
+		...sections[0],
+		_cachedAt: Date.now(),
+	})
 
-	for (const file of files) {
-		if (file.endsWith('.mdx') && !file.startsWith('_')) {
-			const filePath = path.join(dir, file)
-			const stat = fs.statSync(filePath)
-
-			if (stat.isFile()) {
-				const content = fs.readFileSync(filePath, 'utf-8')
-				const { data, content: mdxContent } = matter(content)
-				const slug = file.replace('.mdx', '')
-				const fullSlug = sectionSlug ? `${sectionSlug}/${slug}` : slug
-
-				pages.push({
-					slug: fullSlug,
-					metadata: data as WikiMetadata,
-					content: mdxContent,
-				})
-			}
-		}
-	}
-
-	return pages.sort(
-		(a, b) => (a.metadata.order ?? 0) - (b.metadata.order ?? 0)
-	)
+	return sections
 }
 
-export const getWikiPage = cache(function getWikiPage(
-	slug: string
-): WikiPage | null {
-	const slugParts = slug.split('/')
-	let filePath: string
-
-	if (slugParts.length === 1) {
-		const categoryPath = path.join(WIKI_DIR, slug, '_index.mdx')
-		if (fs.existsSync(categoryPath)) {
-			const content = fs.readFileSync(categoryPath, 'utf-8')
-			const { data, content: mdxContent } = matter(content)
-			return {
-				slug,
-				metadata: data as WikiMetadata,
-				content: mdxContent,
-				isCategory: true,
-			}
-		}
-		filePath = path.join(WIKI_DIR, `${slug}.mdx`)
-	} else {
-		filePath = path.join(
+export async function getWikiPage(slug: string): Promise<WikiPage | null> {
+	if (slug.includes('/')) {
+		const slugParts = slug.split('/')
+		const filePath = path.join(
 			WIKI_DIR,
 			...slugParts.slice(0, -1),
 			`${slugParts.at(-1)}.mdx`
 		)
+		return readFullPage(filePath, slug)
 	}
 
-	if (!fs.existsSync(filePath)) {
-		return null
+	const categoryPath = path.join(WIKI_DIR, slug, '_index.mdx')
+	const hasCategory = await fs
+		.access(categoryPath)
+		.then(() => true)
+		.catch(() => false)
+
+	if (hasCategory) {
+		const page = await readFullPage(categoryPath, slug)
+		if (page) return { ...page, isCategory: true }
 	}
 
-	const content = fs.readFileSync(filePath, 'utf-8')
-	const { data, content: mdxContent } = matter(content)
-
-	return {
-		slug,
-		metadata: data as WikiMetadata,
-		content: mdxContent,
-	}
-})
-
-export function getSectionBySlug(slug: string): WikiSection | null {
-	const sections = getWikiSections()
-	return sections.find((s: WikiSection) => s.slug === slug) || null
+	const filePath = path.join(WIKI_DIR, `${slug}.mdx`)
+	return readFullPage(filePath, slug)
 }
 
-export const extractTOC = cache(function extractTOC(
-	content: string
-): TOCItem[] {
+export async function getSectionBySlug(
+	slug: string
+): Promise<WikiSection | null> {
+	const sections = await getWikiSections()
+	return sections.find((s) => s.slug === slug) || null
+}
+
+export function extractTOC(content: string): TOCItem[] {
 	const headingRegex = /^(#{2,4})\s+(.+)$/gm
 	const items: TOCItem[] = []
 	let match
@@ -161,10 +241,10 @@ export const extractTOC = cache(function extractTOC(
 	}
 
 	return items
-})
+}
 
-export function getAllWikiSlugs(): string[] {
-	const sections = getWikiSections()
+export async function getAllWikiSlugs(): Promise<string[]> {
+	const sections = await getWikiSections()
 	const slugs: string[] = []
 
 	for (const section of sections) {

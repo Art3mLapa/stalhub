@@ -7,12 +7,12 @@ export const metadata = {
 	description: 'Documentation and knowledge base',
 }
 
-export default function WikiLayout({
+export default async function WikiLayout({
 	children,
 }: {
 	children: React.ReactNode
 }) {
-	const sections = getWikiSections()
+	const sections = await getWikiSections()
 
 	return (
 		<div className="flex min-h-screen pt-30">
