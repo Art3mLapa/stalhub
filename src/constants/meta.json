@@ -12,11 +12,25 @@
 			"darkreader-lock": "darkreader-lock"
 		},
 		"openGraph": {
-			"images": "https://stalhub.tech/images/og/banner.png",
+			"images": [
+				{
+					"url": "https://stalhub.tech/images/og/banner.png",
+					"width": 1280,
+					"height": 620,
+					"alt": "Stalhub Banner"
+				}
+			],
 			"siteName": "stalhub.tech"
 		},
 		"twitter": {
-			"images": "https://stalhub.tech/images/og/banner.png",
+			"images": [
+				{
+					"url": "https://stalhub.tech/images/og/banner.png",
+					"width": 1280,
+					"height": 620,
+					"alt": "Stalhub Banner"
+				}
+			],
 			"card": "summary_large_image"
 		}
 	},
