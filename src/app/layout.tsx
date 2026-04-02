@@ -1,27 +1,32 @@
+import type { Metadata } from 'next'
 import { Suspense } from 'react'
 
 import '@/shared/styles/index.css'
+import { headers } from 'next/headers'
 import Script from 'next/script'
 import { ThemeProvider } from 'next-themes'
 import { raleway } from '@/app/fonts'
+import meta from '@/constants/meta.json'
 import Providers from '@/providers/providers'
 import { GridBackgroundWithBeams } from '@/shared/Background'
 import Footer from '@/shared/layouts/footer/Footer'
 import InDevNav from '@/shared/layouts/nav/InDevNav'
 import Nav from '@/shared/layouts/nav/Nav'
 
-//! TODO добить банер, дополнить OG, добавить лого
-// export const metadata: Metadata = {
-// 	title: 'StalHub',
-// 	description: 'TODO',
-// 	openGraph: {
-// 		type: 'website',
-// 		title: 'StalHub',
-// 		description: 'TODO',
-// 		url: 'https://stalhub.tech',
-// 		siteName: 'StalHub',
-// 	},
-// }
+// thx AndcoolSystems <3
+export const generateMetadata = async (): Promise<Metadata | undefined> => {
+	const headersList = await headers()
+	const path = headersList.get('X-Path')?.split('?')[0]
+	const object = meta as { [key: string]: unknown }
+	const base = meta.base
+
+	if (!path) return base
+
+	return {
+		...base,
+		...(object[path] as object),
+	} as Metadata
+}
 
 export default function RootLayout({
 	children,

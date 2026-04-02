@@ -1,0 +1,32 @@
+{
+	"base": {
+		"title": "StalHub",
+		"description": "Все необходимое для StalCraft в одном месте! Калькуляторы TTK и сборок, арсенала и многое другое",
+		"manifest": "/static/manifest.webmanifest",
+		"icons": {
+			"icon": "/svg/dark/logo.svg",
+			"shortcut": "/svg/dark/logo.svg",
+			"apple": "/svg/dark/logo.svg"
+		},
+		"creator": "oarer",
+		"other": {
+			"darkreader-lock": "darkreader-lock"
+		},
+		"openGraph": {
+			"images": "/images/og/banner.png",
+			"siteName": "stalhub.tech"
+		},
+		"twitter": {
+			"images": "/og/banner.png",
+			"card": "summary_large_image"
+		}
+	},
+	"notFound": {
+		"title": "Страница не найдена · StalHub",
+		"description": "Запрашиваемая страница не найдена",
+		"openGraph": {
+			"title": "Страница не найдена · StalHub",
+			"description": "Запрашиваемая страница не найдена"
+		}
+	}
+}
