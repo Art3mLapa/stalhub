@@ -10,6 +10,8 @@ export function proxy(req: NextRequest) {
 			'/favicon.ico',
 			'/models/stalki.glb',
 			'/api/invite',
+			'/images',
+			'/svg',
 		]
 		if (allowedPaths.some((p) => pathname.startsWith(p))) {
 			return NextResponse.next()
