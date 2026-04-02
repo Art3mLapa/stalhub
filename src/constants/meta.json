@@ -2,7 +2,6 @@
 	"base": {
 		"title": "StalHub",
 		"description": "Все необходимое для StalCraft в одном месте! Калькуляторы TTK и сборок, арсенала и многое другое",
-		"manifest": "/static/manifest.webmanifest",
 		"icons": {
 			"icon": "/svg/dark/logo.svg",
 			"shortcut": "/svg/dark/logo.svg",
@@ -13,7 +12,14 @@
 			"darkreader-lock": "darkreader-lock"
 		},
 		"openGraph": {
-			"images": "/images/og/banner.png",
+			"images": [
+				{
+					"url": "/images/og/banner.png",
+					"width": 1280,
+					"height": 640,
+					"alt": "StalHub"
+				}
+			],
 			"siteName": "stalhub.tech"
 		},
 		"twitter": {
