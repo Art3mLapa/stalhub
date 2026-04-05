@@ -1,224 +1,224 @@
 {
-	"landing": {
-		"overview": "Всё в одном месте",
-		"tools_for": "Инструменты для",
-		"need": "Всё необходимое для",
-		"features": {
-			"items": "Предметов",
-			"tools": "Инструментов",
-			"uptime": "Доступность"
-		},
-		"start": "Начать",
-		"more_details": "Подробнее",
-		"tools": {
-			"title": "Инструменты",
-			"description": "Обширная коллекция инструментов",
-			"tool_list": {
-				"builds": {
-					"title": "Калькулятор сборок",
-					"desc": "Создавайте и сохраняйте сборки артефактов, экспериментируйте с комбинациями и сравнивайте эффективность разных сетапов"
-				},
-				"bp": {
-					"title": "Калькулятор Боевого Пропуска",
-					"desc": "Удобный инструмент для подсчёта прогресса боевого пропуска"
-				},
-				"ttk": {
-					"title": "Калькулятор ТТК",
-					"desc": "Оцените ТТК для любого оружия и брони. Сравнивайте оружие и броню, чтобы подобрать оптимальный вариант"
-				},
-				"workspace": {
-					"title": "Удобная работа с инструментами",
-					"desc": "Вместо обычных страниц мы сделали все инструменты в виде виджетов"
-				},
-				"map": {
-					"title": "Интерактивная карта",
-					"desc": "Просматривайте мир с помощью удобной интерактивной карты: гайд по разным квестам, споты, схрон и многое другое"
-				},
-				"player_search": {
-					"title": "Поиск игроков",
-					"desc": "Найдите игрока по нику и посмотрите его статистику"
-				}
-			}
-		}
-	},
-	"footer": {
-		"made_by": "Сайт сделан ",
-		"and": " и ",
-		"links": {
-			"bug_report": "Сообщить о баге на GitHub",
-			"telegram": "Новостной канал",
-			"discord": "Наш Discord"
-		},
-		"project": {
-			"with": "Проект с ",
-			"open_source": "открытым исходным кодом",
-			"license": "Лицензия "
-		}
-	},
-	"nav": {
-		"groups": {
-			"calculators": {
-				"title": "Калькуляторы",
-				"items": {
-					"art": {
-						"label": "Сборки",
-						"description": "Создайте сборку"
-					},
-					"ttk": {
-						"label": "ТТК",
-						"description": "Эффективность оружия"
-					},
-					"barter": {
-						"label": "Обменные монеты",
-						"description": "Бартер в обменные монеты"
-					},
-					"bp": {
-						"label": "Сезонный пропуск",
-						"description": "Расчёт уровней"
-					},
-					"dpi": {
-						"label": "Чувствительность",
-						"description": "Настройка DPI"
-					}
-				}
-			},
-			"clans": {
-				"title": "Кланы",
-				"items": {
-					"clanMaps": {
-						"label": "КВ карты",
-						"description": "Карты для колов"
-					},
-					"squads": {
-						"label": "Сбор отрядов",
-						"description": "Организация отрядов"
-					},
-					"top": {
-						"label": "Рейтинг кланов",
-						"description": "Список лучших кланов"
-					}
-				}
-			},
-			"other": {
-				"title": "Прочее",
-				"items": {
-					"maps": {
-						"label": "Интерактивная карта"
-					},
-					"auction": {
-						"label": "Аукцион"
-					},
-					"items": {
-						"label": "Поиск предметов"
-					},
-					"players": {
-						"label": "Поиск игроков"
-					},
-					"models": {
-						"label": "Просмотр моделей",
-						"description": "Скоро..."
-					}
-				}
-			}
-		}
-	},
-	"map": {
-		"title": "Список карт",
-		"loading": "Загрузка карты",
-		"notFound": "Карта не найдена",
-		"sideBar": {
-			"showAll": "Показать все",
-			"hideAll": "Показать все",
-			"export": "Экспорт",
-			"top": "Наверх"
-		}
-	},
-	"player": {
-		"rank": {
-			"LEADER": "Лидер",
-			"COLONEL": "Полковник",
-			"OFFICER": "Офицер",
-			"SERGEANT": "Сержант",
-			"SOLDIER": "Боец",
-			"COMMONER": "Запасной",
-			"RECRUIT": "Рядовой"
-		},
-		"alliance": {
-			"merc": "Наёмник",
-			"covenant": "Завет",
-			"freedom": "Заря",
-			"duty": "Долг",
-			"bandits": "Бандит",
-			"stalkers": "Сталкер"
-		},
-		"category": {
-			"EXPLORATION": "Исследование",
-			"SURVIVAL": "Выживание",
-			"HIDEOUT": "Убежище",
-			"SESSION_MODES": "Сессионные режимы",
-			"ECONOMY": "Экономика",
-			"COMBAT": "Бой"
-		}
-	},
-	"time": {
-		"second": {
-			"one": "секунду",
-			"few": "секунды",
-			"many": "секунд"
-		},
-		"minute": {
-			"one": "минуту",
-			"few": "минуты",
-			"many": "минут"
-		},
-		"hour": {
-			"one": "час",
-			"few": "часа",
-			"many": "часов"
-		},
-		"day": {
-			"one": "день",
-			"few": "дня",
-			"many": "дней"
-		},
-		"month": {
-			"one": "месяц",
-			"few": "месяца",
-			"many": "месяцев"
-		},
-		"year": {
-			"one": "год",
-			"few": "года",
-			"many": "лет"
-		},
-		"and": "и"
-	},
-	"unit": {
-		"km": "км",
-		"kg": "кг",
-		"unit": "ед"
-	},
-	"arts": {
-		"ART_QUALITY_COMMON": "Обычный",
-		"ART_QUALITY_UNCOMMON": "Необычный",
-		"ART_QUALITY_SPECIAL": "Особый",
-		"ART_QUALITY_RARE": "Редкий",
-		"ART_QUALITY_EXCLUSIVE": "Исключительный",
-		"ART_QUALITY_LEGENDARY": "Легендарный",
-		"ART_QUALITY_UNIQUE": "Уникальный"
-	},
-	"ui": {
-		"combobox": {
-			"default": {
-				"placeholder": "Выберите",
-				"search": {
-					"button": "Поиск",
-					"notFound": "Ничего не найдено"
-				}
-			},
-			"addStats": {
-				"placeholder": "Дополнительные свойства"
-			}
-		}
-	}
+    "landing": {
+        "overview": "All in one place",
+        "tools_for": "Tools for",
+        "need": "Everything you need for",
+        "features": {
+            "items": "Items",
+            "tools": "Tools",
+            "uptime": "Uptime"
+        },
+        "start": "Get Started",
+        "more_details": "More Details",
+        "tools": {
+            "title": "Tools",
+            "description": "Extensive collection of tools",
+            "tool_list": {
+                "builds": {
+                    "title": "Build Calculator",
+                    "desc": "Create and save artifact builds, experiment with combinations, and compare the efficiency of different setups"
+                },
+                "bp": {
+                    "title": "Battle Pass Calculator",
+                    "desc": "A convenient tool to track your battle pass progress"
+                },
+                "ttk": {
+                    "title": "TTK Calculator",
+                    "desc": "Estimate TTK for any weapon and armor. Compare weapons and armor to find the optimal setup"
+                },
+                "workspace": {
+                    "title": "Convenient Tools Workspace",
+                    "desc": "Instead of regular pages, we made all tools as widgets"
+                },
+                "map": {
+                    "title": "Interactive Map",
+                    "desc": "Explore the world using an interactive map: guides for quests, loot spots, stashes, and more"
+                },
+                "player_search": {
+                    "title": "Player Search",
+                    "desc": "Find a player by username and view their stats"
+                }
+            }
+        }
+    },
+    "footer": {
+        "made_by": "Site made by ",
+        "and": " and ",
+        "links": {
+            "bug_report": "Report a bug on GitHub",
+            "telegram": "News Channel",
+            "discord": "Our Discord"
+        },
+        "project": {
+            "with": "Project with ",
+            "open_source": "open source",
+            "license": "License "
+        }
+    },
+    "nav": {
+        "groups": {
+            "calculators": {
+                "title": "Calculators",
+                "items": {
+                    "art": {
+                        "label": "Builds",
+                        "description": "Create a build"
+                    },
+                    "ttk": {
+                        "label": "TTK",
+                        "description": "Weapon effectiveness"
+                    },
+                    "barter": {
+                        "label": "Barter Coins",
+                        "description": "Convert barter items into coins"
+                    },
+                    "bp": {
+                        "label": "Season Pass",
+                        "description": "Level calculation"
+                    },
+                    "dpi": {
+                        "label": "Sensitivity",
+                        "description": "DPI settings"
+                    }
+                }
+            },
+            "clans": {
+                "title": "Clans",
+                "items": {
+                    "clanMaps": {
+                        "label": "KV Maps",
+                        "description": "Maps for clan wars"
+                    },
+                    "squads": {
+                        "label": "Squad Organization",
+                        "description": "Manage squads"
+                    },
+                    "top": {
+                        "label": "Clan Rankings",
+                        "description": "List of top clans"
+                    }
+                }
+            },
+            "other": {
+                "title": "Other",
+                "items": {
+                    "maps": {
+                        "label": "Interactive Map"
+                    },
+                    "auction": {
+                        "label": "Auction"
+                    },
+                    "items": {
+                        "label": "Item Search"
+                    },
+                    "players": {
+                        "label": "Player Search"
+                    },
+                    "models": {
+                        "label": "Model Viewer",
+                        "description": "Coming soon..."
+                    }
+                }
+            }
+        }
+    },
+    "map": {
+        "title": "Map List",
+        "loading": "Loading map",
+        "notFound": "Map not found",
+        "sideBar": {
+            "showAll": "Show All",
+            "hideAll": "Hide All",
+            "export": "Export",
+            "top": "Top"
+        }
+    },
+    "player": {
+        "rank": {
+            "LEADER": "Leader",
+            "COLONEL": "Colonel",
+            "OFFICER": "Officer",
+            "SERGEANT": "Sergeant",
+            "SOLDIER": "Soldier",
+            "COMMONER": "Reserve",
+            "RECRUIT": "Private"
+        },
+        "alliance": {
+            "merc": "Mercenary",
+            "covenant": "Covenant",
+            "freedom": "Freedom",
+            "duty": "Duty",
+            "bandits": "Bandit",
+            "stalkers": "Stalker"
+        },
+        "category": {
+            "EXPLORATION": "Exploration",
+            "SURVIVAL": "Survival",
+            "HIDEOUT": "Hideout",
+            "SESSION_MODES": "Session Modes",
+            "ECONOMY": "Economy",
+            "COMBAT": "Combat"
+        }
+    },
+    "time": {
+        "second": {
+            "one": "second",
+            "few": "seconds",
+            "many": "seconds"
+        },
+        "minute": {
+            "one": "minute",
+            "few": "minutes",
+            "many": "minutes"
+        },
+        "hour": {
+            "one": "hour",
+            "few": "hours",
+            "many": "hours"
+        },
+        "day": {
+            "one": "day",
+            "few": "days",
+            "many": "days"
+        },
+        "month": {
+            "one": "month",
+            "few": "months",
+            "many": "months"
+        },
+        "year": {
+            "one": "year",
+            "few": "years",
+            "many": "years"
+        },
+        "and": "and"
+    },
+    "unit": {
+        "km": "km",
+        "kg": "kg",
+        "unit": "unit"
+    },
+    "arts": {
+        "ART_QUALITY_COMMON": "Common",
+        "ART_QUALITY_UNCOMMON": "Uncommon",
+        "ART_QUALITY_SPECIAL": "Special",
+        "ART_QUALITY_RARE": "Rare",
+        "ART_QUALITY_EXCLUSIVE": "Exclusive",
+        "ART_QUALITY_LEGENDARY": "Legendary",
+        "ART_QUALITY_UNIQUE": "Unique"
+    },
+    "ui": {
+        "combobox": {
+            "default": {
+                "placeholder": "Select",
+                "search": {
+                    "button": "Search",
+                    "notFound": "Nothing found"
+                }
+            },
+            "addStats": {
+                "placeholder": "Additional stats"
+            }
+        }
+    }
 }
