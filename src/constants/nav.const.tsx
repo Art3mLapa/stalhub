@@ -208,32 +208,6 @@ export const DropDownLinks = (): DropdownMenuGroup[] => {
 					),
 					disabled: true,
 				},
-				{
-					key: 'top',
-					content: (
-						<CLink
-							className="flex w-full items-center justify-start gap-2 rounded-lg px-3 py-1"
-							href={'test'}
-							variant={'ghost'}
-						>
-							<Icon
-								className="text-xl"
-								icon="lucide:chart-no-axes-column"
-							/>
-							<div className="flex flex-col">
-								<p className="font-semibold text-neutral-700 dark:text-neutral-100">
-									{t('nav.groups.clans.items.top.label')}
-								</p>
-								<span className="font-semibold text-neutral-500 text-xs dark:text-neutral-400">
-									{t(
-										'nav.groups.clans.items.top.description'
-									)}
-								</span>
-							</div>
-						</CLink>
-					),
-					disabled: true,
-				},
 			],
 		},
 		{
@@ -293,9 +267,9 @@ export const DropDownLinks = (): DropdownMenuGroup[] => {
 					key: 'models',
 					content: (
 						<CLink
-							className="flex w-full items-center justify-start gap-2 rounded-lg px-3 py-1"
+							className="flex w-full cursor-not-allowed items-center justify-start gap-2 rounded-lg px-3 py-1 opacity-50"
 							href={'test'}
-							variant={'ghost'}
+							variant={'none'}
 						>
 							<Icon className="text-xl" icon="lucide:box" />
 							<div className="flex flex-col">
