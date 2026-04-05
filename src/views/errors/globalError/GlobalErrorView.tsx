@@ -11,7 +11,7 @@ export default function GlobalErrorView({ errorId, reset }: GlobalErrorProps) {
 	return (
 		<html>
 			<body className="flex min-h-screen flex-col items-center justify-center gap-4 px-6 pt-12">
-				<div className="flex items-center gap-16">
+				<div className="grid items-center gap-16 md:flex">
 					<ErrorContent reset={reset} />
 					<Image
 						alt="client error"
