@@ -139,10 +139,9 @@ export function usePreparedSearch(
 			})
 		}
 
-		addResults(fuse.search<PreparedItem>(qNorm).map((r) => r.item))
-		if (qTranslit)
-			addResults(fuse.search<PreparedItem>(qTranslit).map((r) => r.item))
-		addResults(fuse.search<PreparedItem>(qFolded).map((r) => r.item))
+		addResults(fuse.search(qNorm).map((r) => r.item))
+		if (qTranslit) addResults(fuse.search(qTranslit).map((r) => r.item))
+		addResults(fuse.search(qFolded).map((r) => r.item))
 
 		return results
 	}, [query, fuse, MIN_LENGTH, locale])
