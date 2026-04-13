@@ -3,8 +3,8 @@
 import { Icon } from '@iconify/react'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import Image from 'next/image'
-import { useState } from 'react'
-import { ItemsList } from '@/components/artifacts'
+import { useEffect, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { HoverCard } from '@/components/ui/HoverCard'
@@ -26,6 +26,7 @@ import {
 	infoColorMap,
 } from '@/types/item.type'
 import { messageToString } from '@/utils/itemUtils'
+import { ItemsList } from '@/views/builds/components/artifacts'
 import { ListBlock } from '@/views/items/components/blocks'
 
 const CATEGORIES = Object.keys(BoostButtons) as BoostCategory[]
@@ -53,10 +54,26 @@ function BoostSelectModal({
 	const locale = getLocale()
 	const [previewId, setPreviewId] = useState<string | null>(selectedBoostId)
 
+	const { t } = useTranslation()
+
 	const categoryItems = getBoostsByCategory(items, category)
 	const selectedItem = categoryItems.find((i) => i.id === previewId)
 	const selectedItemData = items.find((i) => i.id === selectedBoostId)
 	const [filter, setFilter] = useState('')
+
+	const visibleItems = useMemo(() => {
+		const q = filter.trim().toLowerCase()
+
+		if (!q) return categoryItems
+
+		return categoryItems.filter((it) =>
+			messageToString(it.name, locale).toLowerCase().includes(q)
+		)
+	}, [categoryItems, filter, locale])
+
+	useEffect(() => {
+		setPreviewId(selectedBoostId)
+	}, [selectedBoostId])
 
 	return (
 		<Modal.Root>
@@ -73,6 +90,7 @@ function BoostSelectModal({
 									selectedItemData.name,
 									locale
 								)}
+								className="h-10 w-10 object-contain"
 								height={42}
 								src={`https://raw.githubusercontent.com/oarer/sc-db/refs/heads/main/merged/icons/${selectedItemData.category}/${selectedItemData.id}.png`}
 								width={42}
@@ -142,7 +160,12 @@ function BoostSelectModal({
 			</Modal.Trigger>
 			<Modal.Content className="max-w-206">
 				<Modal.Header>
-					<Modal.Title>Выбор {category.split('.').pop()}</Modal.Title>
+					<Modal.Title>
+						{t('modals.builds.consumables.pick_boost')}{' '}
+						<span className="text-border">
+							{t(`boost.${category.split('.').pop()!}`)}
+						</span>
+					</Modal.Title>
 				</Modal.Header>
 
 				<Modal.Body>
@@ -151,7 +174,7 @@ function BoostSelectModal({
 							<Card.Header>
 								<Input
 									className="px-2 text-[14px]"
-									label="Введите название предмета"
+									label="ui.input_label"
 									onChange={(e) => setFilter(e.target.value)}
 									value={filter}
 								/>
@@ -160,7 +183,7 @@ function BoostSelectModal({
 							<ItemsList
 								className="max-h-90 max-w-90"
 								favoriteType="boost"
-								items={categoryItems}
+								items={visibleItems}
 								locale={locale}
 								onSelectItem={(id) => setPreviewId(id)}
 								selectedItemId={previewId}
@@ -178,7 +201,7 @@ function BoostSelectModal({
 								>
 									{selectedItem
 										? `| ${messageToString(selectedItem.name, locale)}`
-										: '| Выберите расходник'}
+										: `| ${t('modals.builds.consumables.header')}`}
 								</Card.Title>
 							</Card.Header>
 
@@ -234,6 +257,7 @@ export default function ConsumablesModal({ onClose }: ModalProps) {
 	const { data: items } = useSuspenseQuery(
 		itemsQueries.get({ type: 'consumables' })
 	)
+	const { t } = useTranslation()
 
 	const boost = useBuildStore((s) => s.build.boost)
 	const setBoost = useBuildStore((s) => s.setBoost)
@@ -247,11 +271,21 @@ export default function ConsumablesModal({ onClose }: ModalProps) {
 		<div className="flex gap-4 text-nowrap">
 			<Card.Root className="min-w-80">
 				<Card.Header>
-					<Card.Title>Выбор усилений</Card.Title>
+					<Card.Title>
+						{t('modals.builds.consumables.title')}
+					</Card.Title>
+					<Button
+						aria-label="Close modal"
+						className="absolute top-2.5 right-4 flex cursor-pointer items-center justify-center rounded-full p-2.5"
+						onClick={close}
+						variant={'ghost'}
+					>
+						<Icon className="text-lg" icon="lucide:x" />
+					</Button>
 				</Card.Header>
 
 				<Card.Content className="flex flex-col justify-between gap-2">
-					<div className="grid grid-cols-4 gap-2">
+					<div className="grid grid-cols-3 gap-2">
 						{CATEGORIES.map((category) => (
 							<BoostSelectModal
 								category={category}

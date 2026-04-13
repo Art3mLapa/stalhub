@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslation } from 'react-i18next'
 import type {
 	InfoElement,
 	Locale,
@@ -183,6 +184,8 @@ export const NumericVariantsElementRenderer: React.FC<{
 	const values = Array.isArray(el.value) ? el.value : []
 	const maxIdx = Math.max(0, values.length - 1)
 
+	const { t } = useTranslation()
+
 	const safePoint = Math.min(numericVariants, maxIdx)
 
 	const nameColor = normalizeColor(el.formatted?.nameColor)
@@ -203,7 +206,8 @@ export const NumericVariantsElementRenderer: React.FC<{
 						{name}
 					</div>
 					<div className="font-semibold text-neutral-400 text-xs">
-						Заточка {numericVariants} (0—{maxIdx})
+						{t('ui.input_sharpening')} {numericVariants} (0—{maxIdx}
+						)
 					</div>
 				</div>
 			</div>

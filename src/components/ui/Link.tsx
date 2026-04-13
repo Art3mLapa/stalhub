@@ -4,13 +4,12 @@ import { Icon } from '@iconify/react'
 import type { VariantProps } from 'class-variance-authority'
 import Link from 'next/link'
 import { forwardRef } from 'react'
-
-import { buttonVariants } from '@/constants/ui/button.const'
+import { linkVariants } from '@/constants/ui/link.const'
 import { cn } from '@/lib/cn'
 
 interface CLinkProps
 	extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
-		VariantProps<typeof buttonVariants> {
+		VariantProps<typeof linkVariants> {
 	disabled?: boolean
 	href: string
 	externalIcon?: boolean
@@ -40,7 +39,7 @@ const CLink = forwardRef<HTMLAnchorElement, CLinkProps>(
 				{...props}
 				aria-disabled={disabled || loading}
 				className={cn(
-					buttonVariants({ variant, size }),
+					linkVariants({ variant, size }),
 					className,
 					(disabled || loading) && 'pointer-events-none opacity-50',
 					loading && 'cursor-not-allowed'
@@ -69,4 +68,4 @@ const CLink = forwardRef<HTMLAnchorElement, CLinkProps>(
 
 CLink.displayName = 'UI.CLink'
 
-export { CLink, buttonVariants }
+export { CLink, linkVariants }

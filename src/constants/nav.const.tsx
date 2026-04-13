@@ -1,4 +1,5 @@
 import { Icon } from '@iconify/react'
+import type { TFunction } from 'i18next'
 import { useTranslation } from 'react-i18next'
 import { CLink } from '@/components/ui/Link'
 import type { AccordionItem } from '@/types/ui/accordion.type'
@@ -18,6 +19,11 @@ export const MobileLinks = [
 		href: '/discord',
 		iconName: 'ic:baseline-discord',
 	},
+	{
+		title: 'Telegram',
+		href: '/discord',
+		iconName: 'basil:telegram-outline',
+	},
 ]
 
 export const DropDownLinks = (): DropdownMenuGroup[] => {
@@ -35,7 +41,6 @@ export const DropDownLinks = (): DropdownMenuGroup[] => {
 						<CLink
 							className="flex w-full items-center justify-start gap-2 rounded-lg px-3 py-1"
 							href="/calcs/builds"
-							variant={'ghost'}
 						>
 							<Icon className="text-xl" icon="lucide:package" />
 							<div className="flex flex-col">
@@ -59,7 +64,6 @@ export const DropDownLinks = (): DropdownMenuGroup[] => {
 						<CLink
 							className="flex w-full items-center justify-start gap-2 rounded-lg px-3 py-1"
 							href="/calcs/ttk"
-							variant={'ghost'}
 						>
 							<Icon
 								className="text-xl"
@@ -86,7 +90,6 @@ export const DropDownLinks = (): DropdownMenuGroup[] => {
 						<CLink
 							className="flex w-full items-center justify-start gap-2 rounded-lg px-3 py-1"
 							href={'test'}
-							variant={'ghost'}
 						>
 							<Icon className="text-xl" icon="lucide:coins" />
 							<div className="flex flex-col">
@@ -110,7 +113,6 @@ export const DropDownLinks = (): DropdownMenuGroup[] => {
 						<CLink
 							className="flex w-full items-center justify-start gap-2 rounded-lg px-3 py-1"
 							href={'test'}
-							variant={'ghost'}
 						>
 							<Icon className="text-xl" icon="lucide:ticket" />
 							<div className="flex flex-col">
@@ -132,7 +134,6 @@ export const DropDownLinks = (): DropdownMenuGroup[] => {
 						<CLink
 							className="flex w-full items-center justify-start gap-2 rounded-lg px-3 py-1"
 							href={'test'}
-							variant={'ghost'}
 						>
 							<Icon className="text-xl" icon="lucide:mouse" />
 							<div className="flex flex-col">
@@ -163,7 +164,6 @@ export const DropDownLinks = (): DropdownMenuGroup[] => {
 						<CLink
 							className="flex w-full items-center justify-start gap-2 rounded-lg px-3 py-1"
 							href={'test'}
-							variant={'ghost'}
 						>
 							<Icon
 								className="text-xl"
@@ -188,7 +188,6 @@ export const DropDownLinks = (): DropdownMenuGroup[] => {
 						<CLink
 							className="flex w-full items-center justify-start gap-2 rounded-lg px-3 py-1"
 							href={'test'}
-							variant={'ghost'}
 						>
 							<Icon
 								className="text-xl"
@@ -221,7 +220,6 @@ export const DropDownLinks = (): DropdownMenuGroup[] => {
 						<CLink
 							className="flex w-full items-center justify-start gap-2 rounded-lg px-3 py-1"
 							href={'test'}
-							variant={'ghost'}
 						>
 							<Icon className="text-xl" icon="lucide:map" />
 							<p className="font-semibold text-neutral-700 dark:text-neutral-100">
@@ -236,7 +234,6 @@ export const DropDownLinks = (): DropdownMenuGroup[] => {
 						<CLink
 							className="flex w-full items-center justify-start gap-2 rounded-lg px-3 py-1"
 							href={'test'}
-							variant={'ghost'}
 						>
 							<Icon className="text-xl" icon="lucide:landmark" />
 							<p className="font-semibold text-neutral-700 dark:text-neutral-100">
@@ -251,7 +248,6 @@ export const DropDownLinks = (): DropdownMenuGroup[] => {
 						<CLink
 							className="flex w-full items-center justify-start gap-2 rounded-lg px-3 py-1"
 							href={'test'}
-							variant={'ghost'}
 						>
 							<Icon
 								className="text-xl"
@@ -269,7 +265,6 @@ export const DropDownLinks = (): DropdownMenuGroup[] => {
 						<CLink
 							className="flex w-full cursor-not-allowed items-center justify-start gap-2 rounded-lg px-3 py-1 opacity-50"
 							href={'test'}
-							variant={'none'}
 						>
 							<Icon className="text-xl" icon="lucide:box" />
 							<div className="flex flex-col">
@@ -291,90 +286,119 @@ export const DropDownLinks = (): DropdownMenuGroup[] => {
 	]
 }
 
-export const DropDownMobile = (): AccordionItem[] => {
-	const { t } = useTranslation()
-
-	return [
-		{
-			key: 'calculators',
-			title: t('nav.groups.calculators.title'),
-			icon: 'lucide:calculator',
-			content: (
-				<div className="flex flex-col gap-2">
-					<CLink href="/art" size="sm">
-						<Icon className="text-xl" icon="lucide:package" />
-						<p>{t('nav.groups.calculators.items.art.label')}</p>
-					</CLink>
-					<CLink href="/ttk" size="sm">
-						<Icon className="text-xl" icon="lucide:timer-reset" />
-						<p>{t('nav.groups.calculators.items.ttk.label')}</p>
-					</CLink>
-					<CLink href="/barter" size="sm">
-						<Icon className="text-xl" icon="lucide:coins" />
-						<p>{t('nav.groups.calculators.items.barter.label')}</p>
-					</CLink>
-					<CLink href="/bp" size="sm">
-						<Icon className="text-xl" icon="lucide:ticket" />
-						<p>{t('nav.groups.calculators.items.bp.label')}</p>
-					</CLink>
-					<CLink href="/dpi" size="sm">
-						<Icon className="text-xl" icon="lucide:mouse" />
-						<p>{t('nav.groups.calculators.items.dpi.label')}</p>
-					</CLink>
-				</div>
-			),
-		},
-		{
-			key: 'clans',
-			title: t('nav.groups.clans.title'),
-			icon: 'lucide:shield-half',
-			content: (
-				<div className="flex flex-col gap-2">
-					<CLink href="/kv-maps" size="sm">
-						<Icon className="text-xl" icon="lucide:map-pinned" />
-						<p>{t('nav.groups.clans.items.clanMaps.label')}</p>
-					</CLink>
-					<CLink href="/squads" size="sm">
-						<Icon className="text-xl" icon="lucide:radio-tower" />
-						<p>{t('nav.groups.clans.items.squads.label')}</p>
-					</CLink>
-					<CLink href="/clan-ratings" size="sm">
-						<Icon
-							className="text-xl"
-							icon="lucide:chart-no-axes-column"
-						/>
-						<p>{t('nav.groups.clans.items.top.label')}</p>
-					</CLink>
-				</div>
-			),
-		},
-		{
-			key: 'other',
-			title: t('nav.groups.other.title'),
-			icon: 'lucide:more-horizontal',
-			content: (
-				<div className="flex flex-col gap-2">
-					<CLink href="/maps" size="sm">
-						<Icon className="text-xl" icon="lucide:map" />
-						<p>{t('nav.groups.other.items.maps.label')}</p>
-					</CLink>
-					<CLink href="/auction" size="sm">
-						<Icon className="text-xl" icon="lucide:landmark" />
-						<p>{t('nav.groups.other.items.auction.label')}</p>
-					</CLink>
-					<CLink href="/players" size="sm">
-						<Icon
-							className="text-xl"
-							icon="lucide:user-round-search"
-						/>
-						<p>{t('nav.groups.other.items.players.label')}</p>
-					</CLink>
-					<CLink href="/models" size="sm">
-						<Icon className="text-xl" icon="lucide:box" />
-						<p>{t('nav.groups.other.items.models.label')}</p>
-					</CLink>
-				</div>
-			),
-		},
-	]
-}
+export const DropDownMobile = (t: TFunction): AccordionItem[] => [
+	{
+		key: 'calculators',
+		title: t('nav.groups.calculators.title'),
+		icon: 'lucide:calculator',
+		content: (
+			<>
+				<CLink
+					className="flex items-center justify-start gap-3 px-2 py-1"
+					href="/art"
+				>
+					<Icon className="text-xl" icon="lucide:package" />
+					<p>{t('nav.groups.calculators.items.art.label')}</p>
+				</CLink>
+				<CLink
+					className="flex items-center justify-start gap-3 px-2 py-1"
+					href="/ttk"
+				>
+					<Icon className="text-xl" icon="lucide:timer-reset" />
+					<p>{t('nav.groups.calculators.items.ttk.label')}</p>
+				</CLink>
+				<CLink
+					className="flex items-center justify-start gap-3 px-2 py-1"
+					href="/barter"
+				>
+					<Icon className="text-xl" icon="lucide:coins" />
+					<p>{t('nav.groups.calculators.items.barter.label')}</p>
+				</CLink>
+				<CLink
+					className="flex items-center justify-start gap-3 px-2 py-1"
+					href="/bp"
+				>
+					<Icon className="text-xl" icon="lucide:ticket" />
+					<p>{t('nav.groups.calculators.items.bp.label')}</p>
+				</CLink>
+				<CLink
+					className="flex items-center justify-start gap-3 px-2 py-1"
+					href="/dpi"
+				>
+					<Icon className="text-xl" icon="lucide:mouse" />
+					<p>{t('nav.groups.calculators.items.dpi.label')}</p>
+				</CLink>
+			</>
+		),
+	},
+	{
+		key: 'clans',
+		title: t('nav.groups.clans.title'),
+		icon: 'lucide:shield-half',
+		content: (
+			<>
+				<CLink
+					className="flex items-center justify-start gap-3 px-2 py-1"
+					href="/kv-maps"
+				>
+					<Icon className="text-xl" icon="lucide:map-pinned" />
+					<p>{t('nav.groups.clans.items.clanMaps.label')}</p>
+				</CLink>
+				<CLink
+					className="flex items-center justify-start gap-3 px-2 py-1"
+					href="/squads"
+				>
+					<Icon className="text-xl" icon="lucide:radio-tower" />
+					<p>{t('nav.groups.clans.items.squads.label')}</p>
+				</CLink>
+				<CLink
+					className="flex items-center justify-start gap-3 px-2 py-1"
+					href="/clan-ratings"
+				>
+					<Icon
+						className="text-xl"
+						icon="lucide:chart-no-axes-column"
+					/>
+					<p>{t('nav.groups.clans.items.top.label')}</p>
+				</CLink>
+			</>
+		),
+	},
+	{
+		key: 'other',
+		title: t('nav.groups.other.title'),
+		icon: 'lucide:more-horizontal',
+		content: (
+			<>
+				<CLink
+					className="flex items-center justify-start gap-3 px-2 py-1"
+					href="/maps"
+				>
+					<Icon className="text-xl" icon="lucide:map" />
+					<p>{t('nav.groups.other.items.maps.label')}</p>
+				</CLink>
+				<CLink
+					className="flex items-center justify-start gap-3 px-2 py-1"
+					href="/auction"
+				>
+					<Icon className="text-xl" icon="lucide:landmark" />
+					<p>{t('nav.groups.other.items.auction.label')}</p>
+				</CLink>
+				<CLink
+					className="flex items-center justify-start gap-3 px-2 py-1"
+					href="/players"
+				>
+					<Icon className="text-xl" icon="lucide:user-round-search" />
+					<p>{t('nav.groups.other.items.players.label')}</p>
+				</CLink>
+				<CLink
+					className="flex items-center justify-start gap-3 px-2 py-1"
+					href="/models"
+				>
+					<Icon className="text-xl" icon="lucide:box" />
+					<p>{t('nav.groups.other.items.models.label')}</p>
+				</CLink>
+			</>
+		),
+	},
+]

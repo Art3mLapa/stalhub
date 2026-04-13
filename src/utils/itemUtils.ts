@@ -60,6 +60,13 @@ export const messageToString = (
 			m.lines?.[locale] ?? Object.values(m.lines ?? {})[0] ?? m.key ?? ''
 		)
 	}
+
+	if (typeof m === 'object') {
+		return (
+			(m as Record<string, string>)[locale] ?? Object.values(m)[0] ?? ''
+		)
+	}
+
 	return ''
 }
 

@@ -2,20 +2,8 @@ import { Icon } from '@iconify/react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useTheme } from 'next-themes'
 import { useRef, useState } from 'react'
-
+import { themes } from '@/constants/themes.const'
 import useClickOutside from '@/hooks/useClickOutside'
-
-interface Theme {
-	name: string
-	title: string
-	iconName: string
-}
-
-const themes: Theme[] = [
-	{ name: 'system', title: 'Системная', iconName: 'lucide:laptop-minimal' },
-	{ name: 'dark', title: 'Тёмная', iconName: 'lucide:moon-star' },
-	{ name: 'light', title: 'Светлая', iconName: 'lucide:sun' },
-]
 
 export default function ChangeTheme() {
 	const { theme, setTheme } = useTheme()

@@ -1,8 +1,9 @@
 'use client'
 
+import { Icon } from '@iconify/react'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { useState } from 'react'
-import { ItemsList } from '@/components/artifacts'
+import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import Input from '@/components/ui/Input'
@@ -19,16 +20,17 @@ import {
 	infoColorMap,
 } from '@/types/item.type'
 import { findContSizeInBlocks, messageToString } from '@/utils/itemUtils'
+import { ItemsList } from '@/views/builds/components/artifacts'
 import { ListBlock } from '@/views/items/components/blocks'
 
 type Slot = string | null
 
 export default function ContModal({ onClose }: ModalProps) {
 	const locale = getLocale()
-
 	const { data: items } = useSuspenseQuery(
 		itemsQueries.get({ type: 'containers' })
 	)
+	const { t } = useTranslation()
 
 	const [filter, setFilter] = useState('')
 
@@ -62,7 +64,7 @@ export default function ContModal({ onClose }: ModalProps) {
 		}
 
 		setContainer(previewId, newCount)
-		CustomToast('Контейнер изменён', 'success')
+		CustomToast(t('modals.builds.container.toaster_success'), 'success')
 	}
 
 	const visibleItems = items.filter((it) =>
@@ -78,7 +80,7 @@ export default function ContModal({ onClose }: ModalProps) {
 					<Card.Header>
 						<Input
 							className="px-2 text-[14px]"
-							label="Введите название предмета"
+							label="ui.input_label"
 							onChange={(e) => setFilter(e.target.value)}
 							value={filter}
 						/>
@@ -105,8 +107,16 @@ export default function ContModal({ onClose }: ModalProps) {
 						>
 							{selectedItem
 								? `| ${messageToString(selectedItem.name, locale)}`
-								: '| Выберите контейнер'}
+								: `| ${t('modals.builds.container.header')}`}
 						</Card.Title>
+						<Button
+							aria-label="Close modal"
+							className="absolute top-2.5 right-4 flex cursor-pointer items-center justify-center rounded-full p-2.5"
+							onClick={close}
+							variant={'ghost'}
+						>
+							<Icon className="text-lg" icon="lucide:x" />
+						</Button>
 					</Card.Header>
 
 					<Card.Content className="flex h-full flex-col justify-between">
@@ -136,7 +146,7 @@ export default function ContModal({ onClose }: ModalProps) {
 							onClick={handleSet}
 							variant="secondary"
 						>
-							Выбрать
+							{t('modals.builds.pick')}
 						</Button>
 					</Card.Content>
 				</Card.Root>
@@ -148,20 +158,24 @@ export default function ContModal({ onClose }: ModalProps) {
 				<Modal.Content>
 					<Modal.Header>
 						<Modal.Title className="text-2xl text-red-700 dark:text-red-400">
-							Предупреждение
+							{t('modals.builds.container.warn_modal.warn')}
 						</Modal.Title>
 						<Modal.Description className="font-semibold">
-							Новый контейнер меньше текущего.
+							{t('modals.builds.container.warn_modal.new_small')}
 						</Modal.Description>
 					</Modal.Header>
 
 					<Modal.Body>
 						<p className="font-semibold">
-							Будет удалено{' '}
+							{t('modals.builds.container.warn_modal.del_count')}{' '}
 							{pending ? pending.lostItems.length : 0}{' '}
 							{pending && pending.lostItems.length === 1
-								? 'слот'
-								: 'слотов'}
+								? t(
+										'modals.builds.container.warn_modal.slots.slot'
+									)
+								: t(
+										'modals.builds.container.warn_modal.slots.slots'
+									)}
 							.
 						</p>
 					</Modal.Body>
@@ -174,7 +188,7 @@ export default function ContModal({ onClose }: ModalProps) {
 							}}
 							variant={'ghost'}
 						>
-							Отмена
+							{t('modals.builds.container.warn_modal.cancel')}
 						</Modal.Action>
 						<Modal.Action
 							onClick={() => {
@@ -184,7 +198,7 @@ export default function ContModal({ onClose }: ModalProps) {
 									pending.newCount
 								)
 								CustomToast(
-									`Контейнер изменён. Удалено ${pending.lostItems.filter(Boolean).length} слотов`,
+									`${t('modals.builds.container.warn_modal.success_toast')} ${pending.lostItems.filter(Boolean).length} ${t('modals.builds.container.warn_modal.slots.slots')}`,
 									'success'
 								)
 								setPending(null)
@@ -192,7 +206,7 @@ export default function ContModal({ onClose }: ModalProps) {
 							}}
 							variant={'danger'}
 						>
-							Продолжить
+							{t('modals.builds.container.warn_modal.confirm')}
 						</Modal.Action>
 					</Modal.Footer>
 				</Modal.Content>

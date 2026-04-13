@@ -34,6 +34,30 @@ export const infoColorMap: Record<InfoColor, string> = {
 	[InfoColor.ART_QUALITY_UNIQUE]: '#FCB3CD',
 }
 
+export const colorPriority: Record<InfoColor, number> = {
+	[InfoColor.DEFAULT]: 0,
+
+	[InfoColor.RANK_NEWBIE]: 1,
+	[InfoColor.ART_QUALITY_COMMON]: 1,
+
+	[InfoColor.RANK_STALKER]: 2,
+	[InfoColor.ART_QUALITY_UNCOMMON]: 2,
+
+	[InfoColor.RANK_VETERAN]: 3,
+	[InfoColor.ART_QUALITY_SPECIAL]: 3,
+
+	[InfoColor.RANK_MASTER]: 4,
+	[InfoColor.ART_QUALITY_RARE]: 4,
+
+	[InfoColor.RANK_LEGEND]: 5,
+	[InfoColor.ART_QUALITY_EXCLUSIVE]: 5,
+
+	[InfoColor.ART_QUALITY_LEGENDARY]: 6,
+	[InfoColor.ART_QUALITY_UNIQUE]: 7,
+
+	[InfoColor.QUEST_ITEM]: 8,
+}
+
 export type ArtQuality =
 	| InfoColor.ART_QUALITY_COMMON
 	| InfoColor.ART_QUALITY_UNCOMMON

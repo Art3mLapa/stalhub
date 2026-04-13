@@ -13,7 +13,7 @@ import {
 import { useTheme } from 'next-themes'
 import React from 'react'
 import { Line } from 'react-chartjs-2'
-
+import { useTranslation } from 'react-i18next'
 import { Card } from '@/components/ui/Card'
 
 ChartJS.register(
@@ -101,6 +101,7 @@ const generatePointsVariableSteps = (
 export const DamageChart: React.FC<DamageChartProps> = ({ block }) => {
 	const { resolvedTheme } = useTheme()
 	const isDark = resolvedTheme === 'dark'
+	const { t } = useTranslation()
 
 	const points = React.useMemo(
 		() => generatePointsVariableSteps(block),
@@ -110,7 +111,7 @@ export const DamageChart: React.FC<DamageChartProps> = ({ block }) => {
 	const data: ChartData<'line', { x: number; y: number }[], number> = {
 		datasets: [
 			{
-				label: 'Damage',
+				label: 'dmg',
 				data: points,
 				parsing: false,
 				fill: true,
@@ -147,7 +148,7 @@ export const DamageChart: React.FC<DamageChartProps> = ({ block }) => {
 
 						const item = tooltipItems[0]
 						const parsed = item.parsed as { x: number; y: number }
-						return `Дистанция: ${Math.round(parsed.x)} m`
+						return `${t('ttk.page.charts.distance')} ${Math.round(parsed.x)} ${t('unit.meter')}`
 					},
 
 					label: (context: TooltipItem<'line'>): string => {
@@ -156,7 +157,7 @@ export const DamageChart: React.FC<DamageChartProps> = ({ block }) => {
 							y: number
 						}
 						const dmg = Math.round(parsed.y * 100) / 100
-						return `Урон: ${dmg}`
+						return `${t('ttk.page.charts.damage')}: ${dmg}`
 					},
 				},
 			},
@@ -164,7 +165,7 @@ export const DamageChart: React.FC<DamageChartProps> = ({ block }) => {
 		scales: {
 			x: {
 				type: 'linear',
-				title: { display: true, text: 'Дистанция (м)' },
+				title: { display: true, text: t('ttk.page.charts.dist_meter') },
 				grid: { display: false },
 				min: 0,
 				max: Math.max(0, block.maxDistance),
@@ -178,7 +179,7 @@ export const DamageChart: React.FC<DamageChartProps> = ({ block }) => {
 			},
 			y: {
 				beginAtZero: true,
-				title: { display: true, text: 'Урон' },
+				title: { display: true, text: t('ttk.page.charts.damage') },
 				grid: { display: false },
 			},
 		},
@@ -187,7 +188,9 @@ export const DamageChart: React.FC<DamageChartProps> = ({ block }) => {
 	return (
 		<Card.Root className="h-80 w-full py-8">
 			<Card.Header>
-				<h1 className="text-center font-semibold">Урон на дистанции</h1>
+				<h1 className="text-center font-semibold">
+					{t('ttk.page.charts.dist_damage')}
+				</h1>
 			</Card.Header>
 
 			<Line data={data} options={options} />

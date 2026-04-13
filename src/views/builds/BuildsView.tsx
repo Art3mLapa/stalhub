@@ -3,14 +3,15 @@
 import { Icon } from '@iconify/react'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import Scene from '@/app/calcs/builds/model/Scene'
-import StatsTabs from '@/app/calcs/builds/StatsTabs'
 import { unbounded } from '@/app/fonts'
 import { Button } from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import { Modal } from '@/components/ui/Modal'
 import { itemsQueries } from '@/queries/calcs/items.queries'
 import { useBuildStore } from '@/stores/useBuild.store'
+import StatsTabs from '@/views/builds/components/StatsTabs'
 import BuildSelector from './components/BuildSelector'
 import DefaultsSettings from './components/DefaultsSettings'
 
@@ -27,9 +28,9 @@ export default function BuildsView() {
 
 	const [showRenameModal, setShowRenameModal] = useState(false)
 	const [buildName, setBuildName] = useState('')
-	const [showDefaults, setShowDefaults] = useState(false)
 	const [shareCopied, setShareCopied] = useState(false)
 	const [imported, setImported] = useState(false)
+	const { t } = useTranslation()
 
 	const currentBuild = savedBuilds.find((b) => b.id === currentBuildId)
 
@@ -103,7 +104,9 @@ export default function BuildsView() {
 							className={`${unbounded.className} text-3xl text-red-500`}
 						>
 							|{' '}
-							{currentBuild ? currentBuild.name : 'Новая сборка'}
+							{currentBuild
+								? currentBuild.name
+								: t('build.new_build')}
 						</h1>
 
 						<div className="flex flex-wrap items-center justify-between gap-2">
@@ -136,12 +139,12 @@ export default function BuildsView() {
 										<Modal.Content>
 											<Modal.Header>
 												<Modal.Title>
-													Переименовать сборку
+													{t('build.rename')}
 												</Modal.Title>
 											</Modal.Header>
 											<Modal.Body>
 												<Input
-													label="Название сборки"
+													label="build.build_name"
 													onChange={(
 														e: React.ChangeEvent<HTMLInputElement>
 													) =>
@@ -154,13 +157,13 @@ export default function BuildsView() {
 											</Modal.Body>
 											<Modal.Footer>
 												<Modal.Close>
-													Отмена
+													{t('build.cancel')}
 												</Modal.Close>
 												<Modal.Action
 													disabled={!buildName.trim()}
 													onClick={handleRename}
 												>
-													Сохранить
+													{t('build.save')}
 												</Modal.Action>
 											</Modal.Footer>
 										</Modal.Content>
@@ -171,7 +174,8 @@ export default function BuildsView() {
 									className="flex gap-2 rounded-lg p-2"
 									onClick={async () => {
 										const name =
-											currentBuild?.name || 'Новая сборка'
+											currentBuild?.name ||
+											t('build.new_build')
 										const encoded = await exportBuild(name)
 										if (encoded) {
 											const url = `${window.location.origin}/calcs/builds?share=${encodeURIComponent(encoded)}`
@@ -196,18 +200,26 @@ export default function BuildsView() {
 										}
 									/>
 								</Button>
-								<Button
-									className="flex gap-2 rounded-lg p-2"
-									onClick={() =>
-										setShowDefaults(!showDefaults)
-									}
-									variant={'secondary'}
-								>
-									<Icon
-										className="text-xl"
-										icon="lucide:settings"
-									/>
-								</Button>
+								<Modal.Root>
+									<Modal.Trigger
+										className="p-2"
+										variant={'secondary'}
+									>
+										<Icon
+											className="text-xl"
+											icon="lucide:settings"
+										/>
+									</Modal.Trigger>
+									<Modal.Content className="max-w-md">
+										<Modal.Header className="py-2 pt-6">
+											<Modal.Title>Настройки</Modal.Title>
+										</Modal.Header>
+
+										<Modal.Body className="py-2 pb-6">
+											<DefaultsSettings />
+										</Modal.Body>
+									</Modal.Content>
+								</Modal.Root>
 								<Button
 									className="flex gap-2 rounded-lg p-2 ring-transparent"
 									onClick={resetBuild}
@@ -220,8 +232,6 @@ export default function BuildsView() {
 								</Button>
 							</div>
 						</div>
-
-						{showDefaults && <DefaultsSettings />}
 					</div>
 
 					<StatsTabs />
@@ -238,7 +248,7 @@ export default function BuildsView() {
 									: 'https://cdn.stalhub.tech/models/armor/hound/hound_diff.dds',
 								emi: armorModel?.emi
 									? `https://cdn.stalhub.tech/${armorModel.emi}`
-									: '/textures/armor_emi.png',
+									: undefined,
 								nrm: armorModel?.nrm
 									? `https://cdn.stalhub.tech/${armorModel.nrm}`
 									: 'https://cdn.stalhub.tech/models/armor/hound/hound_nrm.dds',

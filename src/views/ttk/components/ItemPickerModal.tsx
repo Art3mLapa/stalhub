@@ -1,12 +1,13 @@
 'use client'
 
 import { useCallback, useMemo, useState } from 'react'
-import { ItemsList } from '@/components/artifacts'
+import { useTranslation } from 'react-i18next'
 import Input from '@/components/ui/Input'
 import { Modal } from '@/components/ui/Modal'
 import { getLocale } from '@/lib/getLocale'
 import type { Item } from '@/types/item.type'
 import { messageToString } from '@/utils/itemUtils'
+import { ItemsList } from '@/views/builds/components/artifacts'
 
 interface Props {
 	items: Item[]
@@ -21,6 +22,7 @@ export function ItemPickerModal({ items, onSelect, title, trigger }: Props) {
 	const [open, setOpen] = useState(false)
 
 	const locale = getLocale()
+	const { t } = useTranslation()
 
 	const filtered = useMemo(() => {
 		const q = query.toLowerCase()
@@ -45,12 +47,12 @@ export function ItemPickerModal({ items, onSelect, title, trigger }: Props) {
 			<Modal.Trigger asChild>{trigger}</Modal.Trigger>
 			<Modal.Content className="max-h-[80vh]">
 				<Modal.Header>
-					<Modal.Title>{title}</Modal.Title>
+					<Modal.Title>{t(title)}</Modal.Title>
 				</Modal.Header>
 				<Modal.Body className="flex flex-col gap-3">
 					<Input
 						className="px-2 text-[14px]"
-						label="Введите название предмета"
+						label="ui.input_label"
 						onChange={(e) => setQuery(e.target.value)}
 						value={query}
 					/>

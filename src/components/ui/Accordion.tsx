@@ -10,6 +10,7 @@ import {
 } from '@/constants/ui/accordion.const'
 import { cn } from '@/lib/cn'
 import type { AccordionProps } from '@/types/ui/accordion.type'
+import { Divider } from './Divider'
 
 export function Accordion({
 	items,
@@ -29,7 +30,7 @@ export function Accordion({
 	const measure = useCallback((key: string) => {
 		const el = contentRefs.current[key]
 		if (!el) return
-		const h = el.scrollHeight
+		const h = el.scrollHeight + 12
 		setHeights((prev) => (prev[key] === h ? prev : { ...prev, [key]: h }))
 	}, [])
 
@@ -84,7 +85,7 @@ export function Accordion({
 	)
 
 	return (
-		<div className={cn('flex flex-col gap-2', className)}>
+		<div className={cn('flex flex-col', className)}>
 			{items.map((item, index) => {
 				const triggerId = `accordion-trigger-${item.key}`
 				const contentId = `accordion-content-${item.key}`
@@ -115,11 +116,11 @@ export function Accordion({
 							<div className="flex items-center gap-3 p-2">
 								{item.icon && (
 									<Icon
-										className="shrink-0 text-lg"
+										className="text-lg dark:text-neutral-100"
 										icon={item.icon}
 									/>
 								)}
-								<span className="font-semibold opacity-80">
+								<span className="font-semibold dark:text-neutral-100">
 									{item.title}
 								</span>
 							</div>
@@ -140,7 +141,6 @@ export function Accordion({
 								/>
 							</motion.div>
 						</button>
-
 						<AnimatePresence initial={false}>
 							{expanded && (
 								<motion.div
@@ -148,7 +148,6 @@ export function Accordion({
 										height: heights[item.key] ?? 'auto',
 										opacity: 1,
 									}}
-									className="overflow-hidden"
 									exit={{ height: 0, opacity: 0 }}
 									id={contentId}
 									initial={{ height: 0, opacity: 0 }}
@@ -164,8 +163,9 @@ export function Accordion({
 										},
 									}}
 								>
+									<Divider className="mb-2" />
 									<div
-										className="py-2"
+										className="flex flex-col gap-2"
 										ref={(el) => {
 											contentRefs.current[item.key] = el
 											if (el) measure(item.key)

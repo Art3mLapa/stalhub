@@ -25,7 +25,7 @@ export const generateMetadata = async (): Promise<Metadata | undefined> => {
 	return {
 		...base,
 		...(object[path] as object),
-	} as Metadata
+	}
 }
 
 export default function RootLayout({

@@ -112,7 +112,7 @@ export default function Hero() {
 					transition={{ duration: 0.6, delay: 0.7 }}
 				>
 					<CLink
-						className="gap-2"
+						className="gap-2 rounded-xl"
 						href="/workspace"
 						size="lg"
 						variant="primary"
@@ -128,7 +128,7 @@ export default function Hero() {
 					transition={{ duration: 0.6, delay: 0.95 }}
 				>
 					<CLink
-						className="gap-2"
+						className="gap-2 rounded-xl"
 						href="#tools"
 						size="lg"
 						variant="secondary"

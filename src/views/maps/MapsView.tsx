@@ -13,7 +13,7 @@ export default function MapsView() {
 	const { maps, error } = useMaps()
 	const { t, i18n } = useTranslation()
 
-	// ! TODO SUSPENSE QUERIES
+	// КАРТЫ НЕ ГОТОВЫ TODO SUSPENSE QUERIES
 
 	useEffect(() => {
 		if (error) {

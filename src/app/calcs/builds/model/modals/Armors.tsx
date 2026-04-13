@@ -1,8 +1,9 @@
 'use client'
 
+import { Icon } from '@iconify/react'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { useState } from 'react'
-import { ItemsList } from '@/components/artifacts'
+import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import Input from '@/components/ui/Input'
@@ -18,10 +19,12 @@ import {
 	infoColorMap,
 } from '@/types/item.type'
 import { isNumericVariantsBlock, messageToString } from '@/utils/itemUtils'
+import { ItemsList } from '@/views/builds/components/artifacts'
 import { ListBlock, NumericVariantsCard } from '@/views/items/components/blocks'
 
 export default function ArmorModal({ onClose }: ModalProps) {
 	const locale = getLocale()
+	const { t } = useTranslation()
 
 	const { data: items } = useSuspenseQuery(
 		itemsQueries.get({ type: 'armor' })
@@ -38,7 +41,7 @@ export default function ArmorModal({ onClose }: ModalProps) {
 
 	const handleSet = () => {
 		setArmor(previewId!, numericVariants)
-		CustomToast('Броня изменена', 'success')
+		CustomToast(t('modals.builds.armor.toaster_success'), 'success')
 	}
 
 	const visibleItems = items.filter((it) =>
@@ -53,7 +56,7 @@ export default function ArmorModal({ onClose }: ModalProps) {
 				<Card.Header>
 					<Input
 						className="px-2 text-[14px]"
-						label="Введите название предмета"
+						label="ui.input_label"
 						onChange={(e) => setFilter(e.target.value)}
 						value={filter}
 					/>
@@ -79,12 +82,20 @@ export default function ArmorModal({ onClose }: ModalProps) {
 					>
 						{selectedItem
 							? `| ${messageToString(selectedItem.name, locale)}`
-							: '| Выберите броню'}
+							: `| ${t('modals.builds.armor.header')}`}
 					</Card.Title>
+					<Button
+						aria-label="Close modal"
+						className="absolute top-2.5 right-4 flex cursor-pointer items-center justify-center rounded-full p-2.5"
+						onClick={close}
+						variant={'ghost'}
+					>
+						<Icon className="text-lg" icon="lucide:x" />
+					</Button>
 				</Card.Header>
 
 				<Card.Content className="flex flex-col justify-between gap-2">
-					<div className="flex max-h-120 flex-col gap-3 overflow-y-auto">
+					<div className="flex max-h-120 flex-col gap-2 overflow-y-auto">
 						{selectedItem?.infoBlocks
 							.filter(
 								(b): b is ElementListBlock =>
@@ -130,9 +141,9 @@ export default function ArmorModal({ onClose }: ModalProps) {
 						className="justify-center"
 						disabled={!previewId}
 						onClick={handleSet}
-						variant="secondary"
+						variant={'outline'}
 					>
-						Выбрать
+						{t('modals.builds.pick')}
 					</Button>
 				</Card.Content>
 			</Card.Root>

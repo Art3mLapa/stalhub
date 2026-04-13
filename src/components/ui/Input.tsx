@@ -1,6 +1,7 @@
 import { Icon } from '@iconify/react'
 import type { InputHTMLAttributes } from 'react'
 import { useId, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { twMerge } from 'tailwind-merge'
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
@@ -12,6 +13,7 @@ export default function Input({
 	type = 'text',
 	value,
 	onChange,
+	onBlur,
 	step,
 	min,
 	max,
@@ -24,6 +26,7 @@ export default function Input({
 	const inputRef = useRef<HTMLInputElement | null>(null)
 	const reactId = useId()
 	const id = propId ?? `floating_${reactId}`
+	const { t } = useTranslation()
 
 	const togglePassword = () => setShowPassword((s) => !s)
 
@@ -33,25 +36,32 @@ export default function Input({
 			return
 		}
 
-		const val = e.target.value
+		onChange?.(e)
+	}
 
-		if (val === '') {
-			onChange?.(e)
-			return
+	const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+		if (type === 'number') {
+			const raw = e.target.value
+
+			if (raw !== '') {
+				let normalized = String(Number(raw))
+
+				if (min !== undefined)
+					normalized = String(
+						Math.max(Number(normalized), Number(min))
+					)
+				if (max !== undefined)
+					normalized = String(
+						Math.min(Number(normalized), Number(max))
+					)
+
+				if (normalized !== raw && inputRef.current) {
+					inputRef.current.value = normalized
+				}
+			}
 		}
 
-		let num = Number(val)
-		if (Number.isNaN(num)) return
-
-		if (min !== undefined) num = Math.max(num, Number(min))
-		if (max !== undefined) num = Math.min(num, Number(max))
-
-		const syntheticEvent = {
-			...e,
-			target: { ...e.target, value: String(num) },
-		} as React.ChangeEvent<HTMLInputElement>
-
-		onChange?.(syntheticEvent)
+		onBlur?.(e)
 	}
 
 	const handleStep = (direction: 'up' | 'down') => {
@@ -71,12 +81,13 @@ export default function Input({
 			<input
 				{...rest}
 				className={twMerge(
-					`peer w-full rounded-lg bg-background px-2 py-2! font-semibold text-neutral-900 outline-none ring-2 ring-border-secondary transition-all duration-500 ease-in-out placeholder:text-neutral-500 disabled:cursor-not-allowed disabled:opacity-50 dark:text-neutral-100 dark:placeholder:text-neutral-400`,
+					`peer w-full rounded-lg bg-background px-2.5 py-2 font-semibold text-neutral-900 outline-none ring-2 ring-border-secondary transition-all duration-500 ease-in-out placeholder:text-neutral-500 disabled:cursor-not-allowed disabled:opacity-50 dark:text-neutral-100 dark:placeholder:text-neutral-400`,
 					className
 				)}
 				id={id}
 				max={max}
 				min={min}
+				onBlur={handleBlur}
 				onChange={handleChange}
 				placeholder={computedPlaceholder}
 				ref={inputRef}
@@ -87,10 +98,10 @@ export default function Input({
 
 			{label && (
 				<label
-					className="pointer-events-none absolute start-1 top-2 z-10 origin-left -translate-y-2 scale-75 transform px-2 font-semibold text-neutral-400 text-sm duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-neutral-400 peer-focus:top-2 peer-focus:-translate-y-2.5 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-neutral-400"
+					className="pointer-events-none absolute inset-s-1 top-2 z-10 origin-left -translate-y-2.5 scale-75 transform px-2 font-semibold text-neutral-400 text-sm duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-neutral-400 peer-focus:top-2 peer-focus:-translate-y-2.5 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-neutral-400"
 					htmlFor={id}
 				>
-					{label}
+					{t(label)}
 				</label>
 			)}
 

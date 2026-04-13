@@ -5,7 +5,8 @@ import { motion, useMotionValueEvent, useScroll } from 'motion/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
-// import ItemSearchModal from '@/components/modals/ItemSearch'
+import { useTranslation } from 'react-i18next'
+import ItemSearchModal from '@/components/modals/ItemSearch'
 import DropdownMenu from '@/components/ui/DropDown'
 import { CLink } from '@/components/ui/Link'
 import { DropDownLinks } from '@/constants/nav.const'
@@ -16,6 +17,7 @@ import NavMobile from './NavMobile'
 
 export default function Nav() {
 	const svgPath = useSvg()
+	const { t } = useTranslation()
 
 	const [isScrolled, setIsScrolled] = useState(false)
 	const { scrollY } = useScroll()
@@ -29,7 +31,7 @@ export default function Nav() {
 				paddingTop: isScrolled ? '1rem' : '2rem',
 				paddingBottom: isScrolled ? '1rem' : '2rem',
 			}}
-			className={`fixed top-8 isolate z-99 w-full items-center text-neutral-700 backdrop-blur-sm transition-colors duration-500 dark:text-neutral-100 ${
+			className={`fixed top-8 z-90 w-full items-center text-neutral-700 backdrop-blur-sm transition-colors duration-500 dark:text-neutral-100 ${
 				isScrolled
 					? 'outline-2 outline-border/40'
 					: 'outline-2 outline-border/2'
@@ -68,13 +70,13 @@ export default function Nav() {
 						<CLink
 							className="flex items-center gap-4 rounded-full px-6 py-2"
 							href="/wiki"
-							variant={'ghost'}
 						>
 							<Icon className="text-xl" icon="lucide:book-open" />
-							<p className="font-semibold text-md">Вики</p>
+							<p className="font-semibold text-md">
+								{t('nav.wiki')}
+							</p>
 						</CLink>
-						{/*! TODO сука на прод не забудь раскоментить */}
-						{/* <ItemSearchModal /> */}
+						<ItemSearchModal />
 					</div>
 					<div className="relative flex items-center justify-end gap-3">
 						<ChangeLang />

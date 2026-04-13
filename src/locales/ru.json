@@ -56,6 +56,7 @@
 		}
 	},
 	"nav": {
+		"wiki": "Вики",
 		"groups": {
 			"calculators": {
 				"title": "Калькуляторы",
@@ -134,6 +135,16 @@
 		}
 	},
 	"player": {
+		"hero": {
+			"ach": "Достижения",
+			"ach_points": "Очков достижений:"
+		},
+		"stats": {
+			"title": "Статистика",
+			"reg": "В зоне:",
+			"hours": "В игре:",
+			"last_login": "Последний вход:"
+		},
 		"rank": {
 			"LEADER": "Лидер",
 			"COLONEL": "Полковник",
@@ -158,6 +169,25 @@
 			"SESSION_MODES": "Сессионные режимы",
 			"ECONOMY": "Экономика",
 			"COMBAT": "Бой"
+		},
+		"clan": {
+			"title": "Клан",
+			"name": "Название клана",
+			"rank": "Ранг",
+			"level": "Уровень клана",
+			"members": "Участников",
+			"leader": "Лидер",
+			"join_at": "Вступил"
+		},
+		"combat": {
+			"kd": "К/Д:",
+			"deaths": "Убийства:",
+			"kills": "Смертей:",
+			"kil_ser": "Максимальная серия Убийств:",
+			"accuracy": "Точность:",
+			"shots": "Выстрелов:",
+			"hits": "Попаданий:",
+			"accuracy_head": "Точность в голову:"
 		}
 	},
 	"time": {
@@ -191,12 +221,14 @@
 			"few": "года",
 			"many": "лет"
 		},
-		"and": "и"
+		"and": "и",
+		"back": "назад"
 	},
 	"unit": {
 		"km": "км",
 		"kg": "кг",
-		"unit": "ед"
+		"unit": "ед",
+		"meter": "м"
 	},
 	"arts": {
 		"ART_QUALITY_COMMON": "Обычный",
@@ -218,6 +250,142 @@
 			},
 			"addStats": {
 				"placeholder": "Дополнительные свойства"
+			}
+		},
+		"input_label": "Введите название предмета",
+		"input_sharpening": "Заточка"
+	},
+	"arsenal": {
+		"title": "Калькулятор репутации Арсенала",
+		"sub_title": "Посчитайте стоимость репутации арсенала",
+		"input_label": "Репутация",
+		"alert": "Цены на предметы обновляются дважды в сутки — в 00:00 и в 12:00 по МСК. Сравнивайте цены в игре!",
+		"table": {
+			"item": "Предмет",
+			"drop": {
+				"title": "Выпадает",
+				"true": "Да",
+				"false": "Нет"
+			},
+			"reputation": "Репутация",
+			"weight": "Вес",
+			"currentPrice": "Цена",
+			"neededCount": "Кол.во",
+			"totalWeight": "Итого вес",
+			"totalPrice": "Итого"
+		}
+	},
+	"modals": {
+		"builds": {
+			"pick": "Выбрать",
+			"no_data": "Нет данных",
+			"quality": "Качество",
+			"armor": {
+				"toaster_success": "Броня изменена!",
+				"header": "Выберите броню"
+			},
+			"container": {
+				"toaster_success": "Контейнер изменён!",
+				"header": "Выберите контейнер",
+				"warn_modal": {
+					"warn": "Предупреждение",
+					"new_small": "Новый контейнер меньше текущего.",
+					"cancel": "Отмена",
+					"confirm": "Продолжить",
+					"del_count": "Будет удалено",
+					"success_toast": "Контейнер изменён. Удалено",
+					"slots": {
+						"slot": "слот",
+						"slots": "слотов"
+					}
+				}
+			},
+			"consumables": {
+				"title": "Выбор усилений",
+				"header": "Выберите усиление",
+				"pick_boost": "Выбор"
+			},
+			"settings": {
+				"auto_save": "Сохранение происходит автоматический",
+				"percent": "Процент",
+				"potential": "Потенциал"
+			}
+		}
+	},
+	"boost": {
+		"long_time_medicine": "Длительного усиления",
+		"short_time_medicine": "Кратковременного усиления",
+		"mobility": "Подвижность",
+		"accumulation": "Вывод",
+		"healing": "Лечение",
+		"protection": "Защита"
+	},
+	"wiki": {
+		"title": "Википедия",
+		"description": "Добро пожаловать в нашу википедию по StalCraft. Тут вы найдёте подробные гайды на механики и квесты игры.",
+		"total_pages": "Всего статей:",
+		"recently_updated": "Недавно обновлено",
+		"page": {
+			"page_section": "Страницы в этой секции",
+			"update_at": "Обновлено:",
+			"authors": "Авторы статьи"
+		}
+	},
+	"status_widget": {
+		"services_down": "Упали сервисы",
+		"services_up": "Сервисы восстановлены",
+		"services_ok": "Все сервисы в порядке",
+		"services_problem": "Проблемы с сервисами"
+	},
+	"build": {
+		"new_build": "Новая сборка",
+		"rename": "Переименовать сборку",
+		"build_name": "Название сборки",
+		"cancel": "Отмена",
+		"save": "Сохранить",
+		"builds": "Сборки",
+		"needed_cont": "Необходимо выбрать контейнер",
+		"stats": {
+			"prime": "Приведёнка",
+			"regen": "Реген",
+			"all": "Общее",
+			"container": "Контейнер",
+			"no_stats": "Нет статов",
+			"no_container": "Контейнер не выбран"
+		}
+	},
+	"ttk": {
+		"page": {
+			"weapon": "Оружие",
+			"weapon_add": "Добавить оружие",
+			"weapon_pick": "Выберите оружие",
+			"ammo_pick": "Выберите патрон",
+			"default_ammo": "Стандартный патрон",
+			"mannequin": "Манекен",
+			"bullet_resistance": "Пулестойкость",
+			"vitality": "Живучесть",
+			"build": "Сборка",
+			"plate": "Пластина",
+			"prime": "Приведёнка",
+			"combobox": {
+				"build": {
+					"placeholder": "— вручную —",
+					"search_placeholder": "Поиск сборки..."
+				},
+				"plate": {
+					"placeholder": "— без пластины —",
+					"search_placeholder": "Поиск пластины..."
+				}
+			},
+			"charts": {
+				"distance": "Дистанция:",
+				"damage": "Урон",
+				"dist_meter": "Дистанция (м):",
+				"dist_damage": "Урон на дистанции"
+			},
+			"table": {
+				"ttk": "ТТК",
+				"hits": "Попаданий"
 			}
 		}
 	}

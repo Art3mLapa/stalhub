@@ -1,12 +1,9 @@
 'use client'
 
+import { Icon } from '@iconify/react'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import {
-	ArtifactSlots,
-	ArtifactStatsPanel,
-	ItemsList,
-} from '@/components/artifacts'
+import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import Input from '@/components/ui/Input'
 import { getLocale } from '@/lib/getLocale'
@@ -17,9 +14,15 @@ import type { ArtQuality, Item } from '@/types/item.type'
 import { computeArtifactStatsFromParsed } from '@/utils/computeArtifactStats'
 import { messageToString } from '@/utils/itemUtils'
 import { parseItemStats } from '@/utils/parseArtifact'
+import {
+	ArtifactSlots,
+	ArtifactStatsPanel,
+	ItemsList,
+} from '@/views/builds/components/artifacts'
 
 export default function ArtModal({ onClose }: ModalProps) {
 	const locale = getLocale()
+
 	const query = useSuspenseQuery(itemsQueries.get({ type: 'artefact' }))
 	const items = (query.data as Item[] | undefined) ?? []
 
@@ -145,7 +148,6 @@ export default function ArtModal({ onClose }: ModalProps) {
 		}) => {
 			const { instanceId, type, value } = payload
 			if (!instanceId) {
-				console.warn('No instanceId for update', payload)
 				return
 			}
 
@@ -236,29 +238,36 @@ export default function ArtModal({ onClose }: ModalProps) {
 					<Card.Header>
 						<Input
 							className="px-2 text-[14px]"
-							label="Введите название предмета"
+							label="ui.input_label"
 							onChange={(e) => setFilter(e.target.value)}
 							value={filter}
 						/>
 					</Card.Header>
 
-					<Card.Content>
-						<ItemsList
-							className="max-h-90"
-							favoriteType="artefact"
-							items={visibleItems}
-							locale={locale}
-							onSelectItem={handleAdd}
-						/>
-					</Card.Content>
+					<ItemsList
+						className="max-h-90"
+						favoriteType="artefact"
+						items={visibleItems}
+						locale={locale}
+						onSelectItem={handleAdd}
+					/>
 				</Card.Root>
 
 				<Card.Root className="min-w-90">
+					<Button
+						aria-label="Close modal"
+						className="absolute top-2.5 right-4 flex cursor-pointer items-center justify-center rounded-full p-2.5"
+						onClick={close}
+						variant={'ghost'}
+					>
+						<Icon className="text-lg" icon="lucide:x" />
+					</Button>
 					<Card.Content className="flex flex-col gap-4">
 						<ArtifactStatsPanel
 							addOptions={addOptions}
 							art={selectedStatsData?.art ?? null}
 							color={selectedStatsData?.color}
+							container={build?.container?.id ?? null}
 							itemName={selectedStatsData?.itemName}
 							locale={locale}
 							onPercentChange={handlePercentClick}
@@ -283,11 +292,11 @@ export default function ArtModal({ onClose }: ModalProps) {
 				items={items}
 				locale={locale}
 				onCancelCopyMode={() => setCopyMode(false)}
-				onCopyMode={() => setCopyMode(true)}
 				onCreateContainer={handleCreateContainer}
 				onRemove={removeArt}
 				onSelectSlot={handleSelectSlot}
 				selectedSlot={selectedSlot}
+				setCopyMode={setCopyMode}
 				slots={build.container?.slots ?? []}
 			/>
 		</div>

@@ -29,9 +29,9 @@ import {
 	getNumericStat,
 	getReloadTime,
 } from './utils/weaponStats'
+import { useTranslation } from 'react-i18next'
 
 // это пиздец
-//! TODO добавить локаль (ну хотяб на прод)
 
 const mkSlot = (): WeaponSlot => ({
 	id:
@@ -60,6 +60,8 @@ export function TTKView() {
 
 	const weapons = weaponsQuery.data
 	const allAmmo = ammoQuery.data
+
+	const { t } = useTranslation()
 	const locale = getLocale()
 
 	const { savedBuilds } = useBuildStore()
@@ -268,7 +270,7 @@ export function TTKView() {
 						<p
 							className={`${unbounded.className} font-semibold text-lg`}
 						>
-							Оружие
+							{t('ttk.page.weapon')}
 						</p>
 					</div>
 					<div className="flex flex-col gap-3">
@@ -339,7 +341,7 @@ export function TTKView() {
 									icon="lucide:plus"
 								/>
 								<p className="font-semibold text-neutral-400">
-									Добавить оружие
+									{t('ttk.page.weapon_add')}
 								</p>
 							</Button>
 						)}
@@ -355,7 +357,7 @@ export function TTKView() {
 						>
 							{focusedWeapon
 								? messageToString(focusedWeapon.name, locale)
-								: 'Выберите оружие'}
+								: t('ttk.page.weapon_pick')}
 						</p>
 					</div>
 					<Card.Root>
@@ -370,7 +372,7 @@ export function TTKView() {
 								/>
 							) : (
 								<p className="py-4 text-center text-neutral-500 text-sm">
-									Выберите оружие
+									{t('ttk.page.weapon_pick')}
 								</p>
 							)}
 						</Card.Content>

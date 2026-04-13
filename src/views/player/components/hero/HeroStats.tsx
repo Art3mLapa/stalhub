@@ -9,11 +9,12 @@ import { getStatValue } from '@/utils/player/StatParse'
 
 export default function HeroStats({ data }: { data: PlayerInfo }) {
 	const { t } = useTranslation()
+
 	return (
 		<div className="flex flex-col gap-2 font-semibold">
 			<div className="flex items-center gap-2">
 				<Icon className="text-xl" icon="lucide:user-round-plus" />
-				<span>В зоне:</span>
+				<span>{t('player.stats.reg')}</span>
 				<Tooltip.Root>
 					<Tooltip.Trigger>
 						{formatDate(getStatValue(data.stats, 'reg-tim'))}
@@ -25,14 +26,14 @@ export default function HeroStats({ data }: { data: PlayerInfo }) {
 			</div>
 			<div className="flex items-center gap-2">
 				<Icon className="text-xl" icon="lucide:clock" />
-				<span>В игре:</span>
+				<span>{t('player.stats.reg')}</span>
 				<Tooltip.Root>
 					<Tooltip.Trigger>
 						{(
 							Number(getStatValue(data.stats, 'pla-tim') ?? 0) /
 							(1000 * 60 * 60)
 						).toFixed(0)}{' '}
-						часов
+						{t('time.hour.many')}
 					</Tooltip.Trigger>
 					<Tooltip.Content>
 						{stringTimeDeltaFull(
@@ -44,7 +45,7 @@ export default function HeroStats({ data }: { data: PlayerInfo }) {
 			</div>
 			<div className="flex items-center gap-2">
 				<Icon className="text-xl" icon="lucide:clock-fading" />
-				<span>Последний вход:</span>
+				<span>{t('player.stats.last_login')}</span>
 				<Tooltip.Root>
 					<Tooltip.Trigger>
 						{dateSince(data.lastLogin, t)}
@@ -53,7 +54,7 @@ export default function HeroStats({ data }: { data: PlayerInfo }) {
 						{formatDate(data.lastLogin)}
 					</Tooltip.Content>
 				</Tooltip.Root>
-				<span>назад</span>
+				<span>{t('time.back')}</span>
 			</div>
 		</div>
 	)

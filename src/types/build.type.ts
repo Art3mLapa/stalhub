@@ -1,6 +1,6 @@
 import type { ArtQuality, Item } from './item.type'
 
-export type BuildStatsParams = {
+export type ItemsParams = {
 	type:
 		| 'artefact'
 		| 'armor'
@@ -34,32 +34,20 @@ export type Container = {
 
 export enum BoostCategory {
 	LONG_TIME_MEDICINE = 'item.effects.effect_type.long_time_medicine',
-	MOBILITY = 'item.effects.effect_type.mobility',
 	SHORT_TIME_MEDICINE = 'item.effects.effect_type.short_time_medicine',
-	ANTIRAD = 'item.effects.effect_type.antirad',
-	TEMPERATURE_PROTECTION = 'item.effects.effect_type.temperature_protection',
-	BANDAGE = 'item.effects.effect_type.bandage',
-	PROTECTION = 'item.effects.effect_type.protection',
-	BIO_PROTECTION = 'item.effects.effect_type.bio_protection',
+	MOBILITY = 'item.effects.effect_type.mobility',
+	ACCUMULATION = 'item.effects.effect_type.accumulation',
 	HEALING = 'item.effects.effect_type.healing',
-	RAD_PROTECTION = 'item.effects.effect_type.rad_protection',
-	PSI = 'item.effects.effect_type.psi',
-	PSI_PROTECTION = 'item.effects.effect_type.psi_protection',
+	PROTECTION = 'item.effects.effect_type.protection',
 }
 
 export const BoostButtons: Record<BoostCategory, string> = {
 	[BoostCategory.LONG_TIME_MEDICINE]: 'lucide:heart-pulse',
-	[BoostCategory.MOBILITY]: 'lucide:move',
 	[BoostCategory.SHORT_TIME_MEDICINE]: 'lucide:pill',
-	[BoostCategory.ANTIRAD]: 'lucide:radiation',
-	[BoostCategory.TEMPERATURE_PROTECTION]: 'lucide:thermometer',
-	[BoostCategory.BANDAGE]: 'lucide:bandage',
-	[BoostCategory.PROTECTION]: 'lucide:shield',
-	[BoostCategory.BIO_PROTECTION]: 'lucide:shield-plus',
+	[BoostCategory.MOBILITY]: 'lucide:move',
+	[BoostCategory.ACCUMULATION]: 'lucide:layers',
 	[BoostCategory.HEALING]: 'lucide:sparkles',
-	[BoostCategory.RAD_PROTECTION]: 'lucide:shield-alert',
-	[BoostCategory.PSI]: 'lucide:brain',
-	[BoostCategory.PSI_PROTECTION]: 'lucide:brain-circuit',
+	[BoostCategory.PROTECTION]: 'lucide:shield',
 }
 
 export type Boost = {

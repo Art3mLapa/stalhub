@@ -1,11 +1,12 @@
 import { Icon } from '@iconify/react'
-
+import { useTranslation } from 'react-i18next'
 import { Card } from '@/components/ui/Card'
 import type { Stat, StatCategory } from '@/types/player.type'
 import { groupPlayerStats, StatsSection } from './Stats.helper'
 
 export default function StatsView({ data }: { data: Stat[] }) {
 	const grouped = groupPlayerStats(data ?? [])
+	const { t } = useTranslation()
 
 	return (
 		<Card.Root>
@@ -15,7 +16,9 @@ export default function StatsView({ data }: { data: Stat[] }) {
 						className="text-xl"
 						icon="lucide:chart-no-axes-column"
 					/>
-					<h1 className="font-semibold text-xl">Статистика</h1>
+					<h1 className="font-semibold text-xl">
+						{t('player.stats.title')}
+					</h1>
 				</div>
 			</Card.Header>
 			<Card.Content className="space-y-3">

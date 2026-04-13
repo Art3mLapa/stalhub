@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslation } from 'react-i18next'
 import { Card } from '@/components/ui/Card'
 import { Table } from '@/components/ui/Table'
 
@@ -18,21 +19,29 @@ interface TTKSummaryTableProps {
 }
 
 export function TTKSummaryTable({ rows, maxDist }: TTKSummaryTableProps) {
+	const { t } = useTranslation()
+
 	return (
 		<Card.Root className="z-0">
 			<Table.Root className="w-full font-semibold text-sm">
 				<Table.Header>
 					<Table.Row className="text-left text-neutral-400 text-xs">
-						<Table.Head className="pr-4 pb-2">Оружие</Table.Head>
-						<Table.Head className="pr-4 pb-2">TTK (0м)</Table.Head>
 						<Table.Head className="pr-4 pb-2">
-							Попаданий (0м)
+							{t('ttk.page.weapon')}
 						</Table.Head>
 						<Table.Head className="pr-4 pb-2">
-							TTK ({maxDist}м)
+							{t('ttk.page.table.ttk')} (0 {t('unit.meter')})
+						</Table.Head>
+						<Table.Head className="pr-4 pb-2">
+							{t('ttk.page.table.hits')} (0 {t('unit.meter')})
+						</Table.Head>
+						<Table.Head className="pr-4 pb-2">
+							{t('ttk.page.table.ttk')} ({maxDist}{' '}
+							{t('unit.meter')})
 						</Table.Head>
 						<Table.Head className="pb-2">
-							Попаданий ({maxDist}м)
+							{t('ttk.page.table.hits')} ({maxDist}{' '}
+							{t('unit.meter')})
 						</Table.Head>
 					</Table.Row>
 				</Table.Header>

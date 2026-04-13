@@ -1,6 +1,7 @@
 'use client'
 
 import { Icon } from '@iconify/react'
+import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/Button'
 import DropdownMenu from '@/components/ui/DropDown'
 import { useBuildStore } from '@/stores/useBuild.store'
@@ -16,6 +17,8 @@ export default function BuildSelector() {
 		defaults,
 		saveBuild,
 	} = useBuildStore()
+
+	const { t } = useTranslation()
 
 	const hasChanges =
 		build.arts.length > 0 ||
@@ -79,7 +82,7 @@ export default function BuildSelector() {
 					onClick={() => handleSelect('new')}
 				>
 					<Icon className="size-4" icon="lucide:plus" />
-					<p className="font-semibold">Новая сборка</p>
+					<p className="font-semibold">{t('build.new_build')}</p>
 				</div>
 			),
 		},
@@ -92,7 +95,7 @@ export default function BuildSelector() {
 			icon="lucide:package"
 			items={items}
 			placement="bottom-start"
-			title="Сборки"
+			title="build.builds"
 			variant={'secondary'}
 		/>
 	)

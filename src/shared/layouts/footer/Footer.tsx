@@ -7,8 +7,9 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { montserrat } from '@/app/fonts'
+import { footerLinks } from '@/constants/footer.const'
 import { useUwuStore } from '@/stores/useUwu.store'
-import { SimpleStatusWidget } from './Status'
+import { StatusWidget } from './Status'
 
 // HUGE thanks to KryptonFox (GitHub: @kryptonFox) for this code snippet <3
 const BuildHash = () => (
@@ -32,28 +33,6 @@ const Footer = () => {
 	const year = new Date().getFullYear()
 	const { t } = useTranslation()
 
-	// TODO move to /const
-	const links = [
-		{
-			href: 'https://github.com/oarer/stalhub',
-			title: 'footer.links.bug_report',
-			icon: 'lucide:bug',
-			label: 'Bug',
-		},
-		{
-			href: 'https://t.me/St4lHub',
-			title: 'footer.links.telegram',
-			icon: 'basil:telegram-outline',
-			label: 'Telegram',
-		},
-		{
-			href: 'https://discord.com/invite/TODO',
-			title: 'footer.links.discord',
-			icon: 'ic:baseline-discord',
-			label: 'Discord',
-		},
-	]
-
 	return (
 		<footer className="outline-2 outline-border/40 backdrop-blur-xs">
 			<div
@@ -65,7 +44,7 @@ const Footer = () => {
 							© StalHub, oarer &amp; Art3mLapa {year}
 						</p>
 						<BuildHash />
-						<SimpleStatusWidget />
+						<StatusWidget />
 						<button
 							className={`w-fit cursor-pointer transition-colors duration-400 hover:text-pink-400 ${uwuMode && 'text-pink-400'}`}
 							onClick={toggleUwu}
@@ -100,7 +79,7 @@ const Footer = () => {
 
 					<nav className="flex flex-col items-start gap-3 md:items-end">
 						<ul className="flex flex-col gap-3">
-							{links.map((link) => (
+							{footerLinks.map((link) => (
 								<li key={link.href}>
 									<Link
 										className="group flex items-center gap-2 rounded px-1 py-0.5"

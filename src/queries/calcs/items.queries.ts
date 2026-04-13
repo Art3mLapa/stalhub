@@ -1,11 +1,11 @@
 import { queryOptions } from '@tanstack/react-query'
 
 import { itemsService } from '@/services/calcs/build.service'
-import type { BuildStatsParams, ItemsResponse } from '@/types/build.type'
+import type { ItemsParams, ItemsResponse } from '@/types/build.type'
 import type { Item } from '@/types/item.type'
 
 class ItemsQueries {
-	get({ type }: BuildStatsParams) {
+	get({ type }: ItemsParams) {
 		return queryOptions<ItemsResponse, Error, Item[]>({
 			queryKey: ['build', type],
 			queryFn: () => itemsService.get({ type }),

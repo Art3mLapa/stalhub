@@ -13,6 +13,7 @@ import HeroStats from './HeroStats'
 
 export default function HeroView({ data }: { data: PlayerInfo }) {
 	const { t } = useTranslation()
+
 	return (
 		<div className="relative">
 			<Image
@@ -52,14 +53,14 @@ export default function HeroView({ data }: { data: PlayerInfo }) {
 									icon="lucide:trophy"
 								/>
 								<h1 className="font-semibold text-lg">
-									Достижения
+									{t('player.hero.ach')}
 								</h1>
 							</div>
 							<AchievementsView
 								data={data.displayedAchievements}
 							/>
 							<p>
-								Очков достижений:{' '}
+								{t('player.hero.ach_points')}{' '}
 								{Number(getStatValue(data.stats, 'ach-points'))}
 							</p>
 						</div>

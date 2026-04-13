@@ -1,5 +1,15 @@
 'use client'
 
+import { Icon } from '@iconify/react'
+import {
+	type ColumnDef,
+	flexRender,
+	getCoreRowModel,
+	getSortedRowModel,
+	type SortingState,
+	useReactTable,
+} from '@tanstack/react-table'
+import { useMemo, useState } from 'react'
 import { cn } from '@/lib/cn'
 
 function TableRoot({ className, ...props }: React.ComponentProps<'table'>) {
@@ -102,6 +112,61 @@ function TableCaption({
 	)
 }
 
+function SortableHeader<TData>({
+	column,
+	className,
+	children,
+	...props
+}: {
+	column: ReturnType<ReturnType<typeof useReactTable<TData>>['getColumn']>
+	children?: React.ReactNode
+} & React.ComponentProps<'th'>) {
+	if (!column || !column.getCanSort()) return null
+
+	return (
+		<th
+			className={cn(
+				'cursor-pointer select-none border-border-secondary border-r p-2 transition-colors duration-500 last:border-r-0 hover:bg-accent',
+				className
+			)}
+			onClick={column.getToggleSortingHandler()}
+			{...props}
+		>
+			<div className="flex items-center gap-1">
+				{children}
+				{{
+					asc: <Icon className="h-4 w-4" icon="lucide:arrow-up" />,
+					desc: <Icon className="h-4 w-4" icon="lucide:arrow-down" />,
+				}[column.getIsSorted() as string] ?? (
+					<Icon
+						className="h-4 w-4 opacity-50"
+						icon="lucide:chevrons-up-down"
+					/>
+				)}
+			</div>
+		</th>
+	)
+}
+
+function useTableSort<TData>(
+	data: TData[],
+	columns: ColumnDef<TData>[],
+	initialSorting?: SortingState
+) {
+	const [sorting, setSorting] = useState<SortingState>(initialSorting ?? [])
+
+	const table = useReactTable({
+		data,
+		columns,
+		state: useMemo(() => ({ sorting }), [sorting]),
+		onSortingChange: setSorting,
+		getCoreRowModel: getCoreRowModel(),
+		getSortedRowModel: getSortedRowModel(),
+	})
+
+	return { table, sorting, setSorting }
+}
+
 export const Table = {
 	Root: TableRoot,
 	Header: TableHeader,
@@ -111,4 +176,9 @@ export const Table = {
 	Row: TableRow,
 	Cell: TableCell,
 	Caption: TableCaption,
+	SortableHeader,
+	flexRender,
 }
+
+export { flexRender, useTableSort }
+export type { SortingState, ColumnDef }

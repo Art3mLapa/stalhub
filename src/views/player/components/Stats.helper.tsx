@@ -1,6 +1,9 @@
+'use client'
+
+import { useVirtualizer } from '@tanstack/react-virtual'
 import type { TFunction } from 'i18next'
+import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Grid } from 'react-window'
 
 import { montserrat } from '@/app/fonts'
 import { getLocale } from '@/lib/getLocale'
@@ -61,80 +64,35 @@ function formatStatValue(stat: Stat, locale: string, t: TFunction) {
 	}
 }
 
-const COLUMN_WIDTH = 200
 const ROW_HEIGHT = 52
-const VIRTUALIZE_THRESHOLD = 50
+const COLUMN_COUNT = 3
 
-type CellProps = {
-	locale: string
-	stats: (Stat & { meta?: DBStats })[]
-	columnCount: number
-}
-
-export function StatsSection({
-	title,
-	stats,
-}: {
+type StatsSectionProps = {
 	title: StatCategory
 	stats: (Stat & { meta?: DBStats })[]
-}) {
+}
+
+export function StatsSection({ title, stats }: StatsSectionProps) {
+	const parentRef = useRef<HTMLDivElement>(null)
 	const locale = getLocale()
 	const { t } = useTranslation()
 
-	if (!stats || stats.length === 0) return null
+	const safeStats = stats ?? []
+	const shouldVirtualize = safeStats.length > 50
+	const rowCount = Math.ceil(safeStats.length / COLUMN_COUNT)
 
-	const shouldVirtualize = stats.length > VIRTUALIZE_THRESHOLD
-	const columnCount = 3
-	const rowCount = Math.ceil(stats.length / columnCount)
+	const virtualizer = useVirtualizer({
+		count: rowCount,
+		getScrollElement: () => parentRef.current,
+		estimateSize: () => ROW_HEIGHT,
+		overscan: 5,
+	})
 
-	const Cell = ({
-		columnIndex,
-		rowIndex,
-		style,
-	}: {
-		ariaAttributes: { 'aria-colindex': number; role: 'gridcell' }
-		columnIndex: number
-		rowIndex: number
-		style: React.CSSProperties
-	}) => {
-		const index = rowIndex * columnCount + columnIndex
-		const stat = stats[index]
+	if (safeStats.length === 0) return null
 
-		if (!stat) return null
-
-		return (
-			<div className="space-y-1 p-2" style={style}>
-				<p className="font-semibold text-md">
-					{messageToString(stat.meta?.name, locale)}
-				</p>
-				<p className={`${montserrat.className} font-medium text-sm`}>
-					{formatStatValue(stat, locale, t)}
-				</p>
-			</div>
-		)
-	}
-
-	if (shouldVirtualize) {
-		return (
-			<div className="space-y-3">
-				<div className="flex items-center gap-2">
-					<h3 className="font-semibold text-lg">
-						{t(`player.category.${title}`)}
-					</h3>
-				</div>
-				<div className="pl-7">
-					<Grid
-						cellComponent={Cell}
-						cellProps={{} as CellProps}
-						columnCount={columnCount}
-						columnWidth={COLUMN_WIDTH}
-						rowCount={rowCount}
-						rowHeight={ROW_HEIGHT}
-						style={{ height: Math.min(rowCount * ROW_HEIGHT, 400) }}
-					/>
-				</div>
-			</div>
-		)
+	const getCell = (rowIndex: number, columnIndex: number) => {
+		const index = rowIndex * COLUMN_COUNT + columnIndex
+		return safeStats[index]
 	}
 
 	return (
@@ -145,21 +103,85 @@ export function StatsSection({
 				</h3>
 			</div>
 
-			<div className="grid grid-cols-1 gap-4 pl-7 md:grid-cols-2 lg:grid-cols-3">
-				{stats.map((stat) => (
-					<div className="space-y-1" key={stat.id}>
-						<p className="font-semibold text-md">
-							{messageToString(stat.meta?.name, locale)}
-						</p>
+			{shouldVirtualize ? (
+				<div className="h-100 overflow-auto pl-7" ref={parentRef}>
+					<div
+						style={{
+							height: virtualizer.getTotalSize(),
+							position: 'relative',
+							width: '100%',
+						}}
+					>
+						{virtualizer.getVirtualItems().map((virtualRow) => {
+							const rowIndex = virtualRow.index
 
-						<p
-							className={`${montserrat.className} font-medium text-sm`}
-						>
-							{formatStatValue(stat, locale, t)}
-						</p>
+							return (
+								<div
+									key={virtualRow.key}
+									style={{
+										position: 'absolute',
+										top: 0,
+										left: 0,
+										width: '100%',
+										height: ROW_HEIGHT,
+										transform: `translateY(${virtualRow.start}px)`,
+										display: 'grid',
+										gridTemplateColumns: `repeat(${COLUMN_COUNT}, 200px)`,
+									}}
+								>
+									{Array.from({ length: COLUMN_COUNT }).map(
+										(_, columnIndex) => {
+											const stat = getCell(
+												rowIndex,
+												columnIndex
+											)
+											if (!stat) return null
+
+											return (
+												<div
+													className="space-y-1 p-2"
+													key={stat.id}
+												>
+													<p className="font-semibold text-md">
+														{messageToString(
+															stat.meta?.name,
+															locale
+														)}
+													</p>
+													<p
+														className={`${montserrat.className} font-medium text-sm`}
+													>
+														{formatStatValue(
+															stat,
+															locale,
+															t
+														)}
+													</p>
+												</div>
+											)
+										}
+									)}
+								</div>
+							)
+						})}
 					</div>
-				))}
-			</div>
+				</div>
+			) : (
+				<div className="grid grid-cols-1 gap-4 pl-7 md:grid-cols-2 lg:grid-cols-3">
+					{safeStats.map((stat) => (
+						<div className="space-y-1" key={stat.id}>
+							<p className="font-semibold text-md">
+								{messageToString(stat.meta?.name, locale)}
+							</p>
+							<p
+								className={`${montserrat.className} font-medium text-sm`}
+							>
+								{formatStatValue(stat, locale, t)}
+							</p>
+						</div>
+					))}
+				</div>
+			)}
 		</div>
 	)
 }

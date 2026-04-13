@@ -11,7 +11,7 @@ export interface DropdownItem {
 }
 
 export interface DropdownProps {
-	title: string | React.ReactNode
+	title: string
 	icon?: string
 	items: DropdownItem[]
 	placement?: 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end'

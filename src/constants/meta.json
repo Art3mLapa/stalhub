@@ -1,7 +1,7 @@
 {
 	"base": {
-		"title": "StalHub",
-		"description": "Все необходимое для StalCraft в одном месте! Калькуляторы TTK и сборок, арсенала и многое другое",
+		"title": "StalHub — калькулятор TTK, сборки и гайды для Stalcraft",
+		"description": "Все необходимое для StalCraft в одном месте! Калькуляторы TTK и сборок, Арсенала и многое другое",
 		"icons": {
 			"icon": "/svg/dark/logo.svg",
 			"shortcut": "/svg/dark/logo.svg",
@@ -12,6 +12,8 @@
 			"darkreader-lock": "darkreader-lock"
 		},
 		"openGraph": {
+			"title": "StalHub — калькулятор TTK, сборки и гайды для Stalcraft",
+			"description": "Все необходимое для StalCraft в одном месте! Калькуляторы TTK и сборок, Арсенала и многое другое",
 			"images": [
 				{
 					"url": "https://stalhub.tech/images/og/banner.png",
@@ -28,10 +30,34 @@
 					"url": "https://stalhub.tech/images/og/banner.png",
 					"width": 1280,
 					"height": 620,
-					"alt": "Stalhub Banner"
+					"alt": "StalHub Banner"
 				}
 			],
 			"card": "summary_large_image"
+		}
+	},
+	"/calcs": {
+		"title": "Калькуляторы · StalHub",
+		"description": "Страница с калькуляторами",
+		"openGraph": {
+			"title": "Калькуляторы · StalHub",
+			"description": "Страница с калькуляторами"
+		}
+	},
+	"/calcs/arsenal": {
+		"title": "Калькулятор Арсенала · StalHub",
+		"description": "Подсчитайте стоимость репутации Арсенала",
+		"openGraph": {
+			"title": "Калькулятор Арсенала · StalHub",
+			"description": "Подсчитайте стоимость репутации Арсенала"
+		}
+	},
+	"/calcs/builds": {
+		"title": "Калькулятор сборок · StalHub",
+		"description": "Калькулятор сборок · StalHub",
+		"openGraph": {
+			"title": "Калькулятор Арсенала · StalHub",
+			"description": "Создавайте сборки под свои нужды"
 		}
 	},
 	"notFound": {

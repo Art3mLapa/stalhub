@@ -3,6 +3,7 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 
 import { playerQueries } from '@/queries/player/player.queries'
+import type { Regions } from '@/types/api.type'
 import ClanView from './components/ClanView'
 import HeroView from './components/hero/HeroView'
 import StatsView from './components/StatsView'
@@ -11,7 +12,7 @@ export default function PlayerView({
 	region,
 	character,
 }: {
-	region: string
+	region: Regions
 	character: string
 }) {
 	const { data } = useSuspenseQuery(playerQueries.get({ region, character }))

@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-import type { BuildStatsParams, ItemsResponse } from '@/types/build.type'
+import type { ItemsParams, ItemsResponse } from '@/types/build.type'
 
 class ItemsService {
-	async get({ type }: BuildStatsParams) {
+	async get({ type }: ItemsParams) {
 		const { data } = await axios.get<ItemsResponse>(
 			`https://raw.githubusercontent.com/oarer/sc-db/refs/heads/main/merged/listing/${type}.json`
 		)

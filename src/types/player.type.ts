@@ -1,7 +1,8 @@
+import type { Regions } from './api.type'
 import type { Message } from './item.type'
 
 export interface PlayerParams {
-	region: string
+	region: Regions
 	character: string
 }
 

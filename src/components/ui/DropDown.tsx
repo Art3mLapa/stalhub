@@ -358,9 +358,7 @@ export default function DropdownMenu({
 				variant={variant}
 			>
 				{icon && <Icon className="text-xl" icon={icon} />}
-				<p className="font-semibold text-md">
-					{renderMaybeTranslate(t, title)}
-				</p>
+				<p className="font-semibold text-md">{t(title)}</p>
 				<motion.div
 					animate={{ rotate: isOpen ? 90 : 0 }}
 					transition={{ duration: 0.2, ease: 'easeInOut' }}

@@ -1,5 +1,13 @@
 import type { InfoColor, ItemName } from './item.type'
 
+export enum Regions {
+	RU = 'RU',
+	EU = 'EU',
+	NA = 'NA',
+	SEA = 'SEA',
+	NEA = 'NEA',
+}
+
 export interface AuctionParams {
 	id: string
 	limit?: number

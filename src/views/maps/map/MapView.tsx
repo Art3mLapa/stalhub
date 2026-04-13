@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { useMaps } from '@/hooks/useMaps'
 import type { MapConfig } from '@/types/map.type'
 
-// ! TODO SUSPENSE QUERIES
+// КАРТЫ НЕ ГОТОВЫ TODO SUSPENSE QUERIES
 
 function Loading() {
 	const { t } = useTranslation()

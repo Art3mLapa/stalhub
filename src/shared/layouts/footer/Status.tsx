@@ -2,13 +2,15 @@
 
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { CustomToast } from '@/components/ui/Toast'
 import { Tooltip } from '@/components/ui/Tooltip'
 import { statusQueries } from '@/queries/status/status.queries'
 import type { Service } from '@/types/status.type'
 
-export const SimpleStatusWidget = () => {
+export const StatusWidget = () => {
 	const { data } = useQuery(statusQueries.get())
+	const { t } = useTranslation()
 
 	const services: Service[] = data?.data ? Object.values(data.data) : []
 
@@ -32,7 +34,10 @@ export const SimpleStatusWidget = () => {
 		)
 
 		if (newProblems.length > 0) {
-			CustomToast(`Упали сервисы: ${newProblems.join(', ')}`, 'error')
+			CustomToast(
+				`${t('status_widget.services_down')} ${newProblems.join(', ')}`,
+				'error'
+			)
 		}
 
 		const recovered = prevProblemsRef.current.filter(
@@ -40,11 +45,14 @@ export const SimpleStatusWidget = () => {
 		)
 
 		if (recovered.length > 0) {
-			CustomToast(`Восстановлены: ${recovered.join(', ')}`, 'success')
+			CustomToast(
+				`${t('status_widget.services_up')} ${recovered.join(', ')}`,
+				'success'
+			)
 		}
 
 		prevProblemsRef.current = currentProblems
-	}, [problemServices])
+	}, [problemServices, t])
 
 	return (
 		<div className="flex items-center gap-2">
@@ -60,11 +68,13 @@ export const SimpleStatusWidget = () => {
 			<div>
 				{problemServices.length === 0 ? (
 					<p className="text-neutral-400 text-sm">
-						Все сервисы в порядке
+						{t('status_widget.services_ok')}
 					</p>
 				) : (
 					<Tooltip.Root>
-						<Tooltip.Trigger>Проблемы с сервисами</Tooltip.Trigger>
+						<Tooltip.Trigger>
+							{t('status_widget.services_problem')}
+						</Tooltip.Trigger>
 						<Tooltip.Content>
 							{problemServices.map((s) => (
 								<span className="text-xs" key={s.name}>

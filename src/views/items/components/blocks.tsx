@@ -63,7 +63,7 @@ export const NumericVariantsCard: React.FC<{
 		<div className="flex items-center justify-between">
 			<p className="font-semibold text-lg">Заточка</p>
 			<Input
-				className="w-fit px-2 py-2"
+				className="m-1 w-fit px-2 py-2"
 				max={15}
 				min={0}
 				onChange={(e) => onChange(Number(e.target.value))}

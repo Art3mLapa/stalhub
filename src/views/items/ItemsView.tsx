@@ -1,14 +1,13 @@
 'use client'
 
+import { useSuspenseQuery } from '@tanstack/react-query'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { unbounded } from '@/app/fonts'
 import { Card } from '@/components/ui/Card'
-import { CustomToast } from '@/components/ui/Toast'
-import { useAuctionCurrent } from '@/hooks/useAuctionCurrent'
-import { useAuctionHistory } from '@/hooks/useAuctionHistory'
-import { useItem } from '@/hooks/useItem'
 import { getLocale } from '@/lib/getLocale'
+import { auctionQueries } from '@/queries/auction/auction.queries'
+import { itemQueries } from '@/queries/item/item.queries'
 import {
 	type AddStatBlock,
 	type DamageDistanceInfoBlock,
@@ -26,41 +25,24 @@ import {
 import { DamageChart } from '../ttk/components/DamageChart'
 import AuctionTabs from './components/auction/AuctionTabs'
 import { ListBlock, NumericVariantsCard, TextBlock } from './components/blocks'
-import LoadingItem from './components/loading'
 
-type ItemsViewProps = { path: string[]; id: string }
+type ItemsViewProps = { path: string[]; id: string; githubUrl: string }
 
-export default function ItemsView({ path, id }: ItemsViewProps) {
+export default function ItemsView({ path, id, githubUrl }: ItemsViewProps) {
 	const [numericVariants, setNumericVariants] = useState<number>(0)
 	const locale = getLocale()
 
-	const { data: auctionHistory } = useAuctionHistory({ id })
-	const { data: auctionCurrent } = useAuctionCurrent({ id })
-
-	const githubUrl = `${path.join('/')}.json`
 	const iconUrl = `https://raw.githubusercontent.com/oarer/sc-db/refs/heads/main/merged/icons/${path.join('/')}.png`
 
-	const { data, error, loading, refetch } = useItem(githubUrl)
+	const { data } = useSuspenseQuery(itemQueries.byGithubUrl(githubUrl))
+	const { data: auctionHistory } = useSuspenseQuery(
+		auctionQueries.history({ id, limit: 20 })
+	)
+	const { data: auctionCurrent } = useSuspenseQuery(
+		auctionQueries.lots({ id, limit: 50 })
+	)
+
 	const categoryLabel = getCategoryLabel(data, locale)
-
-	// ! TODO SUSPENSE QUERIES
-
-	useEffect(() => {
-		if (error) {
-			CustomToast('Ошибка при загрузке предмета.', 'error')
-		}
-	}, [error])
-
-	// biome-ignore lint: useExhaustiveDependencies
-	useEffect(() => {
-		if (id) refetch(githubUrl)
-	}, [id, githubUrl])
-
-	// ! TODO SUSPENSE QUERIES
-
-	if (loading || !data) {
-		return <LoadingItem />
-	}
 
 	return (
 		<section className="mx-auto grid max-w-360 grid-cols-1 flex-col gap-12 px-4 pt-32 pb-12 sm:px-6 md:px-8 lg:grid-cols-12">
@@ -77,6 +59,7 @@ export default function ItemsView({ path, id }: ItemsViewProps) {
 								width={128}
 							/>
 						</Card.Title>
+
 						<div className="space-y-2 text-center">
 							<h1
 								className={`${unbounded.className} font-semibold text-xl`}
@@ -111,16 +94,10 @@ export default function ItemsView({ path, id }: ItemsViewProps) {
 				</Card.Root>
 
 				<div className="flex flex-col gap-4">
-					{!auctionHistory || !auctionCurrent ? (
-						<div className="flex h-80 w-full items-center justify-center rounded-2xl p-4 shadow-lg">
-							Загружаем данные
-						</div>
-					) : (
-						<AuctionTabs
-							auctionCurrent={auctionCurrent.lots}
-							auctionHistory={auctionHistory.prices}
-						/>
-					)}
+					<AuctionTabs
+						auctionCurrent={auctionCurrent.lots}
+						auctionHistory={auctionHistory.prices}
+					/>
 
 					{data.infoBlocks
 						.filter(

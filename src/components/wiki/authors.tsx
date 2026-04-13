@@ -1,16 +1,19 @@
 import Image from 'next/image'
+import { useTranslation } from 'react-i18next'
 import type { WikiAuthor } from '@/types/wiki.type'
 import { Card } from '../ui/Card'
 import { CLink } from '../ui/Link'
 
 export function Authors({ authors }: { authors: WikiAuthor[] }) {
+	const { t } = useTranslation()
 	if (!authors?.length) return null
 
 	return (
 		<Card.Root className="gap-0 px-4 py-2">
-			{/*TODO i18n */}
 			<Card.Header>
-				<Card.Title className="text-md">Авторы статьи</Card.Title>
+				<Card.Title className="text-md">
+					{t('wiki.page.authors')}
+				</Card.Title>
 			</Card.Header>
 			<Card.Content className="flex flex-col">
 				{authors.map((author) => {

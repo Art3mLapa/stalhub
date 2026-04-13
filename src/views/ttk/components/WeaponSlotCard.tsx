@@ -11,6 +11,7 @@ import type { Item } from '@/types/item.type'
 import { messageToString } from '@/utils/itemUtils'
 import { getAmmoType, getCompatibleAmmo } from '../utils/weaponStats'
 import { ItemPickerModal } from './ItemPickerModal'
+import { useTranslation } from 'react-i18next'
 
 interface WeaponSlotCardProps {
 	slot: WeaponSlot
@@ -47,6 +48,7 @@ export function WeaponSlotCard({
 	const compatibleAmmo = weapon ? getCompatibleAmmo(allAmmo, ammoTypeKey) : []
 
 	const locale = getLocale()
+	const { t } = useTranslation()
 
 	const weaponIconUrl = weapon
 		? `https://raw.githubusercontent.com/oarer/sc-db/refs/heads/main/merged/icons/${weapon.category}/${weapon.id}.png`
@@ -75,7 +77,7 @@ export function WeaponSlotCard({
 						onFocus()
 					}}
 					selected={slot.weaponId}
-					title="Выберите оружие"
+					title="ttk.page.weapon_pick"
 					trigger={
 						<Button
 							className="flex flex-1 items-center gap-2 rounded-lg px-2 py-1.5"
@@ -105,7 +107,7 @@ export function WeaponSlotCard({
 							<p className="truncate font-semibold text-sm">
 								{weapon
 									? messageToString(weapon.name, locale)
-									: 'Выберите оружие'}
+									: t('ttk.page.weapon_pick')}
 							</p>
 							<Icon
 								className="ml-auto shrink-0 text-neutral-500 text-xs"
@@ -148,7 +150,7 @@ export function WeaponSlotCard({
 								items={compatibleAmmo}
 								onSelect={onAmmoSelect}
 								selected={slot.ammoId}
-								title="Выберите патрон"
+								title="ttk.page.ammo_pick"
 								trigger={
 									<Button
 										className="flex flex-1 items-center gap-2 rounded-lg px-2 py-1.5"
@@ -182,7 +184,7 @@ export function WeaponSlotCard({
 														ammo.name,
 														locale
 													)
-												: 'Стандартный патрон'}
+												: t('ttk.page.default_ammo')}
 										</span>
 										<Icon
 											className="ml-auto shrink-0 text-neutral-500"
@@ -193,7 +195,7 @@ export function WeaponSlotCard({
 							/>
 							<Input
 								className="min-w-20 rounded-lg border-border-secondary px-2 py-2"
-								label="Заточка"
+								label="ui.input_sharpening"
 								max={15}
 								min={0}
 								onChange={(e) =>
