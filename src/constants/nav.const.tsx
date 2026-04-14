@@ -1,7 +1,8 @@
+'use client'
+
 import { Icon } from '@iconify/react'
-import type { TFunction } from 'i18next'
-import { useTranslation } from 'react-i18next'
 import { CLink } from '@/components/ui/Link'
+import { useTranslations } from 'next-intl'
 import type { AccordionItem } from '@/types/ui/accordion.type'
 import type { DropdownMenuGroup } from '@/types/ui/dropdown.type'
 
@@ -27,7 +28,7 @@ export const MobileLinks = [
 ]
 
 export const DropDownLinks = (): DropdownMenuGroup[] => {
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	return [
 		{
@@ -286,7 +287,9 @@ export const DropDownLinks = (): DropdownMenuGroup[] => {
 	]
 }
 
-export const DropDownMobile = (t: TFunction): AccordionItem[] => [
+export const DropDownMobile = (
+	t: ReturnType<typeof useTranslations>
+): AccordionItem[] => [
 	{
 		key: 'calculators',
 		title: t('nav.groups.calculators.title'),

@@ -1,6 +1,5 @@
 import { Icon } from '@iconify/react'
-import { useTranslation } from 'react-i18next'
-
+import { useTranslations } from 'next-intl'
 import { Tooltip } from '@/components/ui/Tooltip'
 import { formatDate } from '@/lib/date'
 import { dateSince, stringTimeDeltaFull } from '@/lib/time'
@@ -8,7 +7,7 @@ import type { PlayerInfo } from '@/types/player.type'
 import { getStatValue } from '@/utils/player/StatParse'
 
 export default function HeroStats({ data }: { data: PlayerInfo }) {
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	return (
 		<div className="flex flex-col gap-2 font-semibold">

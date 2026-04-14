@@ -1,4 +1,6 @@
-import type { TFunction } from 'i18next'
+import type { useTranslations } from 'next-intl'
+
+type TFunction = ReturnType<typeof useTranslations>
 
 export const numbersTxt = (
 	num: number,

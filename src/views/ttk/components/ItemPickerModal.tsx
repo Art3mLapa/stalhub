@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useMemo, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import Input from '@/components/ui/Input'
 import { Modal } from '@/components/ui/Modal'
 import { getLocale } from '@/lib/getLocale'
@@ -22,7 +22,7 @@ export function ItemPickerModal({ items, onSelect, title, trigger }: Props) {
 	const [open, setOpen] = useState(false)
 
 	const locale = getLocale()
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	const filtered = useMemo(() => {
 		const q = query.toLowerCase()

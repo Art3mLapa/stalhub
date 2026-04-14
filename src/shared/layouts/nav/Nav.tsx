@@ -5,7 +5,7 @@ import { motion, useMotionValueEvent, useScroll } from 'motion/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import ItemSearchModal from '@/components/modals/ItemSearch'
 import DropdownMenu from '@/components/ui/DropDown'
 import { CLink } from '@/components/ui/Link'
@@ -17,7 +17,7 @@ import NavMobile from './NavMobile'
 
 export default function Nav() {
 	const svgPath = useSvg()
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	const [isScrolled, setIsScrolled] = useState(false)
 	const { scrollY } = useScroll()

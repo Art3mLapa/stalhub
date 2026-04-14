@@ -1,13 +1,13 @@
 import { Icon } from '@iconify/react'
-import { useTranslation } from 'react-i18next'
+import { getTranslations } from 'next-intl/server'
 
 import { Card } from '@/components/ui/Card'
 import { formatDate } from '@/lib/date'
 import { getWikiSections } from '@/lib/wiki/utils'
-import { mono } from '../app/fonts'
+import { mono } from '../fonts'
 
 export default async function WikiPage() {
-	const { t } = useTranslation()
+	const t = await getTranslations()
 	const sections = await getWikiSections()
 
 	const totalPages = sections.reduce(

@@ -1,7 +1,7 @@
 'use client'
 
 import { Icon } from '@iconify/react'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import { Combobox, type ComboboxOption } from '@/components/ui/Combobox'
 import DropdownMenu from '@/components/ui/DropDown'
 import Input from '@/components/ui/Input'
@@ -64,7 +64,7 @@ export function ArtifactStatsPanel({
 	locale,
 	container,
 }: ArtifactStatsPanelProps) {
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	if (!art || !stats || Object.keys(stats).length === 0) {
 		return (
@@ -215,7 +215,7 @@ function QualityDropdown({
 		choice: ArtQuality
 	) => void
 }) {
-	const { t } = useTranslation()
+	const t = useTranslations()
 	const candidates = getArtQualityCandidates(art.percent ?? percentState)
 	if (candidates.length <= 1) return null
 

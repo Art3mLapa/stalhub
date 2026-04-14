@@ -1,7 +1,7 @@
 'use client'
 
 import { Icon } from '@iconify/react'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import { Tabs } from '@/components/ui/Tabs'
 import { useBuildStats } from '@/views/builds/components/hooks/useBuildStats'
 import {
@@ -19,7 +19,7 @@ export default function StatsTabs() {
 		hasContainer,
 	} = useBuildStats()
 
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	return (
 		<Tabs.Root className="w-full" defaultValue="statsAll">

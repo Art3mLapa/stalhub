@@ -4,7 +4,7 @@ import { Icon } from '@iconify/react'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import { useEffect, useMemo, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { HoverCard } from '@/components/ui/HoverCard'
@@ -54,7 +54,7 @@ function BoostSelectModal({
 	const locale = getLocale()
 	const [previewId, setPreviewId] = useState<string | null>(selectedBoostId)
 
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	const categoryItems = getBoostsByCategory(items, category)
 	const selectedItem = categoryItems.find((i) => i.id === previewId)
@@ -257,7 +257,7 @@ export default function ConsumablesModal({ onClose }: ModalProps) {
 	const { data: items } = useSuspenseQuery(
 		itemsQueries.get({ type: 'consumables' })
 	)
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	const boost = useBuildStore((s) => s.build.boost)
 	const setBoost = useBuildStore((s) => s.setBoost)

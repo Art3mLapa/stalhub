@@ -29,8 +29,7 @@ import {
 	getNumericStat,
 	getReloadTime,
 } from './utils/weaponStats'
-import { useTranslation } from 'react-i18next'
-
+import { useTranslations } from 'next-intl'
 // это пиздец
 
 const mkSlot = (): WeaponSlot => ({
@@ -61,7 +60,7 @@ export function TTKView() {
 	const weapons = weaponsQuery.data
 	const allAmmo = ammoQuery.data
 
-	const { t } = useTranslation()
+	const t = useTranslations()
 	const locale = getLocale()
 
 	const { savedBuilds } = useBuildStore()

@@ -3,7 +3,7 @@
 import { Icon } from '@iconify/react'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import Input from '@/components/ui/Input'
@@ -30,7 +30,7 @@ export default function ContModal({ onClose }: ModalProps) {
 	const { data: items } = useSuspenseQuery(
 		itemsQueries.get({ type: 'containers' })
 	)
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	const [filter, setFilter] = useState('')
 

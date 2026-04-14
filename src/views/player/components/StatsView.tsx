@@ -1,12 +1,12 @@
 import { Icon } from '@iconify/react'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/Card'
 import type { Stat, StatCategory } from '@/types/player.type'
 import { groupPlayerStats, StatsSection } from './Stats.helper'
 
 export default function StatsView({ data }: { data: Stat[] }) {
 	const grouped = groupPlayerStats(data ?? [])
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	return (
 		<Card.Root>

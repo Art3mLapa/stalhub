@@ -2,8 +2,8 @@
 
 import { Icon } from '@iconify/react'
 import { useQuery } from '@tanstack/react-query'
+import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import Scene from '@/app/calcs/builds/model/Scene'
 import { unbounded } from '@/app/fonts'
 import { Button } from '@/components/ui/Button'
@@ -30,7 +30,7 @@ export default function BuildsView() {
 	const [buildName, setBuildName] = useState('')
 	const [shareCopied, setShareCopied] = useState(false)
 	const [imported, setImported] = useState(false)
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	const currentBuild = savedBuilds.find((b) => b.id === currentBuildId)
 

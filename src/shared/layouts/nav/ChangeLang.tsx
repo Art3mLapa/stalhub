@@ -2,6 +2,7 @@
 
 import { Icon } from '@iconify/react'
 import { AnimatePresence, motion } from 'motion/react'
+import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 
 import useClickOutside from '@/hooks/useClickOutside'
@@ -18,12 +19,14 @@ const locales: Locale[] = [
 	{ code: 'en', title: 'English', iconName: 'twemoji:flag-united-kingdom' },
 	{ code: 'es', title: 'Español', iconName: 'twemoji:flag-spain' },
 	{ code: 'fr', title: 'Français', iconName: 'twemoji:flag-france' },
+	{ code: 'ko', title: '한국어', iconName: 'twemoji:flag-south-korea' },
 ]
 
 export default function ChangLang() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
 	const [currentLocale, setCurrentLocale] = useState<string>('en')
 	const menuRef = useRef<HTMLDivElement>(null)
+	const router = useRouter()
 
 	useClickOutside(menuRef, () => setIsMenuOpen(false))
 
@@ -32,9 +35,10 @@ export default function ChangLang() {
 	}, [])
 
 	const handleChange = (newLocale: string) => {
-		document.cookie = `lang=${newLocale}; path=/; max-age=${60 * 60 * 24 * 365}`
+		document.cookie = `lang=${newLocale}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax`
 		setCurrentLocale(newLocale)
 		setIsMenuOpen(false)
+		router.refresh()
 	}
 
 	const localeData = locales.find((l) => l.code === currentLocale)

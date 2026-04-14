@@ -13,7 +13,7 @@ import {
 import { useTheme } from 'next-themes'
 import React from 'react'
 import { Line } from 'react-chartjs-2'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/Card'
 
 ChartJS.register(
@@ -101,7 +101,7 @@ const generatePointsVariableSteps = (
 export const DamageChart: React.FC<DamageChartProps> = ({ block }) => {
 	const { resolvedTheme } = useTheme()
 	const isDark = resolvedTheme === 'dark'
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	const points = React.useMemo(
 		() => generatePointsVariableSteps(block),

@@ -1,7 +1,6 @@
 import { Icon } from '@iconify/react'
 import Image from 'next/image'
-import { useTranslation } from 'react-i18next'
-
+import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/Card'
 import type { PlayerInfo } from '@/types/player.type'
 import { allianceColors } from '@/types/player.type'
@@ -12,7 +11,7 @@ import HeroCombat from './HeroCombat'
 import HeroStats from './HeroStats'
 
 export default function HeroView({ data }: { data: PlayerInfo }) {
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	return (
 		<div className="relative">

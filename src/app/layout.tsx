@@ -4,6 +4,8 @@ import { Suspense } from 'react'
 import '@/shared/styles/index.css'
 import { headers } from 'next/headers'
 import Script from 'next/script'
+import { NextIntlClientProvider } from 'next-intl'
+import { getLocale, getMessages } from 'next-intl/server'
 import { ThemeProvider } from 'next-themes'
 import { raleway } from '@/app/fonts'
 import meta from '@/constants/meta.json'
@@ -28,13 +30,16 @@ export const generateMetadata = async (): Promise<Metadata | undefined> => {
 	}
 }
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: {
 	children: React.ReactNode
 }) {
+	const locale = await getLocale()
+	const messages = await getMessages()
+
 	return (
-		<html className="dark" lang="en" suppressHydrationWarning>
+		<html className="dark" lang={locale} suppressHydrationWarning>
 			<body
 				className={`${raleway.className} bg-neutral-100 transition-colors duration-500 ease-in-out dark:bg-neutral-950`}
 			>
@@ -57,12 +62,14 @@ export default function RootLayout({
 						disableTransitionOnChange
 						enableSystem
 					>
-						<Providers>
-							<InDevNav />
-							<Nav />
-							{children}
-							<Footer />
-						</Providers>
+						<NextIntlClientProvider messages={messages}>
+							<Providers>
+								<InDevNav />
+								<Nav />
+								{children}
+								<Footer />
+							</Providers>
+						</NextIntlClientProvider>
 					</ThemeProvider>
 				</Suspense>
 			</body>

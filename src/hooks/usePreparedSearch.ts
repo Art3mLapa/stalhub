@@ -7,7 +7,7 @@ import { useMemo } from 'react'
 
 import { useSearchItem } from '@/hooks/useSearchItem'
 import type { ItemListing } from '@/types/api.type'
-import { LOCALE as DEFAULT_LOCALE, type ItemName } from '@/types/item.type'
+import type { ItemName, Locale } from '@/types/item.type'
 
 const translit = cyrillicToTranslit({ preset: 'ru' })
 
@@ -70,7 +70,7 @@ function foldHomoglyphsToLatin(s: string) {
 }
 
 interface UsePreparedSearchOptions {
-	locale?: keyof ItemName
+	locale?: Locale
 	minLength?: number
 	threshold?: number
 }
@@ -80,7 +80,7 @@ export function usePreparedSearch(
 	opts?: UsePreparedSearchOptions
 ) {
 	const MIN_LENGTH = opts?.minLength ?? 2
-	const locale: keyof ItemName = opts?.locale ?? DEFAULT_LOCALE
+	const locale: keyof ItemName = opts?.locale ?? 'ru'
 	const threshold = opts?.threshold ?? 0.4
 
 	const { items, loading, error } = useSearchItem()

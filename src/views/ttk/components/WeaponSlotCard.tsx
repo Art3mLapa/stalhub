@@ -11,8 +11,7 @@ import type { Item } from '@/types/item.type'
 import { messageToString } from '@/utils/itemUtils'
 import { getAmmoType, getCompatibleAmmo } from '../utils/weaponStats'
 import { ItemPickerModal } from './ItemPickerModal'
-import { useTranslation } from 'react-i18next'
-
+import { useTranslations } from 'next-intl'
 interface WeaponSlotCardProps {
 	slot: WeaponSlot
 	weapon: Item | null
@@ -48,7 +47,7 @@ export function WeaponSlotCard({
 	const compatibleAmmo = weapon ? getCompatibleAmmo(allAmmo, ammoTypeKey) : []
 
 	const locale = getLocale()
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	const weaponIconUrl = weapon
 		? `https://raw.githubusercontent.com/oarer/sc-db/refs/heads/main/merged/icons/${weapon.category}/${weapon.id}.png`

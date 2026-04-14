@@ -3,8 +3,7 @@
 import { Icon } from '@iconify/react'
 
 import { motion } from 'motion/react'
-import { useTranslation } from 'react-i18next'
-
+import { useTranslations } from 'next-intl'
 import { Button } from '../Button'
 
 interface SidebarActionsProps {
@@ -12,7 +11,7 @@ interface SidebarActionsProps {
 }
 
 export default function SidebarActions({ onExport }: SidebarActionsProps) {
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	const scrollToTop = () => {
 		window.scrollTo({ top: 0, behavior: 'smooth' })

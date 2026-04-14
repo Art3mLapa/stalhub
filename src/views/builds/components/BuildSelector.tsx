@@ -1,7 +1,7 @@
 'use client'
 
 import { Icon } from '@iconify/react'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/Button'
 import DropdownMenu from '@/components/ui/DropDown'
 import { useBuildStore } from '@/stores/useBuild.store'
@@ -18,7 +18,7 @@ export default function BuildSelector() {
 		saveBuild,
 	} = useBuildStore()
 
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	const hasChanges =
 		build.arts.length > 0 ||

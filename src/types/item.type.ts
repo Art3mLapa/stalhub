@@ -69,7 +69,7 @@ export type ArtQuality =
 
 export type Locale = 'ru' | 'en' | 'es' | 'fr' | 'ko'
 export type ItemName = Partial<Record<Locale, string>>
-export const LOCALE: Locale = 'ru'
+export const LOCALE = ['ru', 'en', 'es', 'fr', 'ko'] as const
 
 export type LocalizedString = {
 	[K in Locale]?: string

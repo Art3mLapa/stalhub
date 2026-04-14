@@ -1,13 +1,12 @@
 import { Icon } from '@iconify/react'
-import { useTranslation } from 'react-i18next'
-
+import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/Card'
 import { formatDate } from '@/lib/date'
 import type { Clan } from '@/types/player.type'
 import { rankColors } from '@/types/player.type'
 
 export default function ClanView({ data }: { data: Clan }) {
-	const { t } = useTranslation()
+	const t = useTranslations()
 	return (
 		<Card.Root>
 			<Card.Header>

@@ -1,9 +1,8 @@
 import type { Stat } from '@/types/player.type'
 import { getStatValue } from '@/utils/player/StatParse'
-import { useTranslation } from 'react-i18next'
-
+import { useTranslations } from 'next-intl'
 export default function HeroCombat({ data }: { data: Stat[] }) {
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	return (
 		<div className="grid grid-cols-1 justify-between gap-4 sm:grid-cols-2">

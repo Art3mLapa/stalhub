@@ -1,10 +1,9 @@
 'use client'
 
 import { useVirtualizer } from '@tanstack/react-virtual'
-import type { TFunction } from 'i18next'
-import { useRef } from 'react'
-import { useTranslation } from 'react-i18next'
 
+import { useTranslations } from 'next-intl'
+import { useRef } from 'react'
 import { montserrat } from '@/app/fonts'
 import { getLocale } from '@/lib/getLocale'
 import type { DBStats, Stat, StatCategory } from '@/types/player.type'
@@ -28,6 +27,8 @@ export function groupPlayerStats(stats: Stat[]) {
 
 	return result
 }
+
+type TFunction = ReturnType<typeof useTranslations>
 
 function formatStatValue(stat: Stat, locale: string, t: TFunction) {
 	const { value, type, id } = stat
@@ -75,7 +76,7 @@ type StatsSectionProps = {
 export function StatsSection({ title, stats }: StatsSectionProps) {
 	const parentRef = useRef<HTMLDivElement>(null)
 	const locale = getLocale()
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	const safeStats = stats ?? []
 	const shouldVirtualize = safeStats.length > 50

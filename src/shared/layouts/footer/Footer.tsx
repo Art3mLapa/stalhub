@@ -4,8 +4,7 @@ import { Icon } from '@iconify/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-
+import { useTranslations } from 'next-intl'
 import { montserrat } from '@/app/fonts'
 import { footerLinks } from '@/constants/footer.const'
 import { useUwuStore } from '@/stores/useUwu.store'
@@ -31,7 +30,7 @@ const BuildHash = () => (
 const Footer = () => {
 	const { uwuMode, toggleUwu } = useUwuStore()
 	const year = new Date().getFullYear()
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	return (
 		<footer className="outline-2 outline-border/40 backdrop-blur-xs">

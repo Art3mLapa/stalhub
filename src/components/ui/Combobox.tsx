@@ -3,7 +3,7 @@
 import { Icon } from '@iconify/react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/cn'
 
 export interface ComboboxOption {
@@ -80,7 +80,7 @@ export function Combobox(props: ComboboxProps) {
 		return props.value ? new Set([props.value]) : new Set()
 	}, [props])
 
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	const [open, setOpen] = useState(false)
 	const [search, setSearch] = useState('')

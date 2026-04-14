@@ -8,7 +8,7 @@ import {
 	useReactTable,
 } from '@tanstack/react-table'
 import { useMemo, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import { unbounded } from '@/app/fonts'
 import { Alert } from '@/components/ui/Alert'
 import Input from '@/components/ui/Input'
@@ -22,7 +22,7 @@ export function ArsenalView() {
 	const { data } = useSuspenseQuery(arsenalQueries.get())
 	const [targetReputation, setTargetReputation] = useState(0)
 	const [sorting, setSorting] = useState<SortingState>([])
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	const locale = getLocale()
 

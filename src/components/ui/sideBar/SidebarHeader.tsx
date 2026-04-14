@@ -3,8 +3,7 @@
 import { Icon } from '@iconify/react'
 
 import { motion } from 'motion/react'
-import { useTranslation } from 'react-i18next'
-
+import { useTranslations } from 'next-intl'
 import { Button } from '../Button'
 
 interface SidebarHeaderProps {
@@ -18,7 +17,7 @@ export default function SidebarHeader({
 	showAll,
 	hideAll,
 }: SidebarHeaderProps) {
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	return (
 		<motion.div

@@ -2,6 +2,7 @@
 
 import { Icon } from '@iconify/react'
 import { AnimatePresence, motion } from 'motion/react'
+import { useTranslations } from 'next-intl'
 import type React from 'react'
 import {
 	useCallback,
@@ -11,7 +12,6 @@ import {
 	useRef,
 	useState,
 } from 'react'
-import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/Button'
 import useClickOutside from '@/hooks/useClickOutside'
 import { cn } from '@/lib/cn'
@@ -73,7 +73,7 @@ function DropdownMenuItem({
 	depth = 0,
 }: DropdownMenuItemProps) {
 	const itemRef = useRef<HTMLDivElement | null>(null)
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	const showSubmenu = useMemo(
 		() => openSubmenus.has(item.key),
@@ -302,7 +302,7 @@ export default function DropdownMenu({
 	const [openSubmenus, setOpenSubmenus] = useState<Set<string>>(new Set())
 	const dropdownRef = useRef<HTMLDivElement | null>(null)
 	const triggerRef = useRef<HTMLButtonElement>(null)
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	const toggleDropdown = useCallback(() => {
 		setIsOpen((prev) => {

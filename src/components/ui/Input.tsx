@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react'
 import type { InputHTMLAttributes } from 'react'
 import { useId, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import { twMerge } from 'tailwind-merge'
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
@@ -26,7 +26,7 @@ export default function Input({
 	const inputRef = useRef<HTMLInputElement | null>(null)
 	const reactId = useId()
 	const id = propId ?? `floating_${reactId}`
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	const togglePassword = () => setShowPassword((s) => !s)
 

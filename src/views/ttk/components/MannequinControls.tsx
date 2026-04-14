@@ -2,7 +2,7 @@
 
 import { Icon } from '@iconify/react'
 import { useQuery } from '@tanstack/react-query'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import { unbounded } from '@/app/fonts'
 import { Card } from '@/components/ui/Card'
 import { Combobox } from '@/components/ui/Combobox'
@@ -15,7 +15,7 @@ import { messageToString } from '@/utils/itemUtils'
 
 export function MannequinControls({ prime }: { prime: number }) {
 	const locale = getLocale()
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	const plates = useQuery(itemsQueries.get({ type: 'plates' })).data ?? []
 	const { savedBuilds } = useBuildStore()

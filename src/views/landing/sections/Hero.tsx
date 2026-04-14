@@ -3,7 +3,7 @@
 import { Icon } from '@iconify/react'
 import { motion } from 'motion/react'
 import Image from 'next/image'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import { unbounded } from '@/app/fonts'
 import { Badge } from '@/components/ui/Badge'
 import { CLink } from '@/components/ui/Link'
@@ -12,7 +12,7 @@ import { useUwuStore } from '@/stores/useUwu.store'
 
 export default function Hero() {
 	const { uwuMode } = useUwuStore()
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	return (
 		<section

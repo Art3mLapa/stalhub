@@ -1,9 +1,8 @@
 'use client'
 
-import { useTranslation } from 'react-i18next'
 import { Card } from '@/components/ui/Card'
 import { Table } from '@/components/ui/Table'
-
+import { useTranslations } from 'next-intl'
 interface TTKSummaryRow {
 	label: string
 	color: string
@@ -19,7 +18,7 @@ interface TTKSummaryTableProps {
 }
 
 export function TTKSummaryTable({ rows, maxDist }: TTKSummaryTableProps) {
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	return (
 		<Card.Root className="z-0">

@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useRef } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import { CustomToast } from '@/components/ui/Toast'
 import { Tooltip } from '@/components/ui/Tooltip'
 import { statusQueries } from '@/queries/status/status.queries'
@@ -10,7 +10,7 @@ import type { Service } from '@/types/status.type'
 
 export const StatusWidget = () => {
 	const { data } = useQuery(statusQueries.get())
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	const services: Service[] = data?.data ? Object.values(data.data) : []
 

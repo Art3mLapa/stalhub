@@ -1,11 +1,11 @@
 import Image from 'next/image'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import type { WikiAuthor } from '@/types/wiki.type'
 import { Card } from '../ui/Card'
 import { CLink } from '../ui/Link'
 
 export function Authors({ authors }: { authors: WikiAuthor[] }) {
-	const { t } = useTranslation()
+	const t = useTranslations()
 	if (!authors?.length) return null
 
 	return (

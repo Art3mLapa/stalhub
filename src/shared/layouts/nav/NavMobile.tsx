@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import { unbounded } from '@/app/fonts'
 import { Accordion } from '@/components/ui/Accordion'
 import { DropDownMobile, MobileLinks } from '@/constants/nav.const'
@@ -20,7 +20,7 @@ export default function NavMobile() {
 	const menuRef = useRef<HTMLDivElement>(null)
 	const buttonRef = useRef<HTMLButtonElement>(null)
 
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	const dropdownItems = useMemo(() => DropDownMobile(t), [t])
 

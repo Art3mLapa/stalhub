@@ -1,13 +1,12 @@
 'use client'
-
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import { Alert } from '@/components/ui/Alert'
 import Input from '@/components/ui/Input'
 import { useBuildStore } from '@/stores/useBuild.store'
 
 export default function DefaultsSettings() {
 	const { defaults, setDefaults } = useBuildStore()
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	return (
 		<div className="flex flex-col gap-4">

@@ -3,7 +3,7 @@
 import { Icon } from '@iconify/react'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import Input from '@/components/ui/Input'
@@ -24,7 +24,7 @@ import { ListBlock, NumericVariantsCard } from '@/views/items/components/blocks'
 
 export default function ArmorModal({ onClose }: ModalProps) {
 	const locale = getLocale()
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	const { data: items } = useSuspenseQuery(
 		itemsQueries.get({ type: 'armor' })

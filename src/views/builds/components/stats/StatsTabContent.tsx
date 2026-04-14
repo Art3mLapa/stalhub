@@ -1,6 +1,5 @@
 'use client'
-
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/Card'
 import { StatRow } from './StatRow'
 
@@ -15,7 +14,7 @@ export function StatsTabContent({
 	displayNamesMap,
 	hasContainer = true,
 }: StatsTabContentProps) {
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	return (
 		<Card.Root>
@@ -53,7 +52,7 @@ export function AllStatsTabContent({
 	sortedStats,
 	displayNamesMap,
 }: AllStatsTabContentProps) {
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	return (
 		<Card.Root>

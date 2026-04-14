@@ -1,15 +1,14 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { useTranslation } from 'react-i18next'
 
 import { useMaps } from '@/hooks/useMaps'
 import type { MapConfig } from '@/types/map.type'
-
+import { useTranslations } from 'next-intl'
 // КАРТЫ НЕ ГОТОВЫ TODO SUSPENSE QUERIES
 
 function Loading() {
-	const { t } = useTranslation()
+	const t = useTranslations()
 	return (
 		<section className="relative mx-auto mt-26 mb-12 flex max-w-380 flex-col gap-10 px-4 pt-12 xl:mt-0 dark:text-white/70">
 			<div className="mx-auto flex items-center gap-4 xl:px-0 xl:pt-42.5 xl:pb-15">
@@ -26,7 +25,7 @@ const MapTile = dynamic(() => import('./components/MapTile'), {
 
 export default function MapView({ mapName }: { mapName: string }) {
 	const { maps } = useMaps()
-	const { t } = useTranslation()
+	const t = useTranslations()
 
 	const mapConfig = maps.find((m: MapConfig) => m.name === mapName)
 

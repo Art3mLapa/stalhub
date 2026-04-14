@@ -2,9 +2,9 @@ import { Icon } from '@iconify/react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { getTranslations } from 'next-intl/server'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { lazy } from 'react'
-import { useTranslation } from 'react-i18next'
 import remarkGfm from 'remark-gfm'
 import { useMDXComponents } from '@/components/wiki/mdx-components'
 import { formatDate } from '@/lib/date'
@@ -73,7 +73,7 @@ export default async function WikiPageContent({ params }: PageProps) {
 	const { slug } = await params
 	const slugPath = slug.join('/')
 	const page = await getWikiPage(slugPath)
-	const { t } = useTranslation()
+	const t = await getTranslations('wiki')
 
 	if (!page) {
 		notFound()
@@ -117,7 +117,7 @@ export default async function WikiPageContent({ params }: PageProps) {
 				{section && section.pages.length > 0 && (
 					<div className="flex flex-col gap-4">
 						<h1 className="font-semibold text-xl">
-							{t('wiki.page.page_section')}
+							{t('page.page_section')}
 						</h1>
 						<div className="grid gap-3">
 							{section.pages.map((p) => (
@@ -190,7 +190,7 @@ export default async function WikiPageContent({ params }: PageProps) {
 							page.metadata.updatedAt !==
 								page.metadata.createdAt && (
 								<div className="flex items-center gap-1">
-									<span>{t('wiki.page.update_at')}</span>
+									<span>{t('page.update_at')}</span>
 									<span>
 										{formatDate(
 											page.metadata.updatedAt,
@@ -200,22 +200,6 @@ export default async function WikiPageContent({ params }: PageProps) {
 								</div>
 							)}
 					</div>
-
-					{/* {page.metadata.tags && page.metadata.tags.length > 0 && (
-						<div className="flex items-center gap-2">
-							<Icon className="text-lg" icon="lucide:icon" />
-							<div className="flex flex-wrap gap-2">
-								{page.metadata.tags.map((tag) => (
-									<span
-										className="rounded-full bg-background px-2 py-0.5 font-semibold text-text-accent text-xs"
-										key={tag}
-									>
-										{tag}
-									</span>
-								))}
-							</div>
-						</div>
-					)} */}
 				</header>
 
 				<div className="prose prose-neutral dark:prose-invert max-w-none contain-content">
