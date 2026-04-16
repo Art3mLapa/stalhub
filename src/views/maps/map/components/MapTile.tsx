@@ -4,6 +4,9 @@ import L from 'leaflet'
 import { useMemo, useRef } from 'react'
 import { MapContainer, TileLayer } from 'react-leaflet'
 import Sidebar from '@/components/ui/sideBar/SideBar'
+import SidebarActions from '@/components/ui/sideBar/SidebarActions'
+import SidebarHeader from '@/components/ui/sideBar/SidebarHeader'
+import ClusterItem from '@/components/ui/sideBar/СlusterItem'
 import { useMarkersFile } from '@/hooks/useMarkersFile'
 import CanvasLayer from './CanvasLayer'
 import ServerMarkers from './ServerMarkers'
@@ -77,18 +80,20 @@ export default function MapTile({
 		const blob = new Blob([JSON.stringify(combined, null, 2)], {
 			type: 'application/json',
 		})
-		const url = URL.createObjectURL(blob)
+		const blobUrl = URL.createObjectURL(blob)
 		const a = document.createElement('a')
-		a.href = url
+		a.href = blobUrl
 		a.download = 'markers.geojson'
 		a.click()
-		URL.revokeObjectURL(url)
+		URL.revokeObjectURL(blobUrl)
 	}
 
 	const clusterList = useMemo(
 		() => markersFile?.markers_clusters ?? [],
 		[markersFile]
 	)
+
+	const hasClusters = clusterList && clusterList.length > 0
 
 	return (
 		<div
@@ -100,16 +105,34 @@ export default function MapTile({
 				zIndex: 0,
 			}}
 		>
-			<Sidebar
-				clusterList={clusterList as MarkerClusterFull[]}
-				hideAll={hideAll}
-				onExport={handleExport}
-				showAll={showAll}
-				toggleCluster={toggleCluster}
-				toggleGroup={toggleGroup}
-				visibleClusterIds={visibleClusterIds}
-				visibleGroupKeys={visibleGroupKeys}
-			/>
+			<Sidebar>
+				<SidebarHeader
+					hasClusters={hasClusters}
+					hideAll={hideAll}
+					showAll={showAll}
+				/>
+
+				{hasClusters ? (
+					<div className="flex flex-col gap-3">
+						{(clusterList as MarkerClusterFull[]).map((cluster) => (
+							<ClusterItem
+								cluster={cluster}
+								isVisible={visibleClusterIds.has(cluster.id)}
+								key={cluster.id}
+								toggleCluster={toggleCluster}
+								toggleGroup={toggleGroup}
+								visibleGroupKeys={visibleGroupKeys}
+							/>
+						))}
+					</div>
+				) : (
+					<div className="flex items-center gap-2 py-4 text-sm">
+						Нет меток
+					</div>
+				)}
+
+				<SidebarActions onExport={handleExport} />
+			</Sidebar>
 
 			<MapContainer
 				center={[0, 0]}

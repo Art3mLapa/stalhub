@@ -1,39 +1,37 @@
 'use client'
 
 import { Icon } from '@iconify/react'
-
 import { AnimatePresence, motion } from 'motion/react'
-import { memo, useState } from 'react'
-import type { MarkerClusterFull as MarkerClusterType } from '@/types/map.type'
-import SidebarActions from './SidebarActions'
-import SidebarHeader from './SidebarHeader'
-import ClusterItem from './СlusterItem'
+import { memo, type ReactNode, useEffect, useRef, useState } from 'react'
+import { cn } from '@/lib/cn'
 
 type Props = {
-	clusterList: MarkerClusterType[]
-	visibleClusterIds: Set<number>
-	visibleGroupKeys: Set<string>
-	toggleCluster: (clusterId: number) => void
-	toggleGroup: (clusterId: number, groupId: number) => void
-	showAll: () => void
-	hideAll: () => void
-	onExport?: () => void
+	children: ReactNode
 	className?: string
+	defaultOpen?: boolean
 }
 
 const Sidebar: React.FC<Props> = ({
-	clusterList,
-	visibleClusterIds,
-	visibleGroupKeys,
-	toggleCluster,
-	toggleGroup,
-	showAll,
-	hideAll,
-	onExport,
+	children,
 	className,
+	defaultOpen = true,
 }) => {
-	const [isOpen, setIsOpen] = useState(true)
-	const hasClusters = clusterList && clusterList.length > 0
+	const [isOpen, setIsOpen] = useState(defaultOpen)
+	const [sidebarWidth, setSidebarWidth] = useState(0)
+	const sidebarRef = useRef<HTMLElement | null>(null)
+
+	useEffect(() => {
+		const updateWidth = () => {
+			if (sidebarRef.current) {
+				setSidebarWidth(sidebarRef.current.offsetWidth)
+			}
+		}
+
+		updateWidth()
+		window.addEventListener('resize', updateWidth)
+
+		return () => window.removeEventListener('resize', updateWidth)
+	}, [])
 
 	return (
 		<>
@@ -41,65 +39,26 @@ const Sidebar: React.FC<Props> = ({
 				{isOpen && (
 					<motion.aside
 						animate={{ opacity: 1, x: 0 }}
-						className={`fixed top-1/3 left-4 z-999 flex max-h-[70vh] min-w-70 flex-col gap-4 overflow-hidden rounded-lg bg-background/60 p-2 shadow-lg ring-2 ring-border/60 backdrop-blur-md ${className}`}
+						className={cn(
+							'fixed top-1/2 left-4 z-999 flex max-h-[70vh] min-w-70 -translate-y-1/2 flex-col gap-4 overflow-y-auto overflow-x-hidden rounded-lg bg-background/60 p-2 shadow-lg ring-2 ring-border/60 backdrop-blur-md',
+							className
+						)}
 						exit={{ opacity: 0, x: -20 }}
 						initial={{ opacity: 0, x: -20 }}
+						ref={sidebarRef}
 						transition={{
 							duration: 0.4,
 							ease: 'easeInOut',
 						}}
 					>
-						<SidebarHeader
-							hasClusters={hasClusters}
-							hideAll={hideAll}
-							showAll={showAll}
-						/>
-
-						<AnimatePresence mode="wait">
-							{!hasClusters ? (
-								<motion.div
-									animate={{ opacity: 1 }}
-									className="flex items-center gap-2 py-4 text-sm"
-									exit={{ opacity: 0 }}
-									initial={{ opacity: 0 }}
-								>
-									<Icon
-										className="h-4 w-4"
-										icon="mdi:information-outline"
-									/>
-									Нет меток
-								</motion.div>
-							) : (
-								<motion.div
-									animate={{ opacity: 1 }}
-									className="flex flex-col gap-3"
-									exit={{ opacity: 0 }}
-									initial={{ opacity: 0 }}
-								>
-									{clusterList.map((cluster) => (
-										<ClusterItem
-											cluster={cluster}
-											isVisible={visibleClusterIds.has(
-												cluster.id
-											)}
-											key={cluster.id}
-											toggleCluster={toggleCluster}
-											toggleGroup={toggleGroup}
-											visibleGroupKeys={visibleGroupKeys}
-										/>
-									))}
-								</motion.div>
-							)}
-						</AnimatePresence>
-
-						<SidebarActions onExport={onExport} />
+						{children}
 					</motion.aside>
 				)}
 			</AnimatePresence>
 
 			<motion.button
 				animate={{
-					left: isOpen ? '325px' : '20px',
+					left: isOpen ? `${sidebarWidth + 32}px` : '20px',
 					opacity: 1,
 					scale: 1,
 				}}

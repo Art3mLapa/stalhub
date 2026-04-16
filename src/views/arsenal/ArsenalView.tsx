@@ -7,8 +7,8 @@ import {
 	type SortingState,
 	useReactTable,
 } from '@tanstack/react-table'
-import { useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { useMemo, useState } from 'react'
 import { unbounded } from '@/app/fonts'
 import { Alert } from '@/components/ui/Alert'
 import Input from '@/components/ui/Input'

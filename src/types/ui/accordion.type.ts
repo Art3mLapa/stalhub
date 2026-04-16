@@ -1,3 +1,6 @@
+import type { VariantProps } from 'class-variance-authority'
+import type { accordionVariants } from '@/constants/ui/accordion.const'
+
 export interface AccordionItem {
 	key: string
 	title: string
@@ -8,7 +11,7 @@ export interface AccordionItem {
 
 export interface AccordionProps {
 	items: AccordionItem[]
-	variant?: 'default' | 'warning' | 'danger' | 'success'
+	variant?: VariantProps<typeof accordionVariants>["variant"]
 	selectionMode?: 'single' | 'multiple'
 	defaultExpandedKeys?: string[]
 	className?: string

@@ -61,8 +61,8 @@ export default function ClusterItem({
 
 				<motion.label
 					className="group flex flex-1 cursor-pointer items-center gap-2"
-					whileHover={{ x: 2 }}
 					htmlFor={clusterName}
+					whileHover={{ x: 2 }}
 				>
 					<CheckBox
 						checked={isVisible}
@@ -106,9 +106,9 @@ export default function ClusterItem({
 								return (
 									<motion.label
 										className="group flex cursor-pointer items-center gap-2"
+										htmlFor={marker.slug}
 										key={groupKey}
 										whileHover={{ x: 2 }}
-										htmlFor={marker.slug}
 									>
 										<CheckBox
 											checked={isGroupVisible}
