@@ -142,39 +142,39 @@ export function Accordion({
 							</motion.div>
 						</button>
 						<AnimatePresence initial={false}>
-							{expanded && (
-								<motion.div
-									animate={{
-										height: heights[item.key] ?? 'auto',
-										opacity: 1,
-									}}
-									exit={{ height: 0, opacity: 0 }}
-									id={contentId}
-									initial={{ height: 0, opacity: 0 }}
-									role="region"
-									transition={{
-										height: {
-											duration: 0.28,
-											ease: [0.04, 0.62, 0.23, 0.98],
-										},
-										opacity: {
-											duration: 0.2,
-											ease: 'easeInOut',
-										},
+							<motion.div
+								animate={{
+									height: expanded
+										? (heights[item.key] ?? 0)
+										: 0,
+									opacity: expanded ? 1 : 0,
+								}}
+								exit={{ height: 0, opacity: 0 }}
+								id={contentId}
+								initial={{ height: 0, opacity: 0 }}
+								role="region"
+								transition={{
+									height: {
+										duration: 0.28,
+										ease: [0.04, 0.62, 0.23, 0.98],
+									},
+									opacity: {
+										duration: 0.2,
+										ease: 'easeInOut',
+									},
+								}}
+							>
+								<Divider className="mb-2" />
+								<div
+									className="flex flex-col gap-2"
+									ref={(el) => {
+										contentRefs.current[item.key] = el
+										if (el) measure(item.key)
 									}}
 								>
-									<Divider className="mb-2" />
-									<div
-										className="flex flex-col gap-2"
-										ref={(el) => {
-											contentRefs.current[item.key] = el
-											if (el) measure(item.key)
-										}}
-									>
-										{item.content}
-									</div>
-								</motion.div>
-							)}
+									{item.content}
+								</div>
+							</motion.div>
 						</AnimatePresence>
 					</motion.div>
 				)

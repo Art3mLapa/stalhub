@@ -1,11 +1,11 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-
+import { useTranslations } from 'next-intl'
 import { useMaps } from '@/hooks/useMaps'
 import type { MapConfig } from '@/types/map.type'
-import { useTranslations } from 'next-intl'
-// КАРТЫ НЕ ГОТОВЫ TODO SUSPENSE QUERIES
+
+// ! TODO SUSPENSE QUERIES
 
 function Loading() {
 	const t = useTranslations()
