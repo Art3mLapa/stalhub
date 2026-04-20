@@ -1,8 +1,9 @@
 import { Icon } from '@iconify/react'
+import { useTranslations } from 'next-intl'
 import type { InputHTMLAttributes } from 'react'
 import { useId, useRef, useState } from 'react'
-import { useTranslations } from 'next-intl'
-import { twMerge } from 'tailwind-merge'
+import { montserrat } from '@/app/fonts'
+import { cn } from '@/lib/cn'
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
 	label?: string
@@ -80,8 +81,10 @@ export default function Input({
 		<div className="relative">
 			<input
 				{...rest}
-				className={twMerge(
-					`peer w-full rounded-lg bg-background px-2.5 py-2 font-semibold text-neutral-900 outline-none ring-2 ring-border-secondary transition-all duration-500 ease-in-out placeholder:text-neutral-500 disabled:cursor-not-allowed disabled:opacity-50 dark:text-neutral-100 dark:placeholder:text-neutral-400`,
+				className={cn(
+					`peer w-full rounded-lg bg-background px-2.5 py-1.5 font-semibold text-neutral-900 outline-none ring-2 ring-border-secondary transition-all duration-500 ease-in-out placeholder:text-neutral-500 disabled:cursor-not-allowed disabled:opacity-50 dark:text-neutral-100 dark:placeholder:text-neutral-400`,
+					label && 'pt-3',
+					type === 'number' && `${montserrat.className} text-sm`,
 					className
 				)}
 				id={id}
@@ -98,7 +101,7 @@ export default function Input({
 
 			{label && (
 				<label
-					className="pointer-events-none absolute inset-s-1 top-2 z-10 origin-left -translate-y-2.5 scale-75 transform px-2 font-semibold text-neutral-400 text-sm duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-neutral-400 peer-focus:top-2 peer-focus:-translate-y-2.5 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-neutral-400"
+					className="pointer-events-none absolute inset-s-1 top-2 z-10 origin-left -translate-y-2.5 scale-75 transform px-2 font-bold text-neutral-400 text-sm duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-neutral-400 peer-focus:top-2 peer-focus:-translate-y-2.5 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-neutral-400"
 					htmlFor={id}
 				>
 					{t(label)}
