@@ -71,7 +71,7 @@ export default function ItemSearchModal() {
 
 	return (
 		<Modal.Root>
-			<Modal.Trigger className="w-fit rounded-full p-3 hover:bg-background">
+			<Modal.Trigger className="rounded-full p-2" variant={'ghost'}>
 				<Icon className="text-lg" icon="lucide:search" />
 			</Modal.Trigger>
 
