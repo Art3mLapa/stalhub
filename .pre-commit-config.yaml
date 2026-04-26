@@ -6,12 +6,14 @@ repos:
         entry: bunx biome format --write
         language: system
         pass_filenames: true
+        files: \.(ts|tsx|js|jsx|json)$
 
       - id: biome-lint
         name: Biome lint
         entry: bunx biome lint
         language: system
         pass_filenames: true
+        files: \.(ts|tsx|js|jsx|json)$
 
       - id: build
         name: Build project
