@@ -10,6 +10,7 @@ import {
 	useRef,
 	useState,
 } from 'react'
+import { cn } from '@/lib/cn'
 
 type Position = 'top' | 'bottom' | 'left' | 'right'
 
@@ -80,12 +81,18 @@ function useTooltip() {
 	return ctx
 }
 
-function TooltipTrigger({ children }: { children: ReactNode }) {
+function TooltipTrigger({
+	children,
+	underline = true,
+}: {
+	children: ReactNode
+	underline?: boolean
+}) {
 	const { setOpen } = useTooltip()
 
 	return (
 		<span
-			className="underline"
+			className={cn(underline && 'underline')}
 			onBlur={() => setOpen(false)}
 			onFocus={() => setOpen(true)}
 			onPointerEnter={() => setOpen(true)}

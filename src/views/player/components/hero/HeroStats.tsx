@@ -3,10 +3,10 @@ import { useTranslations } from 'next-intl'
 import { Tooltip } from '@/components/ui/Tooltip'
 import { formatDate } from '@/lib/date'
 import { dateSince, stringTimeDeltaFull } from '@/lib/time'
-import type { PlayerInfo } from '@/types/player.type'
+import type { PlayerResponse } from '@/types/player.type'
 import { getStatValue } from '@/utils/player/StatParse'
 
-export default function HeroStats({ data }: { data: PlayerInfo }) {
+export default function HeroStats({ data }: { data: PlayerResponse }) {
 	const t = useTranslations()
 
 	return (

@@ -1,6 +1,20 @@
 import type { Regions } from './api.type'
 import type { Message } from './item.type'
 
+export interface PlayerResponse {
+	username: string
+	uuid: string
+	status: string
+	alliance: Alliance
+	lastLogin: Date
+	displayedAchievements: Achievements[]
+	clan: Clan
+	stats: Stat[]
+	role?: {
+		role: PlayerRole
+		description: string | null
+	}
+}
 export interface PlayerParams {
 	region: Regions
 	character: string
@@ -57,17 +71,47 @@ export interface Clan {
 	member: ClanMember
 }
 
-// Api response
-export interface PlayerInfo {
-	username: string
-	uuid: string
-	status: string
-	alliance: Alliance
-	lastLogin: Date
-	displayedAchievements: Achievements[]
-	clan: Clan
-	stats: Stat[]
+export enum PlayerRole {
+	EXBO = 'EXBO',
+	SCAMMER = 'SCAMMER',
+	MEDIA = 'MEDIA',
+	STALHUB = 'STALHUB',
 }
+
+export const PLAYER_ROLE_META = {
+	[PlayerRole.EXBO]: {
+		label: 'команда проекта',
+		description: 'Этот игрок связан с командой проекта.',
+		gradient: 'from-sky-500 via-indigo-500 to-rose-500',
+		accent: 'text-sky-500',
+		border: 'border-sky-500/20',
+		bg: 'bg-sky-500/10',
+	},
+	[PlayerRole.SCAMMER]: {
+		label: 'мошенник',
+		description: 'Этот игрок замечен за мошенническими действиями.',
+		gradient: 'from-red-500 via-rose-500 to-orange-500',
+		accent: 'text-red-500',
+		border: 'border-red-500/20',
+		bg: 'bg-red-500/10',
+	},
+	[PlayerRole.MEDIA]: {
+		label: 'медийка',
+		description: 'Этот игрок относится к медийным личностям проекта.',
+		gradient: 'from-red-500 via-fuchsia-500 to-violet-500',
+		accent: 'text-fuchsia-500',
+		border: 'border-fuchsia-500/20',
+		bg: 'bg-fuchsia-500/10',
+	},
+	[PlayerRole.STALHUB]: {
+		label: 'команда игры',
+		description: 'Этот игрок связан с командой игры.',
+		gradient: 'from-sky-600 via-cyan-500 to-blue-500',
+		accent: 'text-sky-400',
+		border: 'border-sky-500/20',
+		bg: 'bg-sky-500/10',
+	},
+} as const
 
 // Static json with keys from db
 export interface DBStats {
@@ -115,6 +159,7 @@ export enum Alliance {
 	BANDITS = 'bandits',
 	STALKERS = 'stalkers',
 }
+
 export const allianceColors: Record<Alliance, string> = {
 	[Alliance.MERC]:
 		'bg-gradient-to-r from-indigo-400 to-indigo-600 bg-clip-text text-transparent',

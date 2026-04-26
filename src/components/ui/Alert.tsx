@@ -1,6 +1,5 @@
 import { Icon } from '@iconify/react'
 import type { VariantProps } from 'class-variance-authority'
-import type * as React from 'react'
 import { alertIcons, alertVariants } from '@/constants/ui/alert.const'
 import { cn } from '@/lib/cn'
 

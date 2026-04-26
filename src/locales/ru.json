@@ -188,6 +188,17 @@
 			"shots": "Выстрелов:",
 			"hits": "Попаданий:",
 			"accuracy_head": "Точность в голову:"
+		},
+		"note": {
+			"stalhub": "STALHUB",
+			"stalhub_desc": "Игрок относится к команде проекта STALHUB",
+			"exbo": "EXBO",
+			"exbo_desc": "Игрок относится к команде EXBO EAST (STALCRAFT)",
+			"media": "Медиа партнёр",
+			"media_desc": "Игрок является медийной личностью проекта StalCraft",
+			"scammer": "Мошенник",
+			"scammer_desc": "Данный игрок является мошенником",
+			"more": "Более подробное описание"
 		}
 	},
 	"time": {

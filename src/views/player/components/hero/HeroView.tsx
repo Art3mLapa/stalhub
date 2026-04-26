@@ -2,15 +2,16 @@ import { Icon } from '@iconify/react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/Card'
-import type { PlayerInfo } from '@/types/player.type'
+import type { PlayerResponse } from '@/types/player.type'
 import { allianceColors } from '@/types/player.type'
 import { getStatValue } from '@/utils/player/StatParse'
 import { StalcraftText } from '@/utils/StalcraftText'
 import AchievementsView from '../AchievementsView'
+import PlayerNote from '../PlayerNote'
 import HeroCombat from './HeroCombat'
 import HeroStats from './HeroStats'
 
-export default function HeroView({ data }: { data: PlayerInfo }) {
+export default function HeroView({ data }: { data: PlayerResponse }) {
 	const t = useTranslations()
 
 	return (
@@ -24,11 +25,13 @@ export default function HeroView({ data }: { data: PlayerInfo }) {
 			/>
 			<Card.Root className="z-10 w-full">
 				<Card.Header className="space-y-2">
-					<Card.Title className="font-bold text-3xl">
+					<Card.Title className="flex flex-wrap items-center gap-4 font-bold text-3xl">
 						<span className={allianceColors[data.alliance]}>
 							{t(`player.alliance.${data.alliance}`)}
-						</span>{' '}
-						| {data.username}
+						</span>
+						<span>|</span>
+						<span>{data.username}</span>
+						<PlayerNote data={data} />
 					</Card.Title>
 					<Card.Description className="flex items-center gap-2">
 						<Icon

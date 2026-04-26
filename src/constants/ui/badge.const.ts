@@ -1,9 +1,22 @@
-export const baseStyles =
-	'rounded-2xl font-medium transition-all duration-500 ease-in-out cursor-pointer'
+import { cva } from 'class-variance-authority'
 
-export const variantStyles = {
-	primary: 'w-full px-4 hover:bg-muted/50 border border-border',
-	secondary:
-		'bg-white/50 dark:bg-neutral-900/50 text-neutral-700 dark:text-neutral-300 hover:bg-emerald-500 active:opacity-70 hover:dark:bg-emerald-700/90',
-	danger: 'dark:border-red-500 border-2 shadow-lg hover:shadow-red-300/60 dark:hover:shadow-red-600/60 dark:hover:bg-red-600/20 active:opacity-70 border-red-300 hover:bg-red-200/50 hover:border-red-400/80',
-}
+export const badgeVariants = cva(
+	'flex items-center rounded-full gap-2 px-2.5 py-0.5 transition-colors text-xs font-semibold ring-2 ring-neutral-700',
+	{
+		variants: {
+			variant: {
+				primary: 'ring-transparent bg-white dark:bg-neutral-800',
+				secondary: 'bg-transparent',
+				danger: 'ring-red-400 text-red-600 font-bold dark:text-red-200 hover:bg-red-200 dark:hover:bg-red-800/60 dark:bg-neutral-800/50 bg-white/60',
+
+				exbo: 'ring-blue-700 dark:ring-blue-800 text-blue-500 dark:text-blue-200',
+				media: 'ring-violet-700 dark:ring-violet-500 text-violet-500 dark:text-violet-300',
+				stalhub:
+					'ring-border/80 text-border shadow-border/20 shadow-lg',
+			},
+		},
+		defaultVariants: {
+			variant: 'primary',
+		},
+	}
+)

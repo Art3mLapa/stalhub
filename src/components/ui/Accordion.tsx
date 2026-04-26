@@ -19,6 +19,7 @@ export function Accordion({
 	selectionMode = 'single',
 	defaultExpandedKeys = [],
 	className,
+	titleClass,
 	onSelectionChange,
 }: AccordionProps) {
 	const [expandedKeys, setExpandedKeys] =
@@ -113,7 +114,12 @@ export function Accordion({
 							}
 							type="button"
 						>
-							<div className="flex items-center gap-3 p-2">
+							<div
+								className={cn(
+									'flex items-center gap-3 p-2',
+									titleClass
+								)}
+							>
 								{item.icon && (
 									<Icon
 										className="text-lg dark:text-neutral-100"

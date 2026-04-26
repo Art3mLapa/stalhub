@@ -11,10 +11,11 @@ export interface AccordionItem {
 
 export interface AccordionProps {
 	items: AccordionItem[]
-	variant?: VariantProps<typeof accordionVariants>["variant"]
+	variant?: VariantProps<typeof accordionVariants>['variant']
 	selectionMode?: 'single' | 'multiple'
 	defaultExpandedKeys?: string[]
 	className?: string
+	titleClass?: string
 	size?: 'sm' | 'md' | 'lg'
 	onSelectionChange?: (keys: string[]) => void
 }
