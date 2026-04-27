@@ -9,6 +9,7 @@ export enum Regions {
 }
 
 export interface AuctionParams {
+	region?: Regions
 	id: string
 	limit?: number
 	additional?: boolean

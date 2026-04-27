@@ -23,8 +23,8 @@ import {
 	messageToString,
 } from '@/utils/itemUtils'
 import { DamageChart } from '../ttk/components/DamageChart'
-import AuctionTabs from './components/auction/AuctionTabs'
 import { ListBlock, NumericVariantsCard, TextBlock } from './components/blocks'
+import ItemTabs from './components/tabs/AuctionTabs'
 
 type ItemsViewProps = { path: string[]; id: string; githubUrl: string }
 
@@ -35,6 +35,7 @@ export default function ItemsView({ path, id, githubUrl }: ItemsViewProps) {
 	const iconUrl = `https://raw.githubusercontent.com/oarer/sc-db/refs/heads/main/merged/icons/${path.join('/')}.png`
 
 	const { data } = useSuspenseQuery(itemQueries.byGithubUrl(githubUrl))
+
 	const { data: auctionHistory } = useSuspenseQuery(
 		auctionQueries.history({ id, limit: 20 })
 	)
@@ -42,10 +43,12 @@ export default function ItemsView({ path, id, githubUrl }: ItemsViewProps) {
 		auctionQueries.lots({ id, limit: 50 })
 	)
 
+	const { data: barter } = useSuspenseQuery(itemQueries.barter(id))
+
 	const categoryLabel = getCategoryLabel(data, locale)
 
 	return (
-		<section className="mx-auto grid max-w-360 grid-cols-1 flex-col gap-12 px-4 pt-32 pb-12 sm:px-6 md:px-8 lg:grid-cols-12">
+		<section className="mx-auto grid max-w-360 grid-cols-1 flex-col gap-12 px-4 pt-42 pb-12 sm:px-6 md:px-8 lg:grid-cols-12">
 			<div className="space-y-4 lg:col-span-7">
 				<Card.Root>
 					<Card.Header className="space-y-4">
@@ -94,9 +97,10 @@ export default function ItemsView({ path, id, githubUrl }: ItemsViewProps) {
 				</Card.Root>
 
 				<div className="flex flex-col gap-4">
-					<AuctionTabs
+					<ItemTabs
 						auctionCurrent={auctionCurrent.lots}
 						auctionHistory={auctionHistory.prices}
+						barter={barter}
 					/>
 
 					{data.infoBlocks

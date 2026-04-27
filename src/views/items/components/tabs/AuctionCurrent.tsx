@@ -1,42 +1,46 @@
 'use client'
 
-import { useMemo } from 'react'
-
-import { Scatter } from 'react-chartjs-2'
-
-import { useTheme } from 'next-themes'
 import type { ChartOptions } from 'chart.js'
 import {
-	Chart as ChartJS,
 	CategoryScale,
-	LinearScale,
-	PointElement,
+	Chart as ChartJS,
 	Tooltip as ChartTooltip,
 	Legend,
+	LinearScale,
+	PointElement,
 } from 'chart.js'
 
+import { useTheme } from 'next-themes'
+import { useMemo } from 'react'
+import { Scatter } from 'react-chartjs-2'
+
 import { Card } from '@/components/ui/Card'
-import { calcArtifactPercent, getArtifactColor } from '@/utils/artUtils'
-import type { LotHistory } from '@/types/item.type'
 import { formatDate } from '@/lib/date'
+import type { Lot } from '@/types/item.type'
+import { calcArtifactPercent, getArtifactColor } from '@/utils/artUtils'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, ChartTooltip, Legend)
 
 type Props = {
-	data?: LotHistory[]
+	data?: Lot[]
 }
 
 type ChartPoint = {
 	x: string
 	y: number
 	time: string
+	endTime: string
 	amount: number
 	artPercent: number
 	qlt: number
 	ptn: number
+	startPrice: number
+	currentPrice?: number
+	buyoutPrice?: number | null
+	isBuyout: boolean
 }
 
-export default function AuctionHistory({ data }: Props) {
+export default function AuctionCurrent({ data }: Props) {
 	const { resolvedTheme } = useTheme()
 	const isDark = resolvedTheme === 'dark'
 
@@ -82,21 +86,40 @@ export default function AuctionHistory({ data }: Props) {
 							const raw = items?.[0]?.raw as
 								| ChartPoint
 								| undefined
-							return raw ? `Дата: ${raw.time}` : ''
+							return raw ? `Дата выставления: ${raw.time}` : ''
 						},
 						label: (context) => {
 							const raw = context.raw as ChartPoint
-							const lines: string[] = [
-								`Цена: ${Intl.NumberFormat('ru-RU').format(raw.y)}`,
-							]
+							const lines: string[] = []
+
+							lines.push(`Окончание торгов: ${raw.endTime}`)
+
+							lines.push(
+								`Начальная ставка: ${Intl.NumberFormat('ru-RU').format(raw.startPrice)}`
+							)
+							lines.push(
+								`Текущая ставка: ${
+									raw.currentPrice != null
+										? Intl.NumberFormat('ru-RU').format(
+												raw.currentPrice
+											)
+										: '—'
+								}`
+							)
+							if (raw.buyoutPrice != null) {
+								lines.push(
+									`Выкуп: ${Intl.NumberFormat('ru-RU').format(raw.buyoutPrice)}`
+								)
+							}
+
 							if (raw.amount > 1)
 								lines.push(`Кол-во: ${raw.amount}`)
 							if (raw.artPercent > 0)
 								lines.push(
-									`Процент: ${raw.artPercent.toFixed(2)}% `
+									`Процент: ${raw.artPercent.toFixed(2)}%`
 								)
-							if (raw.ptn > 0)
-								lines.push(`Потенциал: ${raw.ptn} `)
+							if (raw.ptn > 0) lines.push(`Потенциал: ${raw.ptn}`)
+
 							return lines
 						},
 					},
@@ -112,9 +135,12 @@ export default function AuctionHistory({ data }: Props) {
 	const safeData = Array.isArray(data) ? data : []
 
 	const chartData = safeData.map((item) => ({
-		time: formatDate(item.time),
+		startTime: formatDate(item.startTime),
+		endTime: formatDate(item.endTime),
 		amount: item.amount,
-		price: item.price,
+		buyoutPrice: item.buyoutPrice ?? null,
+		startPrice: item.startPrice,
+		currentPrice: item.currentPrice,
 		artPercent: item.additional ? calcArtifactPercent(item.additional) : 0,
 		ptn: item.additional?.ptn ?? 0,
 		qlt: item.additional?.qlt ?? 0,
@@ -124,21 +150,30 @@ export default function AuctionHistory({ data }: Props) {
 		return null
 	}
 
-	const points: ChartPoint[] = chartData.map((d) => ({
-		x: d.time,
-		y: d.price,
-		time: d.time,
-		amount: d.amount,
-		artPercent: d.artPercent,
-		qlt: d.qlt ?? 0,
-		ptn: d.ptn ?? 0,
-	}))
+	const points: ChartPoint[] = chartData.map((d) => {
+		const useBuyout = d.buyoutPrice != null
+		const yValue = useBuyout ? (d.buyoutPrice as number) : d.startPrice
+		return {
+			x: d.startTime,
+			y: yValue,
+			time: d.startTime,
+			endTime: d.endTime,
+			amount: d.amount,
+			artPercent: d.artPercent,
+			qlt: d.qlt ?? 0,
+			ptn: d.ptn ?? 0,
+			startPrice: d.startPrice,
+			currentPrice: d.currentPrice,
+			buyoutPrice: d.buyoutPrice,
+			isBuyout: useBuyout,
+		}
+	})
 
 	const dataForChart = {
-		labels: chartData.map((d) => d.time),
+		labels: chartData.map((d) => d.startTime),
 		datasets: [
 			{
-				label: 'История лотов',
+				label: 'Текущие лоты',
 				data: points,
 				pointBackgroundColor: points.map((p) =>
 					getArtifactColor(p.qlt)

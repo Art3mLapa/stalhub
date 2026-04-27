@@ -29,7 +29,7 @@ export async function generateMetadata({
 	}
 
 	return {
-		title: `${itemData.name} — SalHub`,
+		title: `${itemData.name} — StalHub`,
 		description: itemData.description,
 		openGraph: {
 			title: itemData.name,
@@ -51,6 +51,8 @@ export default async function ItemsPage({ params }: PageProps) {
 
 	await Promise.all([
 		queryClient.prefetchQuery(itemQueries.byGithubUrl(githubUrl)),
+		queryClient.prefetchQuery(itemQueries.barter(id)),
+
 		queryClient.prefetchQuery(auctionQueries.lots({ id })),
 		queryClient.prefetchQuery(auctionQueries.history({ id })),
 	])

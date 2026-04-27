@@ -2,8 +2,8 @@
 
 import { Icon } from '@iconify/react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { cn } from '@/lib/cn'
 
 export interface ComboboxOption {

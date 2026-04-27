@@ -3,7 +3,7 @@ import { Skeleton } from '@/components/ui/Skeleton'
 
 export default function LoadingItem() {
 	return (
-		<div className="mx-auto grid max-w-360 grid-cols-1 flex-col gap-12 px-4 pt-32 pb-12 sm:px-6 md:px-8 lg:grid-cols-12">
+		<div className="mx-auto grid max-w-360 grid-cols-1 flex-col gap-12 px-4 pt-42 pb-12 sm:px-6 md:px-8 lg:grid-cols-12">
 			<div className="space-y-4 lg:col-span-7">
 				<Card.Root>
 					<Card.Header className="space-y-4">

@@ -2,7 +2,7 @@ import type { Message, MessageTranslation } from './item.type'
 
 export type BarterResponse = {
 	settlement_required_level: string
-	settlement_titles: Message
+	settlement_titles: Message[]
 	used_in: UsedInItem[]
 	recipes: BarterRecipeResult[]
 }
@@ -45,17 +45,19 @@ export type ListingItem = {
 
 export type UsedInItem = {
 	item_id: string
-	icon: string
+	category: string
 	lines: Message
+	color: string
 }
 
 export type BarterItemResult = {
 	amount: number
 	lines: Message
-	icon: string
+	category: string
+	color: string
 }
 
 export type BarterRecipeResult = {
-	money: string
+	money: number
 	items: BarterItemResult[]
 }

@@ -138,14 +138,14 @@ export function TabsContent({
 
 	const isActive = context.value === value
 
+	if (!isActive) return null
+
 	return (
 		<div
 			className={cn(
-				isActive ? 'block' : 'hidden',
 				'mt-4 rounded-lg',
 				'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2',
 				'focus-visible:ring-offset-background',
-
 				className
 			)}
 			role="tabpanel"
