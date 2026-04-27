@@ -11,21 +11,82 @@ import { useUwuStore } from '@/stores/useUwu.store'
 import { StatusWidget } from './Status'
 
 // HUGE thanks to KryptonFox (GitHub: @kryptonFox) for this code snippet <3
-const BuildHash = () => (
-	<span className="flex items-center gap-1 text-neutral-600 text-xs dark:text-neutral-400">
-		<Icon className="h-4 w-4" icon="mdi:code-tags" />
-		build@
-		<Link
-			className="text-sky-600 transition-colors hover:underline dark:text-sky-400"
-			href={`https://github.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}/tree/${process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA}`}
-			rel="noopener noreferrer"
-			target="_blank"
-			title={process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA}
-		>
-			{process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.slice(0, 7)}
-		</Link>
-	</span>
-)
+const BuildHash = () => {
+	const commitSha = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA
+	const repoOwner = process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER ?? 'oarer'
+	const repoSlug = process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG ?? 'stalhub'
+	const [githubSha, setGithubSha] = useState<string | null>(null)
+	const [hashCheckFailed, setHashCheckFailed] = useState(false)
+
+	useEffect(() => {
+		if (!commitSha) return
+
+		const controller = new AbortController()
+
+		fetch(`https://api.github.com/repos/${repoOwner}/${repoSlug}/commits/HEAD`, {
+			headers: {
+				Accept: 'application/vnd.github+json',
+			},
+			signal: controller.signal,
+		})
+			.then((response) => {
+				if (!response.ok) throw new Error('Failed to fetch GitHub commit hash')
+
+				return response.json() as Promise<{ sha?: string }>
+			})
+			.then((data) => {
+				setGithubSha(data.sha ?? null)
+			})
+			.catch((error) => {
+				if (error instanceof DOMException && error.name === 'AbortError') return
+
+				setHashCheckFailed(true)
+			})
+
+		return () => controller.abort()
+	}, [commitSha, repoOwner, repoSlug])
+
+	const hashMatches = githubSha ? githubSha === commitSha : null
+	const hashCheckIcon = hashCheckFailed
+		? 'lucide:circle-help'
+		: hashMatches
+			? 'lucide:circle-check'
+			: 'lucide:circle-alert'
+	const hashCheckTitle = hashCheckFailed
+		? 'Failed to verify GitHub repository hash'
+		: hashMatches
+			? 'Build hash matches GitHub repository hash'
+			: githubSha
+				? `Build hash does not match GitHub repository hash: ${githubSha}`
+				: 'Checking GitHub repository hash'
+
+	return (
+		<span className="flex items-center gap-1 text-neutral-600 text-xs dark:text-neutral-400">
+			<Icon className="h-4 w-4" icon="mdi:code-tags" />
+			build@
+			<Link
+				className="text-sky-600 transition-colors hover:underline dark:text-sky-400"
+				href={`https://github.com/${repoOwner}/${repoSlug}/tree/${commitSha}`}
+				rel="noopener noreferrer"
+				target="_blank"
+				title={commitSha}
+			>
+				{commitSha?.slice(0, 7) ?? 'unknown'}
+			</Link>
+			<Icon
+				className={`h-3.5 w-3.5 ${
+					hashCheckFailed || hashMatches === null
+						? 'text-neutral-400'
+						: hashMatches
+							? 'text-emerald-500'
+							: 'text-amber-500'
+				}`}
+				icon={hashCheckIcon}
+				title={hashCheckTitle}
+			/>
+		</span>
+	)
+}
 
 const Footer = () => {
 	const { uwuMode, toggleUwu } = useUwuStore()
